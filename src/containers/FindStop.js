@@ -48,9 +48,9 @@ setSelectedStopId = (selectedStop) =>{
     return(
       <div>
         <h4>FindStop Component</h4>
-        {this.getDataForRefine()}
         <SearchForStop setSelectedStopId={this.setSelectedStopId} selectedStop={this.selectedStop} />
         <SingleStop selectedStop={this.state.selectedStop} />
+        {this.getDataForRefine()}
          
     
       </div>

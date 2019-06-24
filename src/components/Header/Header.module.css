@@ -20,14 +20,6 @@
   text-decoration: none;
   font-size: 3rem;
   font-weight:900;
-
-}
-
-.nav{
-
-}
-.navWrap{
- 
 }
 
 .navWrap ul{
@@ -36,8 +28,6 @@
   padding:0;
   display:flex;
   justify-content: space-between;
-
-  
 }
 
 .navWrap li a{
@@ -49,31 +39,3 @@
   padding:0.5rem 2rem;
   background: #4f6128;
 }
-/*
-.nav{
-  display:flex;
-  align-items:center;
-  height:5rem;
-}
-
-.navWrap ul{
-  list-style:none;
-  margin:0;
-  padding:0;
-  display:flex;
-  
-}
-
-.navWrap li a{
- padding: 0.5rem;
-}
-
-.navWrap li a{
-  color:white;
-  text-decoration: none;
-}
-
-.navWrap li a:hover,
-.navWrap li a:active{
-  color:#ccc;
-} */

@@ -1,0 +1,36 @@
+.routewrap{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap:1rem;
+ 
+}
+
+.routebox{
+  background:#4f6128;
+  padding:0.3rem;
+  color:white;
+  -webkit-box-shadow: 3px 4px 5px 0px rgba(35,41,23,1);
+  -moz-box-shadow: 3px 4px 5px 0px rgba(35,41,23,1);
+  box-shadow: 3px 4px 5px 0px rgba(35,41,23,1);
+  
+}
+
+.routeno{
+  font-weight: 700;
+}
+
+.routename{
+  font-size: 0.8rem;
+}
+
+@media only screen and (max-width: 380px) {
+  .routewrap{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .routewrap{
+    grid-template-columns: 1fr;
+  }
+}
