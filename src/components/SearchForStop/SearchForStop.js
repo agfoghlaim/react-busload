@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import styles from './SearchForStop.module.css'
+import SearchStopList from './SearchStopList';
 
 
 const allStopsQuery = gql`
@@ -64,25 +65,11 @@ class SearchForStop extends Component {
                       onChange={this.handleSearchStop.bind(this)} 
                     />
                     <button onClick={() => this.props.setSelectedStopId(this.state.selectedStop)}>Go</button>
-                    <ul className={this.state.showStopList ? styles.theUl : styles.theUlHide}>
-                      {
-                        filteredStops.map(stop=><li
-                          className={styles.theLi} 
-                          key={`${stop.bestopid}-${stop.route}-${stop.direction}`}
-                          data-bestopid={stop.bestopid}
-                          data-route={stop.route}
-                          data-direction={stop.direction}
-                          onClick={this.handleChooseStop}>
-                          {stop.name} - {stop.bestopid}-{stop.route} 
-                          </li>)
-                      }
+                    <SearchStopList
+                    handleChooseStop={this.handleChooseStop} 
+                    filteredStops={filteredStops} />
 
-                      
-                      
-                    {/* {
-                      data.allstops.map(stop=><li key={`${stop.bestopid}-${stop.route}-${stop.direction}`}>{stop.name} - {stop.bestopid} -{stop.route} </li>)
-                      } */}
-                  </ul>
+
                 
                   </div>
               }

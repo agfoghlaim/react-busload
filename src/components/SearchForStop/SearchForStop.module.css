@@ -22,7 +22,7 @@
 }
 
 
-.theUl{
+/* .theUl{
   list-style-type:none;
   text-align: left;
   margin:0;
@@ -32,9 +32,7 @@
 .theUlHide{
   display:none;
 }
-/* .theUlHide{
-  display:none;
-} */
+
 
 .theUl::before{
   content:"";
@@ -42,4 +40,4 @@
 
 .theLi{
   padding:10px 5px;
-}
+} */
