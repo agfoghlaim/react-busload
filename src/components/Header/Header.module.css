@@ -4,6 +4,7 @@
   display:grid;
   grid-gap:2rem;
 
+
 }
 
 .wrapOne{
@@ -12,6 +13,9 @@
   align-content: center;
   background: #4f6128;
   padding: 2rem;
+  -webkit-box-shadow: 3px 4px 5px 0px rgba(35,41,23,1);
+  -moz-box-shadow: 3px 4px 5px 0px rgba(35,41,23,1);
+  box-shadow: 3px 4px 5px 0px rgba(35,41,23,1);
  
 }
 
@@ -38,4 +42,7 @@
 .navWrap li{
   padding:0.5rem 2rem;
   background: #4f6128;
+  -webkit-box-shadow: 3px 4px 5px 0px rgba(35,41,23,1);
+  -moz-box-shadow: 3px 4px 5px 0px rgba(35,41,23,1);
+  box-shadow: 3px 4px 5px 0px rgba(35,41,23,1);
 }

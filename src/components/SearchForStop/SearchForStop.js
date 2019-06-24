@@ -30,6 +30,7 @@ class SearchForStop extends Component {
   handleShowStopsList(){
     this.setState({showStopList:true})
   }
+  
 
   handleSearchStop = (e)=>{
     console.log(e.target.value)
@@ -47,6 +48,8 @@ class SearchForStop extends Component {
   }
  
   render(){
+
+
     return<Query query={allStopsQuery}>
             {
               ( {loading, error, data} ) =>{
@@ -65,9 +68,14 @@ class SearchForStop extends Component {
                       onChange={this.handleSearchStop.bind(this)} 
                     />
                     <button onClick={() => this.props.setSelectedStopId(this.state.selectedStop)}>Go</button>
-                    <SearchStopList
-                    handleChooseStop={this.handleChooseStop} 
-                    filteredStops={filteredStops} />
+                    {
+                      (this.state.showStopList) ?
+                        <SearchStopList
+                        handleChooseStop={this.handleChooseStop} 
+                        filteredStops={filteredStops} />
+                      : null
+                    }
+            
 
 
                 
