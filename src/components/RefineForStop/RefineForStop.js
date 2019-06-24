@@ -4,9 +4,8 @@ const refineForStop = (props) => {
   console.log(props)
     return(
  <div style={{background:'pink'}}>
-   <h5>BusRoute Component:</h5>
-      <p>{props.route.route} {props.route.direction}</p>
-      <p>{props.route.routename}</p>
+   <h5>Refine For Stop Component:</h5>
+   
       </div>
     )
 }
