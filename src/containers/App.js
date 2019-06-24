@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from 'react-apollo';
-import BusRoutes from './components/busRoutes';
+
+import FindStop from './FindStop';
 
 import './App.css';
 
@@ -16,7 +17,8 @@ class App extends Component {
       <ApolloProvider client={client} >
       <div className="App">
           <h1 className="App-title">BusLoad</h1>
-          <BusRoutes />
+        
+          <FindStop />
       </div>
       </ApolloProvider>
     );

@@ -1,33 +1,32 @@
 import React, { Component } from 'react';
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
-import BusRoute from './busRoute'
 
-const BUS_ROUTES_QUERY = gql`
+
+import SearchForStop from '../components/SearchForStop/SearchForStop';
+import RefineForStop from '../components/RefineForStop/RefineForStop';
+
+const FIND_STOP_QUERY = gql`
   query busRoutesQuery{
     busRoutes {
-   
       route
       routename
       direction
       stops{
         name
         bestopid
-        
       }
-      
-   
     }
   }
 `;
 
 
-class BusRoutes extends Component{
+class FindStop extends Component{
   render(){
     return(
       <div style={{background:'lightgreen'}}>
-        <h4>BusRoutes Component</h4>
-         <Query query={BUS_ROUTES_QUERY}>
+        <h4>FindStop Component</h4>
+         <Query query={FIND_STOP_QUERY}>
            {
              ({ loading, err, data })=>{
                if(loading) return <p>loading...</p>
@@ -36,7 +35,7 @@ class BusRoutes extends Component{
                return <div>
                  {
                   data.busRoutes.map((route,i)=>{
-                    return <BusRoute key={route.routename} route={route} />
+                    return <RefineForStop key={route.routename} route={route} />
                    })
                   }
                  </div>
@@ -44,10 +43,12 @@ class BusRoutes extends Component{
              }
            }
          </Query>
+         <SearchForStop />
+    
       </div>
 
     )
   }
 }
 
-export default BusRoutes;
+export default FindStop;

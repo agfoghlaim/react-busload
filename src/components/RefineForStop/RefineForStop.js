@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 
-const busRoute = (props) => {
-  console.log(props.route)
+const refineForStop = (props) => {
+  console.log(props)
     return(
  <div style={{background:'pink'}}>
    <h5>BusRoute Component:</h5>
@@ -11,4 +11,4 @@ const busRoute = (props) => {
     )
 }
 
-export default busRoute;
+export default refineForStop;
