@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { gql } from 'apollo-boost'; //parse queries
 import { graphql } from 'react-apollo';
+import { Route } from 'react-router-dom';
 import SearchForStop from '../components/SearchForStop/SearchForStop';
 import RefineForStop from '../components/RefineForStop/RefineForStop';
 import SingleStop from '../components/SingleStop/SingleStop';
+
 
 const BUS_ROUTES_QUERY = gql`
   query busRoutesQuery{
@@ -11,10 +13,6 @@ const BUS_ROUTES_QUERY = gql`
       route
       routename
       direction
-      stops{
-        name
-        bestopid
-      }
     }
   }
 `;
@@ -49,9 +47,10 @@ setSelectedStopId = (selectedStop) =>{
       <div>
         <h4>FindStop Component</h4>
         <SearchForStop setSelectedStopId={this.setSelectedStopId} selectedStop={this.selectedStop} />
-        <SingleStop selectedStop={this.state.selectedStop} />
+
+        {/* <SingleStop selectedStop={this.state.selectedStop} /> */}
         {this.getDataForRefine()}
-         
+        {/* <Route path='/:busroute/:direction/:bestopid' exact component={SingleStop} /> */}
     
       </div>
 

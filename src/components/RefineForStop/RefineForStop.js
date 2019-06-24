@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './RefineForStop.module.css';
+import { Link } from 'react-router-dom';
 
 const refineForStop = (props) => {
   console.log(props)
@@ -8,12 +9,12 @@ const refineForStop = (props) => {
         
         {
           props.busRoutes.map(busroute=>{
-            return <div 
+            return <Link to={`${busroute.route}/${busroute.direction}`}><div 
             key={`${busroute.route}-${busroute.direction}`}
             className={styles.routebox}>
               <p className={styles.routeno}>{busroute.route}</p>
               <p className={styles.routename}>{busroute.routename}</p>
-            </div>
+              </div></Link>
           })
         }
       </div>

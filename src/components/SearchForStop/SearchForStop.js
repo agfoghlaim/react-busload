@@ -3,6 +3,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import styles from './SearchForStop.module.css'
 import SearchStopList from './SearchStopList';
+import { Link } from 'react-router-dom';
 
 
 const allStopsQuery = gql`
@@ -67,7 +68,10 @@ class SearchForStop extends Component {
                       value={this.state.searchSelectedStop}
                       onChange={this.handleSearchStop.bind(this)} 
                     />
-                    <button onClick={() => this.props.setSelectedStopId(this.state.selectedStop)}>Go</button>
+                    
+
+                    <Link to={`${this.state.selectedStop.route}/${this.state.selectedStop.direction}/${this.state.selectedStop.bestopid}`}><button >Go</button></Link>
+
                     {
                       (this.state.showStopList) ?
                         <SearchStopList
