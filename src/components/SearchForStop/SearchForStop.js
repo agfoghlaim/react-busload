@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import styles from './SearchForStop.module.css'
 
 
 const allStopsQuery = gql`
@@ -32,14 +33,13 @@ class SearchForStop extends Component {
   }
 
   handleChooseStop = (e) =>{
-    console.log(e.target)
+    //console.log(e.target)
     this.setState({searchSelectedStop:e.target.textContent,selectedStop:{
       bestopid:e.target.dataset.bestopid,
       route:e.target.dataset.route,
       direction:e.target.dataset.direction
     }})
-    // this.setState({searchSelectedStop:e.target.textContent,selectedId:e.target.dataset.bestopid,selectedRoute:e.target.dataset.route,
-    // selectedDirection:e.target.dataset.direction})
+  
   }
  
   render(){
@@ -52,7 +52,7 @@ class SearchForStop extends Component {
                   let filteredStops = data.allstops.filter(stop=>{
                     return stop.name.toLowerCase().indexOf(this.state.searchSelectedStop.toLowerCase()) !== -1 || stop.bestopid.indexOf(this.state.searchSelectedStop) !== -1;
                   })
-                  return <div>
+                  return <div className={styles.background}>
                     <input 
                       type="text"
                       value={this.state.searchSelectedStop}
@@ -63,6 +63,7 @@ class SearchForStop extends Component {
                       {
                         filteredStops.map(stop=><li 
                           key={`${stop.bestopid}-${stop.route}-${stop.direction}`}
+                          is-hidden = "true"
                           data-bestopid={stop.bestopid}
                           data-route={stop.route}
                           data-direction={stop.direction}

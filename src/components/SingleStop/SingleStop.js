@@ -1,6 +1,5 @@
 import React from 'react';
 import { gql } from 'apollo-boost'; //parse queries
-import { graphql } from 'react-apollo';
 import { Query } from 'react-apollo';
 
 
@@ -21,7 +20,7 @@ import { Query } from 'react-apollo';
 
 
 const singleStop = (props) => {
-  console.log("single stop props ", props.selectedStop)
+  //console.log("single stop props ", props.selectedStop)
   let { bestopid, route, direction } = props.selectedStop;
   
   if(!bestopid || !route || !direction) return <p>nothing selected</p>
@@ -34,14 +33,13 @@ const singleStop = (props) => {
         ({ loading, error, data }) => {
         if (loading) return <p>loading...</p>;
         if (error) return `Error! ${error}`;
-        console.log("got something .... ", data.stop)
+       // console.log("got something .... ", data.stop)
         if(data.stop){
-          return <div>
+          return <div style={{background:'orange'}}>
           <p>{data.stop.bestopid}</p>
           <p>{data.stop.name}</p>
           <p>{data.stop.stop_sequence}</p>
-        
-          {data.stop.bus_times_week.map(bus=><p>{bus.bus} - {bus.time}</p>)}
+          {data.stop.bus_times_week.map(bus=><p key={bus.bus}>{bus.bus} - {bus.time}</p>)}
           
         </div>
         }else{
