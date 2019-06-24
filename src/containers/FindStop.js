@@ -5,7 +5,7 @@ import SearchForStop from '../components/SearchForStop/SearchForStop';
 import RefineForStop from '../components/RefineForStop/RefineForStop';
 import SingleStop from '../components/SingleStop/SingleStop';
 
-const FIND_STOP_QUERY = gql`
+const BUS_ROUTES_QUERY = gql`
   query busRoutesQuery{
     busRoutes {
       route
@@ -46,7 +46,7 @@ setSelectedStopId = (selectedStop) =>{
   render(){
  //console.log(this.props.data)
     return(
-      <div style={{background:'lightgreen'}}>
+      <div>
         <h4>FindStop Component</h4>
         {this.getDataForRefine()}
         <SearchForStop setSelectedStopId={this.setSelectedStopId} selectedStop={this.selectedStop} />
@@ -59,4 +59,4 @@ setSelectedStopId = (selectedStop) =>{
   }
 }
 
-export default graphql(FIND_STOP_QUERY)(FindStop);
+export default graphql(BUS_ROUTES_QUERY)(FindStop);

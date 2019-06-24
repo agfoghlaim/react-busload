@@ -22,9 +22,12 @@ class SearchForStop extends Component {
   state = {
     searchSelectedStop: '',
     selectedStop:{bestopid:'',route:'',direction:''},
-    selectedId:'',
-    selectedRoute:'',
-    selectedDirection:''
+    showStopList:false
+  
+  }
+
+  handleShowStopsList(){
+    this.setState({showStopList:true})
   }
 
   handleSearchStop = (e)=>{
@@ -52,18 +55,20 @@ class SearchForStop extends Component {
                   let filteredStops = data.allstops.filter(stop=>{
                     return stop.name.toLowerCase().indexOf(this.state.searchSelectedStop.toLowerCase()) !== -1 || stop.bestopid.indexOf(this.state.searchSelectedStop) !== -1;
                   })
-                  return <div className={styles.background}>
+                  return <div className={styles.containerDiv}>
                     <input 
                       type="text"
+                      onFocus={this.handleShowStopsList.bind(this)}
+                      className={styles.inputBox}
                       value={this.state.searchSelectedStop}
                       onChange={this.handleSearchStop.bind(this)} 
                     />
                     <button onClick={() => this.props.setSelectedStopId(this.state.selectedStop)}>Go</button>
-                    <ul>
+                    <ul className={this.state.showStopList ? styles.theUl : styles.theUlHide}>
                       {
-                        filteredStops.map(stop=><li 
+                        filteredStops.map(stop=><li
+                          className={styles.theLi} 
                           key={`${stop.bestopid}-${stop.route}-${stop.direction}`}
-                          is-hidden = "true"
                           data-bestopid={stop.bestopid}
                           data-route={stop.route}
                           data-direction={stop.direction}

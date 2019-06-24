@@ -23,7 +23,7 @@ const singleStop = (props) => {
   //console.log("single stop props ", props.selectedStop)
   let { bestopid, route, direction } = props.selectedStop;
   
-  if(!bestopid || !route || !direction) return <p>nothing selected</p>
+  if(!bestopid || !route || !direction) return <p></p>
 
     return<Query 
     query={oneStopQuery} 

@@ -4,7 +4,7 @@ import { ApolloProvider } from 'react-apollo';
 
 import FindStop from './FindStop';
 
-import './App.css';
+import styles from './App.module.css';
 
 
 const client = new ApolloClient({
@@ -15,9 +15,8 @@ class App extends Component {
   render() {
     return (
       <ApolloProvider client={client} >
-      <div className="App">
+      <div className={styles.App}>
           <h1 className="App-title">BusLoad</h1>
-        
           <FindStop />
       </div>
       </ApolloProvider>
