@@ -50,6 +50,7 @@ class SingleStop extends Component {
        console.log(data.stop.bus_times_week)
      
         return <div style={{background:'orange'}}>
+        <h2>Always gets times for weekdays, sort this!!</h2>
         <p>{data.stop.bestopid}</p>
         <p>{data.stop.name}</p>
         <p>{data.stop.stop_sequence}</p>

@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from './RefineForStop.module.css';
+import styles from './BusRoutesList.module.css';
 import { Link } from 'react-router-dom';
 
-const refineForStop = (props) => {
+const busRoutesList = (props) => {
   console.log(props)
     return(
       <div className={styles.routewrap} >
@@ -21,4 +21,4 @@ const refineForStop = (props) => {
     )
 }
 
-export default refineForStop;
+export default busRoutesList;

@@ -3,7 +3,7 @@ import { gql } from 'apollo-boost'; //parse queries
 import { graphql } from 'react-apollo';
 import { Route } from 'react-router-dom';
 import SearchForStop from '../components/SearchForStop/SearchForStop';
-import RefineForStop from '../components/RefineForStop/RefineForStop';
+import BusRoutesList from '../components/BusRoutesList/BusRoutesList';
 import SingleStop from '../components/SingleStop/SingleStop';
 
 
@@ -36,7 +36,7 @@ setSelectedStopId = (selectedStop) =>{
     let theData = this.props.data
     if(theData.loading)return <p>loading</p>
     return <React.Fragment>
-      <RefineForStop busRoutes={theData.busRoutes} />
+      <BusRoutesList busRoutes={theData.busRoutes} />
     </React.Fragment>
    
   }
