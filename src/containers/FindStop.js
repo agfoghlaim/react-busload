@@ -35,6 +35,7 @@ setSelectedStopId = (selectedStop) =>{
   getDataForRefine = () =>{
     let theData = this.props.data
     if(theData.loading)return <p>loading</p>
+    if(theData.error)return <p>Could not load routes.</p>
     return <React.Fragment>
       <BusRoutesList busRoutes={theData.busRoutes} />
     </React.Fragment>

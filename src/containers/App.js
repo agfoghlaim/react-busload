@@ -24,6 +24,7 @@ class App extends Component {
           <Route path='/' component={Header} />
           <Route path='/' exact component={FindStop} />
           <Route path='/:route/:direction/:bestopid' exact component={SingleStop} />
+          <Route path='/:route/:direction/:bestopid/:dayno' component={SingleStop} />
           <Route path='/:route/:direction/' exact component={BusRouteStopsList} />
             {/* <Header /> */}
             {/* <FindStop /> */}
