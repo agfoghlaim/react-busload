@@ -17,7 +17,7 @@ query stopsListQuery($route: String!, $direction: String!){
 
 const busRouteStopsList = (props) => {
   let { route, direction } = props.match.params;
-  console.log(route,direction)
+  console.log(props)
   return(
     <Query 
       query={STOPS_LIST_QUERY} 
@@ -27,13 +27,15 @@ const busRouteStopsList = (props) => {
           ({ loading, error, data }) => {
           if (loading) return <p>loading...</p>;
           if (error) return `Error! ${error}`;
-          console.log("got something .... ", data)
+        
         
           if(data.busRoute){
             return data.busRoute.stops.map(stop=>{
-              return <Link to=''>
-                <h4>{stop.name}</h4>
-                <p>{stop.bestopid}</p>
+              return <Link to={`${props.location.pathname}/${stop.bestopid}`} key={stop.bestopid}>
+                <div key={stop.bestopid}>
+                  <h4>{stop.name}</h4>
+                  <p>{stop.bestopid}</p>
+                </div>
               </Link>
             })
           }else{
