@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { gql } from 'apollo-boost'; //parse queries
 import { Query } from 'react-apollo';
-import { Link } from 'react-router-dom';
-import { throwServerError } from 'apollo-link-http-common';
+// import { Link } from 'react-router-dom';
+// import { throwServerError } from 'apollo-link-http-common';
 
 
 
@@ -85,19 +85,32 @@ class SingleStop extends Component {
 //console.log("on render ", this.state)
 
     
- const ONE_STOP_QUERY = gql`
- query oneStopQuery($route: String!, $direction:String!,$bestopid:String!){
-   stop(route:$route, direction:$direction,bestopid:$bestopid){
-     name
-     bestopid
-     stop_sequence
-     bus_times_${this.state.dayString()}{
-       bus
-       time
-     }
-   }
- }
- `;
+//  const ONE_STOP_QUERY = gql`
+//  query oneStopQuery($route: String!, $direction:String!,$bestopid:String!){
+//    stop(route:$route, direction:$direction,bestopid:$bestopid){
+//      name
+//      bestopid
+//      stop_sequence
+//      bus_times_${this.state.dayString()}{
+//        bus
+//        time
+//      }
+//    }
+//  }
+//  `;
+const ONE_STOP_QUERY = gql`
+query oneStopQuerySnaps($route: String!, $direction:String!,$bestopid:String!){
+  stop2(route:$route, direction:$direction,bestopid:$bestopid){
+    name
+    bestopid
+    stop_sequence
+    bus_times_${this.state.dayString()}{
+      bus
+      time
+    }
+  }
+}
+`;
 
   let { bestopid, route, direction, dayno } = this.props.match.params;
 
@@ -115,11 +128,11 @@ class SingleStop extends Component {
       if (loading) return <p>loading...</p>;
       if (error) return `Error! ${error}`;
      // console.log("got something .... ", data.stop)
-      if(data.stop){
-
+      if(data.stop2){
+       console.log("got it back")
         //there is a problem with duplicate bus listings that goes right back to how the timetables were taken from Bus éireann pdfs...
         //filter duplicate buses here to avoid console errors. 
-        let filteredTimes =data.stop[`bus_times_${this.state.dayString()}`].filter((item,i,arr)=>{
+        let filteredTimes =data.stop2[`bus_times_${this.state.dayString()}`].filter((item,i,arr)=>{
           return arr.map((one)=>{
             return one['bus'];}).indexOf(item['bus'])===i;
           })
@@ -131,9 +144,9 @@ class SingleStop extends Component {
           <button onClick={()=>this.changeBusTimes_X(6)}>Sat</button>
           <button onClick={()=>this.changeBusTimes_X(0)}>Sun</button>
 
-          <p>{data.stop.bestopid}</p>
-          <p>{data.stop.name}</p>
-          <p>{data.stop.stop_sequence}</p>
+          <p>{data.stop2.bestopid}</p>
+          <p>{data.stop2.name}</p>
+          <p>{data.stop2.stop_sequence}</p>
           
           {filteredTimes.map(bus=><p key={`${bus.bus}`}>{bus.bus} - {bus.time}</p>)}
         
