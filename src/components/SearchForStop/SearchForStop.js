@@ -29,18 +29,17 @@ class SearchForStop extends Component {
   }
 
   handleShowStopsList(e){
-    console.log("showing",e.target.value.length)
+    //console.log("showing",e.target.value.length)
     if(e.target.value.length){
       this.setState({showStopList:true})
     }else{
       this.setState({showStopList:false})
     }
-    
   }
   
 
   handleSearchStop = (e)=>{
-    console.log(e.target.value)
+    //console.log(e.target.value)
     this.setState({searchSelectedStop: e.target.value.substring(0,22)})
   }
 
@@ -51,66 +50,56 @@ class SearchForStop extends Component {
       route:e.target.dataset.route,
       direction:e.target.dataset.direction
     }})
-  
   }
  
   render(){
 
 
     return<Query query={allStopsQuery}>
-            {
-              ( {loading, error, data} ) =>{
-                  if(loading) return <p>Loading...</p>
-                  if(error){
-                    console.log(error);
-                    return <p>Could not load stops.</p>
-                  }
-                  if(data.allstops){
-                    let filteredStops = data.allstops.filter(stop=>{
-                      return stop.name.toLowerCase().indexOf(this.state.searchSelectedStop.toLowerCase()) !== -1 || stop.bestopid.indexOf(this.state.searchSelectedStop) !== -1;
-                    })
-                    return <div  className={styles.searchStopWrap}>
-                      <h3>Find your stop</h3>
-                      <div className={styles.inputButtonDiv}>
-                      
-                    
-                      <input 
-                        type="text"
-                        placeholder="Start typing bus stop name..."
-                       // onFocus={this.handleShowStopsList.bind(this)}
-                        className={styles.inputBox}
-                        value={this.state.searchSelectedStop}
-                            onChange={(e)=>{this.handleShowStopsList(e);this.handleSearchStop(e)}} 
-                      />
-                      
-  
-                      <Link to={`${this.state.selectedStop.route}/${this.state.selectedStop.direction}/${this.state.selectedStop.bestopid}`}
-                      ><button >Go</button></Link>
-  
-                      {
-                        (this.state.showStopList) ?
-                          <SearchStopList
-                          handleChooseStop={this.handleChooseStop} 
-                          filteredStops={filteredStops} />
-                        : null
-                      }
+      {
+        ( {loading, error, data} ) =>{
+          if(loading) return <p>Loading...</p>
+          if(error){
+            console.log(error);
+            return <p>Could not load stops.</p>
+          }
+          if(data.allstops){
+            let filteredStops = data.allstops.filter(stop=>{
+              return stop.name.toLowerCase().indexOf(this.state.searchSelectedStop.toLowerCase()) !== -1 || stop.bestopid.indexOf(this.state.searchSelectedStop) !== -1;
+            })
+            return <div className={styles.searchStopWrap}>
+              <h3>Find your stop</h3>
+              <div className={styles.inputButtonDiv}>
               
-  
-                      
-                  
-                    </div>
-                    </div>
-                  }
-                  else{
-                    return <p>Data error.</p>
-                  }
+              <input 
+                type="text"
+                placeholder="Start typing bus stop name..."
+                // onFocus={this.handleShowStopsList.bind(this)}
+                className={styles.inputBox}
+                value={this.state.searchSelectedStop}
+                onChange={(e)=>{this.handleShowStopsList(e);this.handleSearchStop(e)}} 
+              />
+              
 
-                  
-               
-        
-            }
-            }
-          </Query>
+              <Link to={`${this.state.selectedStop.route}/${this.state.selectedStop.direction}/${this.state.selectedStop.bestopid}`}
+              ><button >Go</button></Link>
+
+              {
+                (this.state.showStopList) ?
+                  <SearchStopList
+                  handleChooseStop={this.handleChooseStop} 
+                  filteredStops={filteredStops} />
+                : null
+              }
+            </div>
+            </div>
+          }
+          else{
+            return <p>Data error.</p>
+          }
+        }
+      }
+    </Query>
 
   }
 
