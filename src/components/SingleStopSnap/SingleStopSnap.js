@@ -32,16 +32,12 @@ class SingleStopSnap extends Component{
 }
 
 changeBusTimes_X = (day)=>{
- // let newdayStr = this.state.dayString
     if(day === ""){
       day = new Date().getDay()
-      //newdayStr = new Date.toString().substring(0,3)
     }
-      this.props.history.replace(`/${this.props.match.params.route}/${this.props.match.params.direction}/${this.props.match.params.bestopid}/${day}`)
+    this.props.history.replace(`/${this.props.match.params.route}/${this.props.match.params.direction}/${this.props.match.params.bestopid}/${day}`)
       
       this.setState({dayNumber:day})
-
-      console.log("state updated")
   }
 
   render(){
@@ -63,11 +59,10 @@ changeBusTimes_X = (day)=>{
  }
 }
 `
-    let { bestopid, route, direction } = this.props.match.params;
+  let { bestopid, route, direction } = this.props.match.params;
   let requestedTimetable = this.state.dayString()
-  console.log(this.state)
+  
     if(!bestopid || !route || !direction) return <p>Something's not right</p>
-    
     
     return<Query 
   
@@ -80,7 +75,16 @@ changeBusTimes_X = (day)=>{
         if (loading) return <p>loading...</p>;
         if (error) return `Error! ${error}`;
         if(data.bus_times_x_snaps_2){
-    
+
+        //there is a problem with duplicate bus listings that goes right back to how the timetables were taken from Bus éireann pdfs...
+        //filter duplicate buses here to avoid 'duplicates' console errors. 
+          data.bus_times_x_snaps_2.bus_times = data.bus_times_x_snaps_2.bus_times.filter((item,i,arr)=>{
+            return arr.map((one)=>{
+              return one['bus']
+            }).indexOf(item['bus'])===i;
+          })
+          
+
          return <React.Fragment>
           <button onClick={()=>this.changeBusTimes_X(2)}>Week</button>
           <button onClick={()=>this.changeBusTimes_X(6)}>Sat</button>

@@ -1,7 +1,7 @@
 import React from 'react'
 
 const timetable = (props) => {
-  console.log(props)
+  //console.log(props)
     return(
       <div>
       <h5>{props.busRoutes.bestopid}</h5>
@@ -25,8 +25,8 @@ const timetable = (props) => {
        if(b.dry_avg === null) b.dry_avg = 'x'
       
           return(
-            <tbody>
-            <tr key={b.bus}>
+            <tbody key={b.bus}>
+            <tr >
               <td>{b.bus}</td>
               <td>{b.time}</td> 
               <td>{b.wet_avg}</td> 

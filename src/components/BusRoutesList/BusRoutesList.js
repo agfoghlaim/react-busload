@@ -3,7 +3,7 @@ import styles from './BusRoutesList.module.css';
 import { Link } from 'react-router-dom';
 
 const busRoutesList = (props) => {
-  console.log(props)
+ // console.log(props)
     return(
       <div className={styles.routeListWrap} >
       <h3>Choose your route</h3>
