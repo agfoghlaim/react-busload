@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom';
 
 const STOPS_LIST_QUERY = gql`
 query stopsListQuery($route: String!, $direction: String!){
-  busRoute(route:$route, direction:$direction){
+  busRouteOverview(route:$route, direction:$direction){
     stops{
       name,
-      bestopid
+      bestopid,
+      stop_sequence
     }
    
   }
@@ -25,16 +26,17 @@ const busRouteStopsList = (props) => {
 
         {
           ({ loading, error, data }) => {
+            console.log(data)
           if (loading) return <p>loading...</p>;
           if (error) return `Error! ${error}`;
         
         
-          if(data.busRoute){
-            return data.busRoute.stops.map(stop=>{
+          if(data.busRouteOverview){
+            return data.busRouteOverview.stops.map(stop=>{
               return <Link to={`${props.location.pathname}/${stop.bestopid}`} key={stop.bestopid}>
                 <div key={stop.bestopid}>
-                  <h4>{stop.name}</h4>
-                  <p>{stop.bestopid}</p>
+                  <h4>{stop.name} <small>{stop.bestopid}</small></h4>
+                  <p>{stop.stop_sequence}</p>
                 </div>
               </Link>
             })

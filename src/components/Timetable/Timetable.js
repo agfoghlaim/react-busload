@@ -7,6 +7,7 @@ const timetable = (props) => {
       <h5>{props.busRoutes.bestopid}</h5>
       <h5>{props.busRoutes.name}</h5>
       <h5>{props.busRoutes.stop_sequence}</h5>
+      <h5>{props.busRoutes.timetable_name}</h5>
       <table>
         <thead>
           <tr>
@@ -24,6 +25,7 @@ const timetable = (props) => {
        if(b.dry_avg === null) b.dry_avg = 'x'
       
           return(
+            <tbody>
             <tr key={b.bus}>
               <td>{b.bus}</td>
               <td>{b.time}</td> 
@@ -32,6 +34,7 @@ const timetable = (props) => {
               <td> {b.total_avg}   </td> 
               
             </tr>
+            </tbody>
           )
         
       })

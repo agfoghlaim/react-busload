@@ -5,29 +5,47 @@ import { gql } from 'apollo-boost'; //parse queries
 import { Query } from 'react-apollo';
 import Timetable from '../Timetable/Timetable';
 
-// const ONE_STOP_QUERY = gql`
-// query oneStopQuerySnaps($route: String!, $direction:String!,$bestopid:String!){
-//   stop2(route:$route, direction:$direction,bestopid:$bestopid){
-//     name
-//     bestopid
-//     stop_sequence
-//     bus_times_${this.state.dayString()}{
-//       bus
-//       time
-//     }
-//   }
-// }
-// `;
-
-
 
 
 class SingleStopSnap extends Component{
 
- 
+  state = {
+  dayNumber:new Date().getDay(),
+  //dayString:new Date().toString().substring(0,3)
+  dayString:function(){
+    let dayNumber = parseInt(this.dayNumber)
+
+    if(dayNumber > 0 && dayNumber < 6){
+      //console.log("sending week", dayNumber)
+      return 'Mon';
+    }else if(dayNumber === 0 ){
+      //console.log("sending sun")
+      return 'Sun';
+    }else if(dayNumber === 6 ){
+      //console.log("sending sat")
+      return 'Sat'
+    }else{
+      //console.log("sending default (is a problem)")
+      return 'Week'
+    }
+  }
+}
+
+changeBusTimes_X = (day)=>{
+ // let newdayStr = this.state.dayString
+    if(day === ""){
+      day = new Date().getDay()
+      //newdayStr = new Date.toString().substring(0,3)
+    }
+      this.props.history.replace(`/${this.props.match.params.route}/${this.props.match.params.direction}/${this.props.match.params.bestopid}/${day}`)
+      
+      this.setState({dayNumber:day})
+
+      console.log("state updated")
+  }
 
   render(){
-
+  
     const SINGLE_STOP_SNAPS = gql`
   query bus_times_x_snaps_2($route:String!, $direction:String!,$bestopid:String!,$requestedTimetable:String!){
     bus_times_x_snaps_2(route:$route, direction:$direction,bestopid:$bestopid,requestedTimetable:$requestedTimetable){
@@ -46,9 +64,10 @@ class SingleStopSnap extends Component{
 }
 `
     let { bestopid, route, direction } = this.props.match.params;
-  let requestedTimetable = 'Mon'
+  let requestedTimetable = this.state.dayString()
+  console.log(this.state)
     if(!bestopid || !route || !direction) return <p>Something's not right</p>
-  
+    
     
     return<Query 
   
@@ -57,12 +76,16 @@ class SingleStopSnap extends Component{
     
       {
         ({ loading, error, data }) => {
-    
+          
         if (loading) return <p>loading...</p>;
         if (error) return `Error! ${error}`;
         if(data.bus_times_x_snaps_2){
-         console.log("got it back",data.bus_times_x_snaps_2)
+    
          return <React.Fragment>
+          <button onClick={()=>this.changeBusTimes_X(2)}>Week</button>
+          <button onClick={()=>this.changeBusTimes_X(6)}>Sat</button>
+          <button onClick={()=>this.changeBusTimes_X(0)}>Sun</button>
+          <button onClick={()=>this.changeBusTimes_X("")}>Today</button>
          <Timetable busRoutes={data.bus_times_x_snaps_2} />
        </React.Fragment>
         }else{

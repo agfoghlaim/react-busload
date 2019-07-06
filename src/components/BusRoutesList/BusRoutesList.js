@@ -9,8 +9,8 @@ const busRoutesList = (props) => {
         
         {
           props.busRoutes.map(busroute=>{
-            return <Link to={`${busroute.route}/${busroute.direction}`}><div 
-            key={`${busroute.route}-${busroute.direction}`}
+            return <Link to={`${busroute.route}/${busroute.direction}`}  key={`${busroute.route}-${busroute.direction}`}><div 
+           
             className={styles.routebox}>
               <p className={styles.routeno}>{busroute.route}</p>
               <p className={styles.routename}>{busroute.routename}</p>

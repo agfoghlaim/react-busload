@@ -9,7 +9,7 @@ import SingleStop from '../components/SingleStop/SingleStop';
 
 const BUS_ROUTES_QUERY = gql`
   query busRoutesQuery{
-    busRoutes {
+    busRoutesOverview {
       route
       routename
       direction
@@ -37,7 +37,7 @@ setSelectedStopId = (selectedStop) =>{
     if(theData.loading)return <p>loading</p>
     if(theData.error)return <p>Could not load routes.</p>
     return <React.Fragment>
-      <BusRoutesList busRoutes={theData.busRoutes} />
+      <BusRoutesList busRoutes={theData.busRoutesOverview} />
     </React.Fragment>
    
   }
