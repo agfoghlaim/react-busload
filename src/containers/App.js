@@ -5,6 +5,8 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 
 import FindStop from './FindStop';
+import Auth from './Auth/Auth';
+
 import Header from '../components/Header/Header';
 
 import SingleStopSnap from '../components/SingleStopSnap/SingleStopSnap';
@@ -23,6 +25,7 @@ class App extends Component {
         <ApolloProvider client={client} >
         <div className={styles.App}>
           <Route path='/' component={Header} />
+          <Route path='/auth' component={Auth} />
           <Route path='/' exact component={FindStop} />
           <Route path='/:route/:direction/:bestopid' component={SingleStopSnap} />
           <Route path='/:route/:direction/' exact component={BusRouteStopsList} />
