@@ -28,8 +28,14 @@ class SearchForStop extends Component {
   
   }
 
-  handleShowStopsList(){
-    this.setState({showStopList:true})
+  handleShowStopsList(e){
+    console.log("showing",e.target.value.length)
+    if(e.target.value.length){
+      this.setState({showStopList:true})
+    }else{
+      this.setState({showStopList:false})
+    }
+    
   }
   
 
@@ -63,13 +69,18 @@ class SearchForStop extends Component {
                     let filteredStops = data.allstops.filter(stop=>{
                       return stop.name.toLowerCase().indexOf(this.state.searchSelectedStop.toLowerCase()) !== -1 || stop.bestopid.indexOf(this.state.searchSelectedStop) !== -1;
                     })
-                    return <div className={styles.containerDiv}>
+                    return <div  className={styles.searchStopWrap}>
+                      <h3>Find your stop</h3>
+                      <div className={styles.inputButtonDiv}>
+                      
+                    
                       <input 
                         type="text"
-                        onFocus={this.handleShowStopsList.bind(this)}
+                        placeholder="Start typing bus stop name..."
+                       // onFocus={this.handleShowStopsList.bind(this)}
                         className={styles.inputBox}
                         value={this.state.searchSelectedStop}
-                        onChange={this.handleSearchStop.bind(this)} 
+                            onChange={(e)=>{this.handleShowStopsList(e);this.handleSearchStop(e)}} 
                       />
                       
   
@@ -85,10 +96,10 @@ class SearchForStop extends Component {
                       }
               
   
-  
+                      
                   
                     </div>
-               
+                    </div>
                   }
                   else{
                     return <p>Data error.</p>

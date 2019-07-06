@@ -1,10 +1,19 @@
-.containerDiv{
-  width: 100%;
-  border: 2px solid red;
-  grid-template-columns: 10fr 2fr;
- 
+.searchStopWrap{
+  /* width: 100%; */
+  /* border: 2px solid green; */
+  /* grid-template-rows: 1fr 1fr 1fr;  */
+  grid-template-columns: 1fr;
   grid-gap: 0.2rem;
   display: grid;
+  margin: 2rem 0;
+}
+.inputButtonDiv{
+  width: 100%;
+  grid-template-columns: 6fr 1fr;;
+  grid-gap: 0.2rem;
+  display: grid;
+  /* margin: 2rem 0; */
+  /* border:1px solid yellow; */
 }
 
 .inputBox{

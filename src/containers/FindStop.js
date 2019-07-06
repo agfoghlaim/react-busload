@@ -46,7 +46,7 @@ setSelectedStopId = (selectedStop) =>{
  //console.log(this.props.data)
     return(
       <div>
-        <h4>FindStop Component</h4>
+       
         <SearchForStop setSelectedStopId={this.setSelectedStopId} selectedStop={this.selectedStop} />
 
         {/* <SingleStop selectedStop={this.state.selectedStop} /> */}
