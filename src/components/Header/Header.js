@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Header.module.css';
 
 const header = (props) => {
+  console.log("header props ", props.userDets.userId)
  return (
    <header className={styles.header}>
     <div className={styles.wrapOne}>
@@ -15,7 +16,8 @@ const header = (props) => {
            <li><a href="/">Home</a></li>
            <li><a href="/">Register</a></li>
            <li><a href="/">Contact</a></li>
-           <li><a href="/">{props.userDets.userId}</a></li>
+           {(props.userDets.isUser) ? <li><a href="/">{props.userDets.userId}</a></li> : null }
+           
          </ul>
        </div>
     </nav>

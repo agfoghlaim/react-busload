@@ -25,20 +25,24 @@ class Auth extends Component{
   }
 
   loginSuccess = (loginResp)=>{
-    console.log("will handle successful login",loginResp.data)
+    console.log("will handle successful login")
 
 
     //save user details to localStorage
     let willExpireAt = new Date(new Date().getTime() + parseInt(loginResp.data.expiresIn)*1000)
     console.log("login resp ", loginResp);
-    localStorage.setItem('token',loginResp.data.idToken);
+    localStorage.setItem('idToken',loginResp.data.idToken);
     localStorage.setItem('userId',loginResp.data.localId);
-    localStorage.setItem('expiresAt', willExpireAt)
+    localStorage.setItem('expiresAt', willExpireAt);
+
+    //call handleLogin, so app.js state can be updated
+    this.props.handleLogin(loginResp.data.idToken,loginResp.data.localId,willExpireAt)
 
   }
 
   handleLogOut = () =>{
-    localStorage.clear();
+    console.log(this.props)
+    this.props.handleLogOut();
   }
 
   handleFormSubmit = (e,registerOrLogin)=>{

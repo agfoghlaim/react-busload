@@ -41,7 +41,7 @@ setSelectedStopId = (selectedStop) =>{
   }
 
   render(){
- console.log(">>>>>>>>>>>>>>>>>>>>>>>",this.props.userDets)
+ //console.log(">>>>>>>>>>>>>>>>>>>>>>>",this.props.userDets)
     return(
       <div>
        

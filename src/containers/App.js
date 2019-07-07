@@ -19,12 +19,17 @@ const client = new ApolloClient({
 });
 
 class App extends Component {
-  state={ idToken:null, userId:null }
+  state={ idToken:null, userId:null,expiresAt:null,isUser:false }
 
 
   handleLogin =(idToken,userId,expiresAt)=>{
-    console.log("got stuff ",idToken,userId)
-    this.setState({idToken:idToken,userId:userId})
+    console.log("updating app.js state userId ", userId)
+    this.setState({idToken:idToken,userId:userId,expiresAt:expiresAt,isUser:true})
+  }
+
+  handleLogOut = () =>{
+    this.setState({idToken:null, userId:null,expiresAt:null,isUser:false})
+    localStorage.clear();
   }
 
   /*
@@ -33,13 +38,17 @@ class App extends Component {
   if it has expired, delete? logout
   */
   componentDidMount(){
-    let idToken = localStorage.getItem('token');
+    let idToken = localStorage.getItem('idToken');
+    
     if(idToken){
+      console.log("have id token ")
+   
       //check it not expired
       let expiresAt = localStorage.getItem('expiresAt');
       if(new Date(expiresAt).getTime() > new Date().getTime()){
         console.log("it's in date, expires at", expiresAt)
         let userId = localStorage.getItem('userId')
+        console.log("user id ", userId)
         this.handleLogin(idToken,userId,expiresAt)
       }else{
         localStorage.clear()
@@ -64,7 +73,7 @@ class App extends Component {
           <Route path='/' render={(props) => <Header {...props} userDets ={this.state} />}
           />
           {/* <Route path='/auth' component={Auth} /> */}
-          <Route path='/' render={(props) => <Auth {...props} broadcastLogin={this.handleLogin} />}
+          <Route path='/' render={(props) => <Auth {...props} handleLogin={this.handleLogin} handleLogOut={this.handleLogOut} />}
           />
           {/* <Route path='/' exact component={FindStop} /> */}
           <Route path='/' exact render={(props) => <FindStop {...props} userDets ={this.state} />}
