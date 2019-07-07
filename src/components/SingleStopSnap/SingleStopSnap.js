@@ -1,9 +1,9 @@
 
 import React, { Component } from 'react';
 import { gql } from 'apollo-boost'; //parse queries
-//import { graphql } from 'react-apollo';
 import { Query } from 'react-apollo';
 import Timetable from '../Timetable/Timetable';
+import axios from 'axios';
 
 
 
@@ -11,7 +11,6 @@ class SingleStopSnap extends Component{
 
   state = {
   dayNumber:new Date().getDay(),
-  //dayString:new Date().toString().substring(0,3)
   dayString:function(){
     let dayNumber = parseInt(this.dayNumber)
 
@@ -31,6 +30,16 @@ class SingleStopSnap extends Component{
   }
 }
 
+// componentDidMount(){
+//   const { route, bestopid } = this.props.match.params;
+//   const rtpiUrl = `https://rtpiapp.rtpi.openskydata.com/RTPIPublicService_v2/service.svc/realtimebusinformation?stopid=${bestopid}&routeid=${route}&format=json`
+  
+//   axios.get(rtpiUrl)
+//   .then(r=>{
+//     console.log("resp ", r.data)
+//   }).catch(e=>console.log("err ", e))
+// }
+
 changeBusTimes_X = (day)=>{
     if(day === ""){
       day = new Date().getDay()
@@ -41,6 +50,19 @@ changeBusTimes_X = (day)=>{
   }
 
   render(){
+//only run if today!!
+    const RTPI_INFO = gql`
+    query rtpiRequest($route:String!, $bestopid:String!){
+      rtpiRequest(route:$route, bestopid:$bestopid){
+        errorcode,
+        results{
+          departuredatetime
+          scheduleddeparturedatetime
+          duetime
+        }
+   }
+  }
+  `
   
     const SINGLE_STOP_SNAPS = gql`
   query bus_times_x_snaps_2($route:String!, $direction:String!,$bestopid:String!,$requestedTimetable:String!){
@@ -65,41 +87,40 @@ changeBusTimes_X = (day)=>{
     if(!bestopid || !route || !direction) return <p>Something's not right</p>
     
     return<Query 
-  
-    query={SINGLE_STOP_SNAPS} 
-    variables={{route, direction, bestopid,requestedTimetable}}>
-    
-      {
-        ({ loading, error, data }) => {
-          
-        if (loading) return <p>loading...</p>;
-        if (error) return `Error! ${error}`;
-        if(data.bus_times_x_snaps_2){
+            query={SINGLE_STOP_SNAPS} 
+            variables={{route,direction,bestopid,requestedTimetable}}>
+              {({ loading:loadingOne,data:one}) => (
+                <Query 
+                  query={RTPI_INFO} 
+                  variables={{route,bestopid}}>
+                  {
+                    ({ loading:loadingTwo,data:two }) => {
+                      if(loadingOne || loadingTwo)return<p>loading</p>
+                      console.log("l1 ", loadingOne, one, two)
 
-        //there is a problem with duplicate bus listings that goes right back to how the timetables were taken from Bus éireann pdfs...
-        //filter duplicate buses here to avoid 'duplicates' console errors. 
-          data.bus_times_x_snaps_2.bus_times = data.bus_times_x_snaps_2.bus_times.filter((item,i,arr)=>{
-            return arr.map((one)=>{
-              return one['bus']
-            }).indexOf(item['bus'])===i;
-          })
-          
+                      //filter out duplicate buses, this is happening because of how the timetables were copied and pasted from the Bus Éireann pdfs.
+                      one.bus_times_x_snaps_2.bus_times = one.bus_times_x_snaps_2.bus_times.filter((item,i,arr)=>{
+                        return arr.map((one)=>{
+                          return one['bus']
+                        }).indexOf(item['bus'])===i;})
 
-         return <React.Fragment>
-          <button onClick={()=>this.changeBusTimes_X(2)}>Week</button>
-          <button onClick={()=>this.changeBusTimes_X(6)}>Sat</button>
-          <button onClick={()=>this.changeBusTimes_X(0)}>Sun</button>
-          <button onClick={()=>this.changeBusTimes_X("")}>Today</button>
-         <Timetable busRoutes={data.bus_times_x_snaps_2} />
-       </React.Fragment>
-        }else{
-          return <p>Oops, there was a problem loading the timetables!</p>
-        }
+                      return <React.Fragment>
+                        <button onClick={()=>this.changeBusTimes_X(2)}>Week</button>
+                        <button onClick={()=>this.changeBusTimes_X(6)}>Sat</button>
+                        <button onClick={()=>this.changeBusTimes_X(0)}>Sun</button>
+                        <button onClick={()=>this.changeBusTimes_X("")}>Today</button>
+                        <Timetable busRoutes={one.bus_times_x_snaps_2} rtpiData={two} />
+                      </React.Fragment>
+                    }
+                  }
+                  </Query>
+              )}
+          </Query>
   
-      }
-      }
-  
-    </Query>
+
+
+
+
   }
 }
 export default SingleStopSnap

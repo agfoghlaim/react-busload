@@ -7,11 +7,19 @@ import Logout from '../../components/Logout/Logout';
 
 class Auth extends Component{
   state={
+      showRegisterForm:true,
       email:'',
       password:'',
         idToken:null,
         userId:null,
         error:null
+  }
+
+  handleSwitchBetweenLoginRegisterForms  = ()=>{
+    this.setState(previousState =>{
+      return { showRegisterForm : !previousState.showRegisterForm}
+    })
+    
   }
 
   loginSuccess = (loginResp)=>{
@@ -63,10 +71,13 @@ class Auth extends Component{
 
 
   render(){
+    console.log(this.state)
     return(
       <div>
         <h3>Auth Component</h3>
-
+        {
+          (this.state.showRegisterForm) ?
+        
 
         <RegisterForm 
         emailValue = {this.state.email}
@@ -74,15 +85,17 @@ class Auth extends Component{
         handleEmailChange={this.handleInputEmailChange}
         handlePasswordChange={this.handleInputPasswordChange}
         handleSubmit={this.handleFormSubmit} />
-
+        :
         <LoginForm 
         emailValue = {this.state.email}
         passwordValue = {this.state.password}
         handleEmailChange={this.handleInputEmailChange}
         handlePasswordChange={this.handleInputPasswordChange}
         handleSubmit={this.handleFormSubmit} />
-
+        }
         <Logout />
+
+        <button onClick={this.handleSwitchBetweenLoginRegisterForms}>Show {this.state.showRegisterForm ? 'Login' : 'Register'} instead</button>
 
       </div>
     )
