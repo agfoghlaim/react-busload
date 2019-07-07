@@ -16,7 +16,7 @@ const registerForm = (props) => {
           onChange={props.handlePasswordChange}
           />
 
-          <button onClick={(e)=>props.handleSubmit(e,"reg")}>Register</button>
+          <button onClick={(e)=>props.handleSubmit(e,"register")}>Register</button>
 
         </form>
   </div>

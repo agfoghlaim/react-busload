@@ -35,6 +35,7 @@ class SearchForStop extends Component {
     }else{
       this.setState({showStopList:false})
     }
+
   }
   
 
@@ -50,6 +51,7 @@ class SearchForStop extends Component {
       route:e.target.dataset.route,
       direction:e.target.dataset.direction
     }})
+  
   }
  
   render(){

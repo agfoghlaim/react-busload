@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
 import LoginForm from '../../components/LoginForm/LoginForm';
-import Logout from '../../components/Logout/Logout';
+
 
 
 class Auth extends Component{
+
   state={
       showRegisterForm:true,
       email:'',
@@ -14,6 +15,7 @@ class Auth extends Component{
         userId:null,
         error:null
   }
+
 
   handleSwitchBetweenLoginRegisterForms  = ()=>{
     this.setState(previousState =>{
@@ -24,20 +26,19 @@ class Auth extends Component{
 
   loginSuccess = (loginResp)=>{
     console.log("will handle successful login",loginResp.data)
-    // loginResp.data has:
-    // displayName,
-    // email,
-    // expiresIn
-    // idToken
-    // resultKeyNameFromFieldlocalId
-    // refreshToken
-    // registered(bool)
-    this.setState({
-      idToken:loginResp.data.idToken,
-      userId:loginResp.data.localId,
-      error:false
-    })
-    console.log("state updated,", this.state)
+
+
+    //save user details to localStorage
+    let willExpireAt = new Date(new Date().getTime() + parseInt(loginResp.data.expiresIn)*1000)
+    console.log("login resp ", loginResp);
+    localStorage.setItem('token',loginResp.data.idToken);
+    localStorage.setItem('userId',loginResp.data.localId);
+    localStorage.setItem('expiresAt', willExpireAt)
+
+  }
+
+  handleLogOut = () =>{
+    localStorage.clear();
   }
 
   handleFormSubmit = (e,registerOrLogin)=>{
@@ -61,17 +62,17 @@ class Auth extends Component{
     .catch(e=>{console.log("bad ", e);this.loginFail(e)})
   }
   handleInputEmailChange = (e) =>{
-    console.log("handle change email")
+    //console.log("handle change email")
     this.setState({email:e.target.value})
   }
   handleInputPasswordChange = (e) =>{
-    console.log("handle change pass")
+    //console.log("handle change pass")
     this.setState({password:e.target.value})
   }
 
 
   render(){
-    console.log(this.state)
+    //console.log(this.state)
     return(
       <div>
         <h3>Auth Component</h3>
@@ -93,7 +94,7 @@ class Auth extends Component{
         handlePasswordChange={this.handleInputPasswordChange}
         handleSubmit={this.handleFormSubmit} />
         }
-        <Logout />
+        <button onClick={this.handleLogOut}>Logout</button>
 
         <button onClick={this.handleSwitchBetweenLoginRegisterForms}>Show {this.state.showRegisterForm ? 'Login' : 'Register'} instead</button>
 
