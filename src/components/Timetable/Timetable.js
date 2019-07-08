@@ -6,14 +6,15 @@ import { isWithinMinutesOf } from '../../helpers';
 
 
 const timetable = (props) => {
-  console.log(props)
+
   //maybe this should happen on the server??
+  //check the busRoutes.bus_times for corresponding rtpiData results
+  //add a busRoutes.bus_times.rtpi field: false for no result, scheduleddeparture datetime if there is a result
+
   props.busRoutes.bus_times.map(bus=>{
     return bus.rtpi = findBus(props.rtpiData.rtpiRequest.results,bus.time)
   })
-console.log(">>>>>>>>>>>>>>>>" , props.busRoutes.bus_times)
 
-  //due = bus_times.time
 function findBus(rtpiRes, due){
   let relevantRoute = rtpiRes.filter(route=>{
     return isWithinMinutesOf(due, route.scheduleddeparturedatetime.substr(11,5), 3)
@@ -25,7 +26,7 @@ function findBus(rtpiRes, due){
 }
 
 
-  //props.busRoutes.rtpi = props.rtpiData
+ 
 
     return(
       <div>

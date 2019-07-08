@@ -1,0 +1,34 @@
+.theForm{
+  display:grid;
+  grid-template-columns:1fr;
+  grid-gap:2rem;
+
+}
+
+.formGroup{
+  display:grid;
+  grid-gap:0.5rem;
+}
+
+.formGroup > input{
+  padding:0.5rem;
+  font-size:1rem;
+}
+
+.formGroup > label{
+  font-weight: bold;
+}
+
+p.error{
+  color:red;
+  font-size:0.8em;
+  margin: 0;
+}
+
+.valid{
+  border: 2px solid green
+}
+
+.invalid{
+  border:2px solid red;
+}

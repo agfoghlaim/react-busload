@@ -8,7 +8,7 @@ import FindStop from './FindStop';
 import Auth from './Auth/Auth';
 
 import Header from '../components/Header/Header';
-
+import UserSection from '../components/UserSection/UserSection'
 import SingleStopSnap from '../components/SingleStopSnap/SingleStopSnap';
 import BusRouteStopsList from '../components/BusRouteStopsList/BusRouteStopsList';
 import styles from './App.module.css';
@@ -19,16 +19,17 @@ const client = new ApolloClient({
 });
 
 class App extends Component {
-  state={ idToken:null, userId:null,expiresAt:null,isUser:false }
+  state={ idToken:null, userId:null,expiresAt:null,isUser:false,displayName:null,emailVerified:null }
 
 
-  handleLogin =(idToken,userId,expiresAt)=>{
-    console.log("updating app.js state userId ", userId)
-    this.setState({idToken:idToken,userId:userId,expiresAt:expiresAt,isUser:true})
+  handleLogin =(idToken,userId,expiresAt,displayName,emailVerified)=>{
+    console.log("handle login disloayname?", displayName)
+   // console.log("updating app.js state userId ", userId)
+    this.setState({idToken:idToken,userId:userId,expiresAt:expiresAt,isUser:true,displayName:displayName,emailVerified:emailVerified})
   }
 
   handleLogOut = () =>{
-    this.setState({idToken:null, userId:null,expiresAt:null,isUser:false})
+    this.setState({idToken:null, userId:null,expiresAt:null,isUser:false,displayName:null})
     localStorage.clear();
   }
 
@@ -41,15 +42,14 @@ class App extends Component {
     let idToken = localStorage.getItem('idToken');
     
     if(idToken){
-      console.log("have id token ")
-   
       //check it not expired
       let expiresAt = localStorage.getItem('expiresAt');
       if(new Date(expiresAt).getTime() > new Date().getTime()){
-        console.log("it's in date, expires at", expiresAt)
+      
         let userId = localStorage.getItem('userId')
-        console.log("user id ", userId)
-        this.handleLogin(idToken,userId,expiresAt)
+        let displayName = localStorage.getItem('displayName')
+        let emailVerified = localStorage.getItem('emailVerified')
+        this.handleLogin(idToken,userId,expiresAt,displayName,emailVerified)
       }else{
         localStorage.clear()
       }
@@ -72,9 +72,10 @@ class App extends Component {
           {/* <Route path='/' component={Header} /> */}
           <Route path='/' render={(props) => <Header {...props} userDets ={this.state} />}
           />
-          {/* <Route path='/auth' component={Auth} /> */}
+          
           <Route path='/' render={(props) => <Auth {...props} handleLogin={this.handleLogin} handleLogOut={this.handleLogOut} />}
           />
+          <Route path='/' component={UserSection} />
           {/* <Route path='/' exact component={FindStop} /> */}
           <Route path='/' exact render={(props) => <FindStop {...props} userDets ={this.state} />}
           />
