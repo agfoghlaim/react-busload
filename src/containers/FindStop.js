@@ -45,7 +45,9 @@ setSelectedStopId = (selectedStop) =>{
     return(
       <div>
        
-        <SearchForStop setSelectedStopId={this.setSelectedStopId} selectedStop={this.selectedStop} />
+        <SearchForStop setSelectedStopId={this.setSelectedStopId} selectedStop={this.selectedStop}
+        currentUser={this.props.userDets} />
+      
 
       
         {this.getDataForRefine()}

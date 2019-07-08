@@ -9,7 +9,7 @@
 }
 .inputButtonDiv{
   width: 100%;
-  grid-template-columns: 6fr 1fr;;
+  grid-template-columns: 6fr 1fr 1fr;
   grid-gap: 0.2rem;
   display: grid;
   /* margin: 2rem 0; */

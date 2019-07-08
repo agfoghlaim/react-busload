@@ -75,8 +75,16 @@ class App extends Component {
           
           <Route path='/' render={(props) => <Auth {...props} handleLogin={this.handleLogin} handleLogOut={this.handleLogOut} />}
           />
-          <Route path='/' component={UserSection} />
-          {/* <Route path='/' exact component={FindStop} /> */}
+         
+        {
+          (this.state.isUser) ?
+                  <Route path='/' render={(props) => <UserSection {...props} userDets ={this.state} />}
+                  />
+          : null
+
+        }
+  
+
           <Route path='/' exact render={(props) => <FindStop {...props} userDets ={this.state} />}
           />
           <Route path='/:route/:direction/:bestopid' component={SingleStopSnap} />

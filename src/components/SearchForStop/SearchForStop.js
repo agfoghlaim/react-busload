@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import styles from './SearchForStop.module.css'
 import SearchStopList from './SearchStopList';
 import { Link } from 'react-router-dom';
+import FaveStop from '../FaveStop/FaveStop';
 
 
 const allStopsQuery = gql`
@@ -21,9 +22,10 @@ const allStopsQuery = gql`
 
 class SearchForStop extends Component {
 //use this.props.setSelectedStopId on a go button
+
   state = {
     searchSelectedStop: '',
-    selectedStop:{bestopid:'',route:'',direction:''},
+    selectedStop:{bestopid:'',route:'',direction:'', name:''},
     showStopList:false
   
   }
@@ -49,9 +51,21 @@ class SearchForStop extends Component {
     this.setState({searchSelectedStop:e.target.textContent,selectedStop:{
       bestopid:e.target.dataset.bestopid,
       route:e.target.dataset.route,
-      direction:e.target.dataset.direction
+      direction:e.target.dataset.direction,
+      stopname:e.target.dataset.stopname
     }})
   
+  }
+
+  showUserFeature = ()=>{
+    if(this.props.currentUser.userId){
+      return    <FaveStop selectedStopDets={this.state}
+      userDets={this.props.currentUser}
+       /> 
+    }else{
+      return null
+    }
+ 
   }
  
   render(){
@@ -71,8 +85,11 @@ class SearchForStop extends Component {
             })
             return <div className={styles.searchStopWrap}>
               <h3>Find your stop</h3>
+              <p><small>{this.state.selectedStop.stopname}</small></p>
               <div className={styles.inputButtonDiv}>
-              
+
+          
+
               <input 
                 type="text"
                 placeholder="Start typing bus stop name..."
@@ -85,6 +102,13 @@ class SearchForStop extends Component {
 
               <Link to={`${this.state.selectedStop.route}/${this.state.selectedStop.direction}/${this.state.selectedStop.bestopid}`}
               ><button >Go</button></Link>
+
+            {this.showUserFeature()}
+
+              
+            
+              
+              
 
               {
                 (this.state.showStopList) ?

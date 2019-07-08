@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
 import LoginForm from '../../components/LoginForm/LoginForm';
+
 import { dealWithFirebaseRegister,dealWithFirebaseLogin } from '../../helpers';
 
 
@@ -29,6 +30,7 @@ class Auth extends Component{
 //   console.log("mount ", this.state.registerFail)
 //   this.setState({loginFail:'marie',registerFail:'what'})
 // }
+
 
   handleSwitchBetweenLoginRegisterForms  = ()=>{
     this.setState(previousState =>{
@@ -213,13 +215,15 @@ class Auth extends Component{
   handleAnyInputChange = (e) =>{
     //if there is a submission error clear
     
-    // if(this.state.loginFail || this.state.registerFail){
-    //   console.log("updating");
-    //   this.setState({registerFail:'d'})
+    if(this.state.loginFail || this.state.registerFail){
+      let oldState = {...this.state}
+      oldState.registerFail = null;
+      oldState.loginFail = null;
+      this.setState({...oldState})
 
-    // }else{
-    //   console.log("not updating")
-    // }
+    }else{
+      console.log("not updating")
+    }
     let newState = {...this.state}
     let findStr = `${e.target.id}Field`
     //console.log(`${e.target.id}Field`,findStr)
@@ -239,7 +243,7 @@ class Auth extends Component{
         {
           (this.state.showRegisterForm) ?
         
-
+    
         <RegisterForm 
         registerFail = {this.state.registerFail}
         emailValue = {this.state.emailField.email}
@@ -250,6 +254,7 @@ class Auth extends Component{
         usernameValidity = {this.state.usernameField.validity}
         handleSubmit={this.handleFormSubmit}
         handleAnyInputChange={this.handleAnyInputChange} />
+     
         :
         <LoginForm 
         loginFail = {this.state.loginFail}

@@ -1,0 +1,11 @@
+.Modal{
+  background:pink;
+  position:fixed;
+  padding:1rem;
+  width:90%;
+  left:5%;
+  top:10%;
+  box-sizing:border-box;
+  box-shadow: 1px 1px 1px #ccc;
+  transition: all 0.2s ease-in-out;
+}

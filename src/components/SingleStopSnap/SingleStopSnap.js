@@ -96,7 +96,7 @@ changeBusTimes_X = (day)=>{
                   {
                     ({ loading:loadingTwo,data:two }) => {
                       if(loadingOne || loadingTwo)return<p>loading</p>
-                      console.log("l1 ", loadingOne, one, two)
+                     // console.log("l1 ", loadingOne, one, two)
 
                       //filter out duplicate buses, this is happening because of how the timetables were copied and pasted from the Bus Éireann pdfs.
                       one.bus_times_x_snaps_2.bus_times = one.bus_times_x_snaps_2.bus_times.filter((item,i,arr)=>{

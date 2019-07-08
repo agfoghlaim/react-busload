@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './RegisterForm.module.css'
 
 const registerForm = (props) => {
-   console.log("p ", props)
+   //console.log("p ", props)
 
   return <div>
       <h4>Register</h4>
