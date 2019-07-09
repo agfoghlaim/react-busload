@@ -14,17 +14,30 @@ class SingleStopSnap extends Component{
   dayString:function(){
     let dayNumber = parseInt(this.dayNumber)
 
-    if(dayNumber > 0 && dayNumber < 6){
-      //console.log("sending week", dayNumber)
+    if(dayNumber === 1){
+      console.log("sending week", dayNumber)
       return 'Mon';
-    }else if(dayNumber === 0 ){
-      //console.log("sending sun")
+    }
+    else if(dayNumber === 2){
+      return 'Tue';
+    }
+    else if(dayNumber === 3){
+      return 'Wed';
+    }
+    else if(dayNumber === 4){
+      return 'Thu';
+    }
+    else if(dayNumber === 5){
+      return 'Fri';
+    }
+    else if(dayNumber === 0 ){
+      console.log("sending sun")
       return 'Sun';
     }else if(dayNumber === 6 ){
-      //console.log("sending sat")
+      console.log("sending sat")
       return 'Sat'
     }else{
-      //console.log("sending default (is a problem)")
+      console.log("sending default (is a problem)")
       return 'Week'
     }
   }
@@ -83,6 +96,9 @@ changeBusTimes_X = (day)=>{
 `
   let { bestopid, route, direction } = this.props.match.params;
   let requestedTimetable = this.state.dayString()
+  //let requestedTimetable = 'Tue'
+  console.log("req timetable is ", requestedTimetable)
+ // console.log(this.date.dayString())
   
     if(!bestopid || !route || !direction) return <p>Something's not right</p>
     

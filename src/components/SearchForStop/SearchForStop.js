@@ -105,11 +105,6 @@ class SearchForStop extends Component {
 
             {this.showUserFeature()}
 
-              
-            
-              
-              
-
               {
                 (this.state.showStopList) ?
                   <SearchStopList

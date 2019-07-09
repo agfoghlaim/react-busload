@@ -4,6 +4,7 @@ import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 
+
 import FindStop from './FindStop';
 import Auth from './Auth/Auth';
 
@@ -23,9 +24,13 @@ class App extends Component {
 
 
   handleLogin =(idToken,userId,expiresAt,displayName,emailVerified)=>{
-    console.log("handle login disloayname?", displayName)
+    //console.log("handle login disloayname?", displayName)
    // console.log("updating app.js state userId ", userId)
     this.setState({idToken:idToken,userId:userId,expiresAt:expiresAt,isUser:true,displayName:displayName,emailVerified:emailVerified})
+
+    //redirect to home page (with visible user section)
+   
+    
   }
 
   handleLogOut = () =>{
@@ -70,10 +75,10 @@ class App extends Component {
         <ApolloProvider client={client} >
         <div className={styles.App}>
           {/* <Route path='/' component={Header} /> */}
-          <Route path='/' render={(props) => <Header {...props} userDets ={this.state} />}
+          <Route path='/' render={(props) => <Header {...props} userDets ={this.state} handleLogOut={this.handleLogOut} />}
           />
           
-          <Route path='/' render={(props) => <Auth {...props} handleLogin={this.handleLogin} handleLogOut={this.handleLogOut} />}
+          <Route path='/auth' render={(props) => <Auth {...props} handleLogin={this.handleLogin} handleLogOut={this.handleLogOut} idToken={this.state.idToken} />}
           />
          
         {
@@ -81,7 +86,10 @@ class App extends Component {
                   <Route path='/' render={(props) => <UserSection {...props} userDets ={this.state} />}
                   />
           : null
-
+          // (this.state.isUser) ?
+          // <UserSection userDets ={this.state} />
+          
+          // : null
         }
   
 

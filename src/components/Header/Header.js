@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from './Header.module.css';
+import { Link } from 'react-router-dom';
 
 const header = (props) => {
-  console.log("header props ", props.userDets.displayName)
+
  return (
    <header className={styles.header}>
     <div className={styles.wrapOne}>
@@ -14,10 +15,18 @@ const header = (props) => {
        <div className={styles.navWrap}>
          <ul>
            <li><a href="/">Home</a></li>
-           <li><a href="/">Register</a></li>
+           
            <li><a href="/">Contact</a></li>
-           {(props.userDets.isUser) ? <li><a href="/">{props.userDets.displayName} {props.userDets.userId} {(props.userDets.emailVerified) ? 'verified' : 'not verified'}</a></li>
-            : null }
+           {(props.userDets.isUser) ? 
+          //  <li><a href="/">
+          //  {props.userDets.displayName}
+          //  {(props.userDets.emailVerified) ? ' verified' : 'not verified'}</a></li>
+          <li onClick={()=>props.handleLogOut()}>
+            <span>Logout</span>
+          </li>
+            : 
+            <li><Link to={'/auth'}>Sign Up/Sign In</Link></li>
+            }
            
          </ul>
        </div>

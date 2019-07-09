@@ -38,6 +38,9 @@
   color:white;
   text-decoration: none;
 }
+.navWrap li span{
+  color:white;
+}
 
 .navWrap li{
   padding:0.5rem 2rem;

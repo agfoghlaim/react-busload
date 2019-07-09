@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
 import LoginForm from '../../components/LoginForm/LoginForm';
-
+import { Redirect }from 'react-router-dom';
 import { dealWithFirebaseRegister,dealWithFirebaseLogin } from '../../helpers';
 
 
@@ -59,7 +59,7 @@ class Auth extends Component{
   }
 
   registerSuccess=()=>{
-    console.log("register success")
+    console.log("register success, should show login form")
   }
 
   
@@ -240,6 +240,10 @@ class Auth extends Component{
     return(
       <div>
         <h3>Auth Component</h3>
+        {
+          (this.props.idToken) ? <Redirect to='/'/>
+          : null
+        }
         {
           (this.state.showRegisterForm) ?
         

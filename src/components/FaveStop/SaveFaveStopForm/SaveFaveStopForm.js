@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './FaveStopForm.module.css';
+import styles from './SaveFaveStopForm.module.css';
 
-const faveStopForm = (props) => {
+const saveFaveStopForm = (props) => {
 return (
   <div>
      <form className={styles.theForm}>
@@ -20,4 +20,4 @@ return (
 )
 }
 
-export default faveStopForm;
+export default saveFaveStopForm;
