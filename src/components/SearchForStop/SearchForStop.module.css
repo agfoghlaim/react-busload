@@ -6,6 +6,7 @@
   grid-gap: 0.2rem;
   display: grid;
   margin: 2rem 0;
+  
 }
 .inputButtonDiv{
   width: 100%;
@@ -19,15 +20,36 @@
 .inputBox{
     /* width: 100%; */
     border:none;
-    border:2px solid green;
-    font-size: 14px;
+    border:2px solid #62723f;
+    font-size: 1em;
     color: grey;
-    padding:10px 5px;
+    padding:1em 0.5em;
     box-sizing:border-box;
     outline:none;
 }
 .show{
   display: inline;
+}
+
+.buttonMain{
+  -webkit-border-radius: 2;
+  -moz-border-radius: 2;
+  border-radius: 2px;
+  color: #fafafa;
+  font-size: 1em;
+  background: #4f6128;
+  padding: 0.5em 1em 0.5em 1em;
+  border: solid #4f6128 1px;
+  text-decoration: none;
+  padding:1em 2em;
+  
+}
+
+.buttonMain:hover{
+
+    background: #5a7228;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 

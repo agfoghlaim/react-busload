@@ -3,6 +3,7 @@ import RegisterForm from '../../components/RegisterForm/RegisterForm';
 import LoginForm from '../../components/LoginForm/LoginForm';
 import { Redirect }from 'react-router-dom';
 import { dealWithFirebaseRegister,dealWithFirebaseLogin } from '../../helpers';
+import styles from './Auth.module.css';
 
 
 
@@ -269,9 +270,9 @@ class Auth extends Component{
         handleSubmit={this.handleFormSubmit}
         handleAnyInputChange={this.handleAnyInputChange} />
         }
-        <button onClick={this.handleLogOut}>Logout</button>
+        <button className={styles.buttonMain} onClick={this.handleLogOut}>Logout</button>
 
-        <button onClick={this.handleSwitchBetweenLoginRegisterForms}>Show {this.state.showRegisterForm ? 'Login' : 'Register'} instead</button>
+        <button className={styles.buttonMain} onClick={this.handleSwitchBetweenLoginRegisterForms}>Show {this.state.showRegisterForm ? 'Login' : 'Register'} instead</button>
 
       </div>
     )

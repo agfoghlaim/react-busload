@@ -9,7 +9,8 @@
 }
 
 .routebox{
-  background:#4f6128;
+  /* background:#4f6128; */
+  background: linear-gradient( rgba(79, 97, 40, 0.9), rgba(79, 97, 40, 0.81));
   padding:0.3rem;
   color:white;
   -webkit-box-shadow: 3px 4px 5px 0px rgba(35,41,23,1);

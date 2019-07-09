@@ -38,7 +38,7 @@ const loginForm = (props) => {
             }
           </div>
           <p className={styles.error}>{props.loginFail}</p>
-          <button onClick={(e)=>props.handleSubmit(e,'login')}>Login</button>
+          <button className={styles.buttonMain} onClick={(e)=>props.handleSubmit(e,'login')}>Login</button>
         </form>
   </div>
 }

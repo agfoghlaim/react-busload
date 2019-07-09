@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter, Route } from 'react-router-dom';
-
+//import * as firebase from 'firebase';
 
 
 import FindStop from './FindStop';
@@ -14,7 +14,17 @@ import SingleStopSnap from '../components/SingleStopSnap/SingleStopSnap';
 import BusRouteStopsList from '../components/BusRouteStopsList/BusRouteStopsList';
 import styles from './App.module.css';
 
+// const firebaseConfig = {
+//   apiKey: "AIzaSyAoXxf2QSQwHDJOenPiziOTGzxijrZynLs",
+//   authDomain: "busload-8ae3c.firebaseapp.com",
+//   databaseURL: "https://busload-8ae3c.firebaseio.com",
+//   projectId: "busload-8ae3c",
+//   storageBucket: "",
+//   messagingSenderId: "403334506746",
+//   appId: "1:403334506746:web:bc8e738bf317ce2e"
+// };
 
+// firebase.initializeApp(firebaseConfig);
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql'
 });

@@ -3,27 +3,34 @@
   position: relative;
   display:grid;
   grid-gap:2rem;
-
-
+  background-image: url('../../img/rainBus2.jpg'), linear-gradient(#49424142, #d135310d);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+ 
 }
 
 .wrapOne{
   display:grid;
   justify-content: center;
   align-content: center;
-  background: #4f6128;
-  padding: 2rem;
-  -webkit-box-shadow: 3px 4px 5px 0px rgba(35,41,23,1);
+  justify-items:center;
+  background: linear-gradient(#494241e3, #202d2000);
+  padding: 10rem 0;
+  /* -webkit-box-shadow: 3px 4px 5px 0px rgba(35,41,23,1);
   -moz-box-shadow: 3px 4px 5px 0px rgba(35,41,23,1);
-  box-shadow: 3px 4px 5px 0px rgba(35,41,23,1);
+  box-shadow: 3px 4px 5px 0px rgba(35,41,23,1); */
  
 }
 
  .logo a{
-  color: white;
+  /* color:#702f7b; */
+  color:white;
   text-decoration: none;
-  font-size: 3rem;
-  font-weight:900;
+  font-size: 2rem;
+  font-weight:800;
+  text-align: center;
+
 }
 
 .navWrap ul{
@@ -32,10 +39,13 @@
   padding:0;
   display:flex;
   justify-content: space-between;
+  background:white;
+  padding:1rem 0;
 }
 
 .navWrap li a{
-  color:white;
+  color:#4f6128;
+  font-weight:600;
   text-decoration: none;
 }
 .navWrap li span{
@@ -44,8 +54,12 @@
 
 .navWrap li{
   padding:0.5rem 2rem;
-  background: #4f6128;
-  -webkit-box-shadow: 3px 4px 5px 0px rgba(35,41,23,1);
+  /* background: #4f6128; */
+  /* -webkit-box-shadow: 3px 4px 5px 0px rgba(35,41,23,1);
   -moz-box-shadow: 3px 4px 5px 0px rgba(35,41,23,1);
-  box-shadow: 3px 4px 5px 0px rgba(35,41,23,1);
+  box-shadow: 3px 4px 5px 0px rgba(35,41,23,1); */
+}
+
+.busoutline{
+  max-width: 10%;
 }

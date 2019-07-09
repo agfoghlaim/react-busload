@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import https from 'https';
 import { Link } from 'react-router-dom'
 import styles from './UserSection.module.css';
 import FaveStop from '../FaveStop/FaveStop';
+import firebase from '../../config/fbConfig';
 
 class UserSection extends Component {
 
@@ -11,27 +13,24 @@ class UserSection extends Component {
   componentDidMount(){
     //get currently logged in users faveourite stops
     if(!this.props.userDets.userId) return
-
-    const queryParams = `?auth=${this.props.userDets.idToken}&orderBy="userid"&equalTo="${this.props.userDets.userId}"`
-   
-    axios.get(`https://busload-8ae3c.firebaseio.com/favourites.json${queryParams}`)
-    .then(r=>{
-      //console.log(r)
-    let faveStops = []
-    for(let i in r.data){
-      r.data[i].fireBaseId = i;
-      faveStops.push(r.data[i])
-
-    }
-    console.log(faveStops)
-      this.setState({faveStops:faveStops})
-      this.closeModal();
-    })
-    //TODO
-     .catch(e=>console.log(e))
-
    
 
+
+    const ref = firebase.database().ref(`favourites`);
+    ref.orderByChild("userid").equalTo(`${this.props.userDets.userId}`).on("value", (snapshot) =>{
+    // console.log(snapshot.val());
+      //let stuff = Array.from(snapshot.val().key)
+      let stuff = snapshot.val()
+      let newFaveStops = []
+      for(let i in stuff){
+          stuff[i].fireBaseId = i;
+
+          newFaveStops.push(stuff[i])  
+      }
+
+        this.setState({faveStops:newFaveStops})
+      });
+     
   }//end compDidMount
 
   

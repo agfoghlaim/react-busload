@@ -59,7 +59,7 @@ const registerForm = (props) => {
             }
           </div>
           <p className={styles.error}>{props.registerFail}</p>
-          <button onClick={(e)=>props.handleSubmit(e,"register")}>Register</button>
+          <button className={styles.buttonMain} onClick={(e)=>props.handleSubmit(e,"register")}>Register</button>
 
         </form>
   </div>

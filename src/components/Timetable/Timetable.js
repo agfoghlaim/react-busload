@@ -57,9 +57,9 @@ function findBus(rtpiRes, due){
               {/* <td>{b.bus}</td> */}
               <td>{b.time}</td> 
               <td>{b.rtpi.departuredatetime}</td>
-              <td>{b.wet_avg}</td> 
-              <td>{b.dry_avg} </td> 
-              <td> {b.total_avg}   </td> 
+              <td>{b.wet_avg} mins</td> 
+              <td>{b.dry_avg} mins </td> 
+              <td> {b.total_avg}mins   </td> 
               
             </tr>
             </tbody>

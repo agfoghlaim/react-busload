@@ -61,9 +61,10 @@ class FaveStop extends Component{
 
   editFaveStop = (e)=>{
     e.preventDefault();
-    console.log(this.props)
+    //console.log(this.props)
     const {bestopid,direction,route,fireBaseId,stopname,userStopName,userid} = this.props.userStop;
-    console.log("will test", this.state)
+    console.log(this.props.userStop)
+    //console.log("will test", this.state)
     let pretend = {
       bestopid,
       direction,
@@ -72,13 +73,14 @@ class FaveStop extends Component{
       userStopName:this.state.faveStop.userStopName,
       userid
     }
-
+ 
     console.log("will save ", pretend)
     // let url = `https://busload-8ae3c.firebaseio.com/favourites/-LjI1-_SJJFpVmfkdwKy.json`
 
 
 
     let url = `https://busload-8ae3c.firebaseio.com/favourites/${fireBaseId}.json`
+    console.log(url)
     axios.put(url,pretend)
     .then(r=>{
       console.log("r ", r);this.closeModal();
@@ -115,7 +117,7 @@ class FaveStop extends Component{
   }
 
   render(){
-    console.log(this.props)
+   // console.log(this.props)
     return(
       <div>
         { //ie if bring rendered by UserSection

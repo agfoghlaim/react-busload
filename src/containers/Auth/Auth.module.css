@@ -1,0 +1,20 @@
+.buttonMain{
+  -webkit-border-radius: 2;
+  -moz-border-radius: 2;
+  border-radius: 2px;
+  color: #fafafa;
+  font-size: 1rem;
+  background: #4f6128;
+  padding: 0.5em 1em 0.5em 1em;
+  border: solid #4f6128 1px;
+  text-decoration: none;
+  margin:1rem;
+  
+}
+
+.buttonMain:hover{
+
+    background: #5a7228;
+    text-decoration: none;
+    cursor: pointer;
+}
