@@ -27,12 +27,20 @@ class Auth extends Component{
       loginFail:null,
       registerFail:null
   }
-// componentWillUpdate(){
-//   console.log("mount ", this.state.registerFail)
-//   this.setState({loginFail:'marie',registerFail:'what'})
-// }
 
 
+  componentDidUpdate(){
+    if(this.state.registerFail !==null){
+      setTimeout(()=>{ 
+       this.setState({registerFail:null})
+      },  3000)
+    }
+    if(this.state.loginFail !==null){
+      setTimeout(()=>{ 
+       this.setState({loginFail:null})
+      },  3000)
+    }
+  }
   handleSwitchBetweenLoginRegisterForms  = ()=>{
     this.setState(previousState =>{
       return { showRegisterForm : !previousState.showRegisterForm}
@@ -250,6 +258,7 @@ class Auth extends Component{
         
     
         <RegisterForm 
+        resetRegFail={this.resetRegFail}
         registerFail = {this.state.registerFail}
         emailValue = {this.state.emailField.email}
         emailValidity = {this.state.emailField.validity}

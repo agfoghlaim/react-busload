@@ -9,12 +9,12 @@ class Weather extends Component{
   state = {gotWeather:false,weather:null, weatherError:null}
 
   componentDidMount(){
-    console.log("getting...")
+    //console.log("getting...")
     const corsAnywhere ='https://cors-anywhere.herokuapp.com/';
 
     axios.get(`${corsAnywhere}https://api.darksky.net/forecast/${KEY}/53.2747740041651,-9.04875088331228`)
     .then(r=>{
-      console.log("werther ", r.data.currently)
+     // console.log("werther ", r.data.currently)
       this.setState({gotWeather:true,weather: r.data.currently})
     })
     .catch(e=>{

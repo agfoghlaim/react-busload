@@ -24,44 +24,7 @@ module.exports = {
     .then(r=>r)
     .catch(e=>console.log("error getting user info"))
   },
-  // dealWithFirebaseStuff: function(registerUrl,loginUrl,getInfoUrl,setInfoUrl,sendEmailUrl,registerOrLogin,newUser,newUserDetails){
-  //   return new Promise((resolve,reject)=>{
-  //     if(registerOrLogin === 'login'){
-  //       axios.post(loginUrl,newUser)
-  //       .then(response=>{
-  //         axios.post(getInfoUrl,{idToken:response.data.idToken})
-  //         .then(userDetsResp=>{
-  //           resolve({response,userDetsResp})
-  //         })
-  //       })
-  //       .catch(e=>reject(e))
-  //     }else{
-  //       //for register
-  //       axios.post(registerUrl,newUser)
-  //       .then(response=>{
-  //         newUserDetails.idToken=response.data.idToken;
-  //         axios.post(setInfoUrl,newUserDetails)
-  //         .then(resp=>{
-  //           //now we have resp from updating the profile upon registerins
-  //           //also need to get all the user details
-  //          // console.log("too here?1",response.data.idToken)
-  //             axios.post(sendEmailUrl,{requestType:'VERIFY_EMAIL',idToken:response.data.idToken})
-  //           axios.post(getInfoUrl,{idToken:response.data.idToken})
-  //           .then(emailResp=>{
-  //             console.log("emailResp", emailResp)
-              
-  //           })
-  //           .then(userDetsResp=>{
-  //            // console.log("too here?2")
-  //             resolve({response,userDetsResp})
-  //           })
-  //         })
-  //       })
-  //       .catch(e=>reject(e))
-  //     }
-      
-  //   })
-  // }
+ 
   dealWithFirebaseRegister: function(registerUrl,getInfoUrl,setInfoUrl,sendEmailUrl,newUser,newUserDetails){
     return new Promise((resolve,reject)=>{
 
