@@ -12,6 +12,8 @@ import Header from '../components/Header/Header';
 import UserSection from '../components/UserSection/UserSection'
 import SingleStopSnap from '../components/SingleStopSnap/SingleStopSnap';
 import BusRouteStopsList from '../components/BusRouteStopsList/BusRouteStopsList';
+import Weather from '../components/Weather/Weather';
+import Pagination from '../components/Pagination/Pagination';
 import styles from './App.module.css';
 
 // const firebaseConfig = {
@@ -87,6 +89,9 @@ class App extends Component {
           {/* <Route path='/' component={Header} /> */}
           <Route path='/' render={(props) => <Header {...props} userDets ={this.state} handleLogOut={this.handleLogOut} />}
           />
+
+          <Route path='/' component={Weather} />
+          
           
           <Route path='/auth' render={(props) => <Auth {...props} handleLogin={this.handleLogin} handleLogOut={this.handleLogOut} idToken={this.state.idToken} />}
           />
@@ -105,8 +110,10 @@ class App extends Component {
 
           <Route path='/' exact render={(props) => <FindStop {...props} userDets ={this.state} />}
           />
-          <Route path='/:route/:direction/:bestopid' component={SingleStopSnap} />
+          <Route path='/:route/:direction/:bestopid' component={Pagination} />
+          <Route exact path='/:route/:direction/:bestopid' component={SingleStopSnap} />
           <Route path='/:route/:direction/' exact component={BusRouteStopsList} />
+          
         </div>
         </ApolloProvider>
       </BrowserRouter>

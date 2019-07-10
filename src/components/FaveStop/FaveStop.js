@@ -95,7 +95,7 @@ class FaveStop extends Component{
 
   deleteFaveStop = (e)=>{
     e.preventDefault();
-    const ref = firebase.database().ref(`favourites/${this.props.userStop.fireBaseId}`).remove()
+    firebase.database().ref(`favourites/${this.props.userStop.fireBaseId}`).remove()
     .then(()=>console.log("removed"))
     .catch(e=>console.log("error removing ", e))
 

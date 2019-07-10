@@ -43,15 +43,6 @@ class SingleStopSnap extends Component{
   }
 }
 
-// componentDidMount(){
-//   const { route, bestopid } = this.props.match.params;
-//   const rtpiUrl = `https://rtpiapp.rtpi.openskydata.com/RTPIPublicService_v2/service.svc/realtimebusinformation?stopid=${bestopid}&routeid=${route}&format=json`
-  
-//   axios.get(rtpiUrl)
-//   .then(r=>{
-//     console.log("resp ", r.data)
-//   }).catch(e=>console.log("err ", e))
-// }
 
 changeBusTimes_X = (day)=>{
     if(day === ""){
@@ -72,6 +63,8 @@ changeBusTimes_X = (day)=>{
           departuredatetime
           scheduleddeparturedatetime
           duetime
+          origin
+          destination
         }
    }
   }
@@ -87,9 +80,12 @@ changeBusTimes_X = (day)=>{
    bus_times {
      bus
      time
-     wet_avg,
-     dry_avg,
+     wet_avg
+     dry_avg
      total_avg
+     num_dry
+     num_wet
+     num_total
    }
  }
 }
@@ -125,7 +121,7 @@ changeBusTimes_X = (day)=>{
                         <button onClick={()=>this.changeBusTimes_X(6)}>Sat</button>
                         <button onClick={()=>this.changeBusTimes_X(0)}>Sun</button>
                         <button onClick={()=>this.changeBusTimes_X("")}>Today</button>
-                        <Timetable busRoutes={one.bus_times_x_snaps_2} rtpiData={two} />
+                        <Timetable busRoutes={one.bus_times_x_snaps_2} rtpiData={two} route={route} />
                       </React.Fragment>
                     }
                   }

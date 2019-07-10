@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 //import busoutline from '../../img/busoutline.svg';
 import busoutlinewhite from '../../img/busoutlinewhite.svg';
 
+
 const header = (props) => {
 
  return (
@@ -12,15 +13,17 @@ const header = (props) => {
        {/* <div className={styles.burger}>Burger</div> */}
        <div className={styles.logo}><a href="/">BusLoad</a></div>
        <img className={styles.busoutline} src={busoutlinewhite} alt="bus"/>
-       
     </div>
-
+    <div>
+        
+    </div>
     <nav className={styles.nav}>
+
        <div className={styles.navWrap}>
          <ul>
            <li><a href="/">Home</a></li>
            
-           <li><a href="/">Contact</a></li>
+           <li><a href="/">About</a></li>
            {(props.userDets.isUser) ? 
 
           <li onClick={()=>props.handleLogOut()}>

@@ -48,7 +48,11 @@ class UserSection extends Component {
             
             this.state.faveStops.map(stop=>{
               return  <div className={styles.routebox} key={stop.bestopid}>
-                <Link className={styles.plainLink} to={`${stop.route}/${stop.direction}/${stop.bestopid}`}>
+                <Link 
+                className={styles.plainLink} 
+                to={{
+                  pathname:`/${stop.route}/${stop.direction}/${stop.bestopid}`
+                }}>
                 <p className={styles.routeno}>{stop.userStopName}</p>
                 <p className={styles.routename}>{stop.stopname}</p>
                 </Link>

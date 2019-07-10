@@ -18,6 +18,7 @@ const timetable = (props) => {
   })
 
 function findBus(rtpiRes, due){
+ // console.log(props)
   let relevantRoute = rtpiRes.filter(route=>{
     return isWithinMinutesOf(due, route.scheduleddeparturedatetime.substr(11,5), 3)
   })
@@ -28,7 +29,7 @@ function findBus(rtpiRes, due){
 }
 
 function getAvgStrings(avg){
-  console.log(avg)
+ // console.log(avg)
   if(avg ==='x'){
     return 'x';
   }
@@ -46,8 +47,13 @@ function getAvgStrings(avg){
     return(
       <div className={styles.timetableDiv}>
         <div className={styles.divAboveTable}>
-        <h5>should say what route</h5>
           <h5>{props.busRoutes.bestopid}</h5>
+          {
+            (props.rtpiData.rtpiRequest.results[0].destination)?
+            <h5>Route {props.route} Towards {props.rtpiData.rtpiRequest.results[0].destination}</h5>
+            :<h5>Route {props.route}</h5>
+          }
+         
           <h5>{props.busRoutes.name}</h5>
           <h5>{props.busRoutes.stop_sequence}</h5>
           <h5>{props.busRoutes.timetable_name}</h5>
@@ -78,9 +84,9 @@ function getAvgStrings(avg){
               
               <td className={styles.td}>{b.time}</td> 
               <td className={styles.td}>{b.rtpi.departuredatetime}</td>
-              <td className={styles.td}>{b.wet_avg}</td> 
-              <td className={styles.td}>{b.dry_avg}</td> 
-              <td className={styles.td}> {b.total_avg}</td> 
+              <td className={styles.td}>{b.wet_avg} ({b.num_wet} results)</td> 
+              <td className={styles.td}>{b.dry_avg} ({b.num_dry} results)</td> 
+              <td className={styles.td}> {b.total_avg} ({b.num_total} results)</td> 
               
             </tr>
             </tbody>
