@@ -1,5 +1,5 @@
 .faveListWrap{
-  background:yellow;
+  background:#e5edd3;
   padding:1rem;
   margin:2rem 0;
 }
@@ -11,21 +11,29 @@
 }
 
 .routebox{
-  background:orangered;
+  background:#5A486E;
   padding:0.3rem;
-  color:white;
-  -webkit-box-shadow: 3px 4px 5px 0px rgba(35,41,23,1);
-  -moz-box-shadow: 3px 4px 5px 0px rgba(35,41,23,1);
-  box-shadow: 3px 4px 5px 0px rgba(35,41,23,1);
   
+
+  -webkit-box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92);
+  -moz-box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92);
+  box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92);
+  
+}
+
+.plainLink{
+  text-decoration: none;
 }
 
 .routeno{
   font-weight: 700;
+  color:white;
 }
 
 .routename{
   font-size: 0.8rem;
+  color:white;
+  
 }
 
 @media only screen and (max-width: 380px) {

@@ -86,10 +86,7 @@ class SearchForStop extends Component {
             return <div className={styles.searchStopWrap}>
               <h3>Find your stop</h3>
               <p><small>{this.state.selectedStop.stopname}</small></p>
-              <div className={styles.inputButtonDiv}>
-
-          
-
+              <div className={(this.props.currentUser.userId) ? styles.inputButtonDivUser : styles.inputButtonDiv }>
               <input 
                 type="text"
                 placeholder="Start typing bus stop name..."

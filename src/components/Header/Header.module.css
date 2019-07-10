@@ -49,7 +49,9 @@
   text-decoration: none;
 }
 .navWrap li span{
-  color:white;
+  color:#4f6128;
+  font-weight:600;
+  cursor: pointer;
 }
 
 .navWrap li{

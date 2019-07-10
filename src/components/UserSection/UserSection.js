@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import https from 'https';
 import { Link } from 'react-router-dom'
 import styles from './UserSection.module.css';
 import FaveStop from '../FaveStop/FaveStop';
@@ -50,7 +48,7 @@ class UserSection extends Component {
             
             this.state.faveStops.map(stop=>{
               return  <div className={styles.routebox} key={stop.bestopid}>
-                <Link to={`${stop.route}/${stop.direction}/${stop.bestopid}`}>
+                <Link className={styles.plainLink} to={`${stop.route}/${stop.direction}/${stop.bestopid}`}>
                 <p className={styles.routeno}>{stop.userStopName}</p>
                 <p className={styles.routename}>{stop.stopname}</p>
                 </Link>

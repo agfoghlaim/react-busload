@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
-import busoutline from '../../img/busoutline.svg';
+//import busoutline from '../../img/busoutline.svg';
 import busoutlinewhite from '../../img/busoutlinewhite.svg';
 
 const header = (props) => {
@@ -11,7 +11,7 @@ const header = (props) => {
     <div className={styles.wrapOne}>
        {/* <div className={styles.burger}>Burger</div> */}
        <div className={styles.logo}><a href="/">BusLoad</a></div>
-       <img className={styles.busoutline} src={busoutlinewhite} />
+       <img className={styles.busoutline} src={busoutlinewhite} alt="bus"/>
        
     </div>
 

@@ -3,6 +3,7 @@ import Modal from '../Modal/Modal';
 import SaveFaveStopForm from './SaveFaveStopForm/SaveFaveStopForm';
 import axios from 'axios';
 import EditFaveStopForm from './EditFaveStopForm/EditFaveStopForm';
+import firebase from '../../config/fbConfig';
 
 
 
@@ -62,7 +63,7 @@ class FaveStop extends Component{
   editFaveStop = (e)=>{
     e.preventDefault();
     //console.log(this.props)
-    const {bestopid,direction,route,fireBaseId,stopname,userStopName,userid} = this.props.userStop;
+    const {bestopid,direction,route,fireBaseId,stopname,userid} = this.props.userStop;
     console.log(this.props.userStop)
     //console.log("will test", this.state)
     let pretend = {
@@ -92,18 +93,18 @@ class FaveStop extends Component{
 //https://busload-8ae3c.firebaseio.com/favourites/-LjI1-_SJJFpVmfkdwKy
   }
 
+  deleteFaveStop = (e)=>{
+    e.preventDefault();
+    const ref = firebase.database().ref(`favourites/${this.props.userStop.fireBaseId}`).remove()
+    .then(()=>console.log("removed"))
+    .catch(e=>console.log("error removing ", e))
+
+  }
+
   showEditForm=(e)=>{
     e.preventDefault();
     this.setState({showEditForm:true})
   }
-  
-  // editFaveStop = (e)=>{
-  //   e.preventDefault()
-  //   const { route, direction, bestopid, stopname } = this.props.selectedStopDets.selectedStop; 
-  //   if(!route || !direction || !bestopid || !stopname) return;
-  //   this.setState({showFaveForm:true})
-  //   console.log("will save stop", stopname)
-  // }
 
 
   showEditBtn=()=>{
@@ -117,12 +118,14 @@ class FaveStop extends Component{
   }
 
   render(){
-   // console.log(this.props)
     return(
       <div>
         { //ie if bring rendered by UserSection
           ( this.props.userStop )?
+          <div>
           <button onClick={(e)=>this.showEditForm(e)}>Rename</button>
+          <button onClick={(e)=>this.deleteFaveStop(e)}>delete</button>
+          </div>
           :
           //ie if being rendered by SearchForStop
           <button onClick={this.saveFaveStop}>Favourite</button>
