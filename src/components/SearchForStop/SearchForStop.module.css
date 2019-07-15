@@ -6,6 +6,8 @@
   grid-gap: 0.2rem;
   display: grid;
   margin: 2rem 0;
+  background: #dfe3d8;
+  padding:1em;
   
 }
 .inputButtonDivUser{
@@ -46,6 +48,7 @@
   border: solid #4f6128 1px;
   text-decoration: none;
   padding:1em 2em;
+  box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92);
   
 }
 

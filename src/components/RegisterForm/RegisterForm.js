@@ -2,20 +2,7 @@ import React from 'react'
 import styles from './RegisterForm.module.css'
 
 const registerForm = (props) => {
-   //console.log("p ", props)
-  const showRegisterFail=()=>{
-    console.log("here", props.registerFail)
-   // console.log(props.showRegisterFail)
-  //  if(props.registerFail ===null) return;
-  //   if(props.registerFail !==null){
-     
-  //      setTimeout(()=>{ 
-  //       //console.log("now",props.registerFail)
-  //      props.resetRegFail()
-  //       //console.log(props.registerFail)
-  //   },  1000)
-  // }
-  }
+
 
   return <div>
       <h4>Register</h4>
@@ -52,9 +39,6 @@ const registerForm = (props) => {
               : null
             }
 
-
-          
-          
           </div>
 
           <div className={styles.formGroup}>
@@ -66,19 +50,20 @@ const registerForm = (props) => {
               id="username"
               onChange={(e)=>props.handleAnyInputChange(e)}/>
               {
-              (props.usernameValidity.validMsgs.length) ?
+
+              (props.usernameValidity.validMsgs.length) 
+
+              ?
+              
               <p className={styles.error}>{props.usernameValidity.validMsgs[0]}</p>
-              : null
-            }
-          </div>
-          <p className={styles.error}>{props.registerFail}  </p>
-            {/* {
-              (props.registerFail !==null) ?
-              <p className={styles.error}>{props.registerFail}{showRegisterFail()}</p>
-              :
+
+              : 
               null
-            } */}
-        
+
+              }
+          </div>
+          <p className={styles.error}>{props.registerFail}</p>
+     
           <button className={styles.buttonMain} onClick={(e)=>props.handleSubmit(e,"register")}>Register</button>
 
         </form>

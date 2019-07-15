@@ -1,0 +1,32 @@
+.homePageHeroWrap{
+  background-image: url('../../../img/rainBus2.jpg'), linear-gradient(#49424142, #d135310d);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.wrapOne{
+  display:grid;
+  justify-content: center;
+  align-content: center;
+  justify-items:center;
+  background: linear-gradient(#494241e3, #202d2000);
+  padding: 10rem 0;
+ 
+}
+
+ .logo a{
+  color:white;
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight:800;
+  text-align: center;
+
+}
+
+
+.busoutline{
+  max-width: 10%;
+}
+
+
+

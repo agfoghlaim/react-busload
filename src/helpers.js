@@ -37,15 +37,20 @@ module.exports = {
             //now we have resp from updating the profile upon registerins
             //also need to get all the user details
            // console.log("too here?1",response.data.idToken)
+              console.log("does this happen", sendEmailUrl,response.data.idToken)
               axios.post(sendEmailUrl,{requestType:'VERIFY_EMAIL',idToken:response.data.idToken})
-            axios.post(getInfoUrl,{idToken:response.data.idToken})
-            .then(emailResp=>{
-              console.log("emailResp", emailResp)  
-            })
-            .then(userDetsResp=>{
-             // console.log("too here?2")
-              resolve({response,userDetsResp})
-            })
+              .then(w=>console.log("email sent ", w))
+              .then(()=>{
+                axios.post(getInfoUrl,{idToken:response.data.idToken})
+                .then(emailResp=>{
+                  //console.log("infoResp", emailResp)  
+                })
+                .then(userDetsResp=>{
+                
+                  resolve({response,userDetsResp})
+                })
+              })
+           
           })
         })
         .catch(e=>reject(e))
@@ -55,8 +60,10 @@ module.exports = {
     return new Promise((resolve,reject)=>{
         axios.post(loginUrl,newUser)
         .then(response=>{
+          console.log("at this poing check if email is verified??? ", response )
           axios.post(getInfoUrl,{idToken:response.data.idToken})
           .then(userDetsResp=>{
+            console.log("now do i know if they're verified ??? ", userDetsResp)
             resolve({response,userDetsResp})
           })
         })

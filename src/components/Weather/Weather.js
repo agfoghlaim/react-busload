@@ -30,22 +30,26 @@ class Weather extends Component{
 
   render(){
     return(
-      <div>
+      <React.Fragment>
   
       {
        
         (this.state.gotWeather) ?
-        <div>
+        <div className={styles.weatherCompDiv}>
           <p className={styles.weatherP}>{(this.state.weather.precipIntensity <= 0 ) ? 'Dry' : 'Wet'}
-        <img src={(this.state.weather.precipIntensity <= 0 ) ? dry : wet} alt='icon'/></p>
+        <img className={styles.weatherIcon} src={(this.state.weather.precipIntensity <= 0 ) ? dry : wet} alt='icon'/></p>
+        <p className={styles.infoText}>Eyre Square {new Date().toString()}</p>
         
 
         </div>
         :
-        <p>Loading weather...</p>
+        <div className={styles.weatherCompDiv}>
+          <p>Loading weather...</p>
+        </div>
+        
       }
       
-      </div>
+      </React.Fragment>
 
     )
   }

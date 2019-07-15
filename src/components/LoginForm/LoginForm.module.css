@@ -19,18 +19,19 @@
   font-weight: bold;
 }
 
- p.error{
-  color:red;
+p.error{
+  color:#943D2E;
   font-size:0.8em;
+  min-height: 1.2em;
   margin: 0;
 }
 
 .valid{
-  border: 2px solid green
+  border: 2px solid #4F6128;
 }
 
 .invalid{
-  border:2px solid red;
+  border:2px solid #943D2E;
 }
 
 .buttonMain{
@@ -43,6 +44,7 @@
   padding: 0.5em 1em 0.5em 1em;
   border: solid #4f6128 1px;
   text-decoration: none;
+  box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92);
   
 }
 

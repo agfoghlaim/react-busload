@@ -3,21 +3,22 @@ import { Link } from 'react-router-dom'
 import styles from './UserSection.module.css';
 import FaveStop from '../FaveStop/FaveStop';
 import firebase from '../../config/fbConfig';
+import axios from 'axios';
 
 class UserSection extends Component {
-
-  state = {stopName:'', faveStops:[]}
+  _isMounted = false;
+  state = {stopName:'', faveStops:[], emailResent:false}
  
+
+
   componentDidMount(){
+    this._isMounted = true;
+    console.log(this.props.userDets.emailVerified)
     //get currently logged in users faveourite stops
     if(!this.props.userDets.userId) return
-   
-
-
     const ref = firebase.database().ref(`favourites`);
     ref.orderByChild("userid").equalTo(`${this.props.userDets.userId}`).on("value", (snapshot) =>{
-    // console.log(snapshot.val());
-      //let stuff = Array.from(snapshot.val().key)
+ 
       let stuff = snapshot.val()
       let newFaveStops = []
       for(let i in stuff){
@@ -25,11 +26,31 @@ class UserSection extends Component {
 
           newFaveStops.push(stuff[i])  
       }
-
-        this.setState({faveStops:newFaveStops})
+        if(this._isMounted){
+          this.setState({faveStops:newFaveStops})
+        }
+        
       });
      
   }//end compDidMount
+
+  componentWillUnmount(){
+    this._isMounted = false;
+  }
+
+  resendEmailVerification=()=>{
+    const domain = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/`;
+    const key = `AIzaSyAoXxf2QSQwHDJOenPiziOTGzxijrZynLs`;
+    let resendUrl=`${domain}getOobConfirmationCode?key=${key}`
+    axios.post(resendUrl,{requestType:'VERIFY_EMAIL',idToken:this.props.userDets.idToken})
+    .then(w=>{
+      //console.log("email sent ", w)
+      this.setState({emailResent:true})
+    })
+    .catch(e=>{
+      console.log({...e})
+    })
+  }
 
   
 
@@ -39,6 +60,22 @@ class UserSection extends Component {
     return (
       <div className={styles.faveListWrap} >
         <h3>{this.props.userDets.displayName}'s Quick Stops</h3>
+        {
+          (this.props.emailResent)?
+          <p>Email Sent. Please logout and check your emails.</p>
+          : null
+        }
+        {
+          (!this.props.userDets.emailVerified) ?
+          <div className={styles.warningDiv}>
+            <p className={styles.warningText}>Email Not Verified. Please logout and check your emails to continue.</p>
+             <button onClick={this.resendEmailVerification}className={styles.buttonSmall}>Resend verification Email Now</button>
+          </div>
+          :
+          null
+          // <p>(verified) </p>
+        }
+
         <div className={styles.routewrap} >
         
           {
@@ -55,6 +92,7 @@ class UserSection extends Component {
                 }}>
                 <p className={styles.routeno}>{stop.userStopName}</p>
                 <p className={styles.routename}>{stop.stopname}</p>
+                <p className={styles.routename}>{stop.bestopid}</p>
                 </Link>
                 <FaveStop userStop={stop}/>
               </div>
@@ -63,8 +101,9 @@ class UserSection extends Component {
             )
 
             :
-
-            null
+            
+            <p>Put your favourite bus stops here for quick access. </p>
+            
           }
         </div>
       </div>

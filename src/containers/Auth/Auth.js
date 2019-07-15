@@ -25,7 +25,8 @@ class Auth extends Component{
       userId:null,
       error:null,
       loginFail:null,
-      registerFail:null
+      registerFail:null,
+      emailVerifyRequired:false
   }
 
 
@@ -64,10 +65,15 @@ class Auth extends Component{
  //console.log("display name in auth ? ", loginResp.data.displayName)
     //call handleLogin, so app.js state can be updated
 
-    this.props.handleLogin(loginResp.data.idToken,loginResp.data.localId,willExpireAt,loginResp.data.displayName)
+    this.props.handleLogin(loginResp.data.idToken,loginResp.data.localId,willExpireAt,loginResp.data.displayName,userDets.data.users[0].emailVerified)
   }
 
   registerSuccess=()=>{
+    //show login form
+    //email sent message
+    //then change login to refuse if email not verified
+    this.setState({emailVerifyRequired:true})
+    this.handleSwitchBetweenLoginRegisterForms()
     console.log("register success, should show login form")
   }
 
@@ -164,7 +170,15 @@ class Auth extends Component{
 
     if(registerOrLogin === 'login'){
       let resp = dealWithFirebaseLogin(loginUrl,getInfoUrl,newUser)
-      resp.then(r=>this.loginSuccess(r.response,r.userDetsResp))
+      resp.then(r=>{
+        // if(!r.userDetsResp.data.users[0].emailVerified){
+        //   this.setState({emailVerifyRequired:true})
+        
+        // }else{
+          this.loginSuccess(r.response,r.userDetsResp)
+       // }
+        
+      })
       .catch(e=>this.loginFail(e.response.data.error.message))
     }else{
       let resp = dealWithFirebaseRegister(registerUrl,getInfoUrl,setInfoUrl,sendEmailUrl,newUser,newUserDetails)
@@ -208,18 +222,6 @@ class Auth extends Component{
   }
 
 
-  /*
-
-  TODO GET RID OF LOGIN/REGISTER FAIL ERROR when form changes
-          |||
-          |||
-          |||
-          |||
-          |||
-         VVVVV
-          VVV
-           V
-  */
 
   handleAnyInputChange = (e) =>{
     //if there is a submission error clear
@@ -245,7 +247,7 @@ class Auth extends Component{
 
 
   render(){
-    //console.log(this.state)
+  
     return(
       <div>
         <h3>Auth Component</h3>
@@ -258,7 +260,6 @@ class Auth extends Component{
         
     
         <RegisterForm 
-        resetRegFail={this.resetRegFail}
         registerFail = {this.state.registerFail}
         emailValue = {this.state.emailField.email}
         emailValidity = {this.state.emailField.validity}
@@ -271,15 +272,17 @@ class Auth extends Component{
      
         :
         <LoginForm 
+        emailVerifyRequired={this.state.emailVerifyRequired}
         loginFail = {this.state.loginFail}
         emailValue = {this.state.emailField.email}
         emailValidity = {this.state.emailField.validity}
         passwordValue = {this.state.passwordField.password}
         passwordValidity = {this.state.passwordField.validity}
         handleSubmit={this.handleFormSubmit}
-        handleAnyInputChange={this.handleAnyInputChange} />
+        handleAnyInputChange={this.handleAnyInputChange}
+         />
         }
-        <button className={styles.buttonMain} onClick={this.handleLogOut}>Logout</button>
+        {/* <button className={styles.buttonMain} onClick={this.handleLogOut}>Logout</button> */}
 
         <button className={styles.buttonMain} onClick={this.handleSwitchBetweenLoginRegisterForms}>Show {this.state.showRegisterForm ? 'Login' : 'Register'} instead</button>
 

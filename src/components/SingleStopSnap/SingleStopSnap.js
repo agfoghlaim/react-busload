@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import { gql } from 'apollo-boost'; //parse queries
 import { Query } from 'react-apollo';
 import Timetable from '../Timetable/Timetable';
+import styles from './SingleStopSnap.module.css';
+
+
 
 
 
@@ -10,6 +13,17 @@ import Timetable from '../Timetable/Timetable';
 class SingleStopSnap extends Component{
 
   state = {
+    bus_times_x:[
+      {active:true,dayNum:'',label:'Today'},
+      {active:false,dayNum:2,label:'Weekday'},
+      {active:false,dayNum:6,label:'Saturday'},
+      {active:false,dayNum:0,label:'Sunday'}
+      
+      
+      
+    ],
+
+  
   dayNumber:new Date().getDay(),
   dayString:function(){
     let dayNumber = parseInt(this.dayNumber)
@@ -45,12 +59,35 @@ class SingleStopSnap extends Component{
 
 
 changeBusTimes_X = (day)=>{
+  let isTodayStr = false;
     if(day === ""){
+      isTodayStr = true;
       day = new Date().getDay()
     }
+  //  this.props.history.push({pathname:`/${day}`})
     this.props.history.replace(`/${this.props.match.params.route}/${this.props.match.params.direction}/${this.props.match.params.bestopid}/${day}`)
-      
-      this.setState({dayNumber:day})
+
+    //make all active false first
+    let stateCopy = this.state.bus_times_x
+    stateCopy.map(t=>t.active=false)
+
+    
+
+    if(isTodayStr){
+      //let stateCopy = this.state.bus_times_x;
+      //stateCopy.active=true
+      stateCopy[0].active=true;
+    }else if([1,2,3,4,5].includes(day)){
+      stateCopy[1].active=true;
+    }else if(day === 6 ){
+      stateCopy[2].active=true;
+    }else if(day === 0){
+      stateCopy[3].active=true;
+    }
+
+
+   
+      this.setState({dayNumber:day,bus_times_x:stateCopy})
   }
 
   render(){
@@ -71,25 +108,24 @@ changeBusTimes_X = (day)=>{
   `
   
     const SINGLE_STOP_SNAPS = gql`
-  query bus_times_x_snaps_2($route:String!, $direction:String!,$bestopid:String!,$requestedTimetable:String!){
-    bus_times_x_snaps_2(route:$route, direction:$direction,bestopid:$bestopid,requestedTimetable:$requestedTimetable){
-   bestopid,
-   stop_sequence
-   name
-   timetable_name
-   bus_times {
-     bus
-     time
-     wet_avg
-     dry_avg
-     total_avg
-     num_dry
-     num_wet
-     num_total
-   }
- }
-}
-`
+      query bus_times_x_snaps_2($route:String!, $direction:String!,$bestopid:String!,$requestedTimetable:String!){
+        bus_times_x_snaps_2(route:$route, direction:$direction,bestopid:$bestopid,requestedTimetable:$requestedTimetable){
+      bestopid,
+      stop_sequence
+      name
+      timetable_name
+      bus_times {
+        bus
+        time
+        wet_avg
+        dry_avg
+        total_avg
+        num_dry
+        num_wet
+        num_total
+      }
+    }
+    }`
   let { bestopid, route, direction } = this.props.match.params;
   let requestedTimetable = this.state.dayString()
   //let requestedTimetable = 'Tue'
@@ -115,12 +151,22 @@ changeBusTimes_X = (day)=>{
                         return arr.map((one)=>{
                           return one['bus']
                         }).indexOf(item['bus'])===i;})
-
+                       
                       return <React.Fragment>
-                        <button onClick={()=>this.changeBusTimes_X(2)}>Week</button>
-                        <button onClick={()=>this.changeBusTimes_X(6)}>Sat</button>
-                        <button onClick={()=>this.changeBusTimes_X(0)}>Sun</button>
-                        <button onClick={()=>this.changeBusTimes_X("")}>Today</button>
+                        {/* <button className={styles.buttonInfo} onClick={()=>this.changeBusTimes_X(2)}>Week</button>
+                        <button className={styles.buttonInfo} onClick={()=>this.changeBusTimes_X(6)}>Sat</button>
+                        <button className={styles.buttonInfo} onClick={()=>this.changeBusTimes_X(0)}>Sun</button>
+                        <button className={styles.buttonInfo} onClick={()=>this.changeBusTimes_X('')}>Today</button> */}
+                        {
+                          
+                          this.state.bus_times_x.map(bus=><button key={bus.label} className={(bus.active)? styles.buttonInfoActive : styles.buttonInfo} onClick={()=>this.changeBusTimes_X(bus.dayNum)}>{bus.label}</button>
+                          
+                          )
+                        }
+
+                        
+
+
                         <Timetable busRoutes={one.bus_times_x_snaps_2} rtpiData={two} route={route} />
                       </React.Fragment>
                     }

@@ -20,17 +20,18 @@
 }
 
 p.error{
-  color:red;
+  color:#943D2E;
   font-size:0.8em;
+  min-height: 1.2em;
   margin: 0;
 }
 
 .valid{
-  border: 2px solid green
+  border: 2px solid #4F6128;
 }
 
 .invalid{
-  border:2px solid red;
+  border:2px solid #943D2E;
 }
 
 .buttonMain{
@@ -40,7 +41,7 @@ p.error{
   color: #fafafa;
   font-size: 20px;
   background: #4f6128;
-
+  box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92);
   padding: 0.5em 1em 0.5em 1em;
   border: solid #4f6128 1px;
   text-decoration: none;

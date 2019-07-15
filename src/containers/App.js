@@ -65,7 +65,7 @@ class App extends Component {
       
         let userId = localStorage.getItem('userId')
         let displayName = localStorage.getItem('displayName')
-        let emailVerified = localStorage.getItem('emailVerified')
+        let emailVerified = JSON.parse(localStorage.getItem('emailVerified'))
         this.handleLogin(idToken,userId,expiresAt,displayName,emailVerified)
       }else{
         localStorage.clear()
@@ -87,10 +87,11 @@ class App extends Component {
         <ApolloProvider client={client} >
         <div className={styles.App}>
           {/* <Route path='/' component={Header} /> */}
+          {/* <Route path='/' component={Weather} /> */}
           <Route path='/' render={(props) => <Header {...props} userDets ={this.state} handleLogOut={this.handleLogOut} />}
           />
 
-          <Route path='/' component={Weather} />
+          
           
           
           <Route path='/auth' render={(props) => <Auth {...props} handleLogin={this.handleLogin} handleLogOut={this.handleLogOut} idToken={this.state.idToken} />}
@@ -101,17 +102,17 @@ class App extends Component {
                   <Route path='/' render={(props) => <UserSection {...props} userDets ={this.state} />}
                   />
           : null
-          // (this.state.isUser) ?
-          // <UserSection userDets ={this.state} />
-          
-          // : null
+   
         }
   
 
           <Route path='/' exact render={(props) => <FindStop {...props} userDets ={this.state} />}
           />
+
           <Route path='/:route/:direction/:bestopid' component={Pagination} />
-          <Route exact path='/:route/:direction/:bestopid' component={SingleStopSnap} />
+
+          <Route  path='/:route/:direction/:bestopid/' component={SingleStopSnap} />
+          
           <Route path='/:route/:direction/' exact component={BusRouteStopsList} />
           
         </div>

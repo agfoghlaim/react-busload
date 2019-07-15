@@ -84,9 +84,9 @@ function getAvgStrings(avg){
               
               <td className={styles.td}>{b.time}</td> 
               <td className={styles.td}>{b.rtpi.departuredatetime}</td>
-              <td className={styles.td}>{b.wet_avg} ({b.num_wet} results)</td> 
-              <td className={styles.td}>{b.dry_avg} ({b.num_dry} results)</td> 
-              <td className={styles.td}> {b.total_avg} ({b.num_total} results)</td> 
+              <td className={styles.td}>{b.wet_avg} <br />({b.num_wet} results)</td> 
+              <td className={styles.td}>{b.dry_avg}<br /> ({b.num_dry} results)</td> 
+              <td className={styles.td}> {b.total_avg}<br /> ({b.num_total} results)</td> 
               
             </tr>
             </tbody>
