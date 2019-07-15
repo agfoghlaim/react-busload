@@ -1,14 +1,57 @@
+.theForm{
+  display:grid;
+  grid-template-columns:1fr;
+  grid-gap:2rem;
+  min-height:50vh;
+
+}
+
+.formGroup{
+  display:grid;
+  align-content: center;
+  grid-gap:0.5em;
+  /* margin:0.5em 0; */
+}
+
+.formGroup > input{
+  padding:0.5rem;
+  font-size:1rem;
+  max-height:2rem;
+}
+
+.formGroup > label{
+  font-weight: bold;
+
+}
+
+p.error{
+  color:#943D2E;
+  font-size:0.8em;
+  min-height: 1.2em;
+  margin: 0;
+  align-self: flex-end;
+}
+
+.valid{
+  border: 2px solid #4F6128;
+}
+
+.invalid{
+  border:2px solid #943D2E;
+}
+
 .buttonMain{
   -webkit-border-radius: 2;
   -moz-border-radius: 2;
   border-radius: 2px;
   color: #fafafa;
-  font-size: 1rem;
+  font-size: 20px;
   background: #4f6128;
   padding: 0.5em 1em 0.5em 1em;
   border: solid #4f6128 1px;
   text-decoration: none;
-  margin:1rem;
+  box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92);
+  max-height:4rem;
   
 }
 
@@ -17,4 +60,36 @@
     background: #5a7228;
     text-decoration: none;
     cursor: pointer;
+}
+
+.authComp{
+  height:70vh;
+  /* background:gray; */
+  padding:1em;
+  border:1px solid gray;
+  border-radius: 1em;
+}
+
+.buttonLikeLink{
+  background:none;
+  color:inherit;
+  border:none; 
+  padding:0!important;
+  font:inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.buttonGroup{
+  display: flex;
+  justify-content: space-around;
+  margin:1em 0;
+}
+
+.theForm{
+  display:grid;
+  grid-template-columns:1fr;
+  grid-gap:2rem;
+  min-height:50vh;
+
 }

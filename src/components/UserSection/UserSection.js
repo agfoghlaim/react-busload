@@ -4,16 +4,18 @@ import styles from './UserSection.module.css';
 import FaveStop from '../FaveStop/FaveStop';
 import firebase from '../../config/fbConfig';
 import axios from 'axios';
+import { Route } from 'react-router-dom';
+import UserProfile from '../UserProfile/UserProfile';
 
 class UserSection extends Component {
   _isMounted = false;
-  state = {stopName:'', faveStops:[], emailResent:false}
+  state = {stopName:'', faveStops:[], emailResent:false, userInfo:{}}
  
 
 
   componentDidMount(){
     this._isMounted = true;
-    console.log(this.props.userDets.emailVerified)
+    console.log(this.props.userDets)
     //get currently logged in users faveourite stops
     if(!this.props.userDets.userId) return
     const ref = firebase.database().ref(`favourites`);
@@ -31,6 +33,22 @@ class UserSection extends Component {
         }
         
       });
+
+
+
+
+      const domain = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/`;
+      const key = `AIzaSyAoXxf2QSQwHDJOenPiziOTGzxijrZynLs`;
+      let getInfoUrl = `${domain}getAccountInfo?key=${key}`; 
+      axios.post(getInfoUrl,{idToken:this.props.userDets.idToken})
+      .then(r=>{
+        console.log(r)
+        this.setState({userInfo:r.data.users[0]})
+      })
+      .catch(e=>{
+        console.log(e)
+        console.log({...e})
+      })
      
   }//end compDidMount
 
@@ -106,6 +124,9 @@ class UserSection extends Component {
             
           }
         </div>
+
+        <Route path='/user/:uid' render={(props) => <UserProfile {...props} userInfo ={this.state.userInfo} />}
+         />
       </div>
     )
   }

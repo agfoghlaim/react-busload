@@ -17,10 +17,7 @@ class SingleStopSnap extends Component{
       {active:true,dayNum:'',label:'Today'},
       {active:false,dayNum:2,label:'Weekday'},
       {active:false,dayNum:6,label:'Saturday'},
-      {active:false,dayNum:0,label:'Sunday'}
-      
-      
-      
+      {active:false,dayNum:0,label:'Sunday'}  
     ],
 
   
@@ -92,6 +89,7 @@ changeBusTimes_X = (day)=>{
 
   render(){
 //only run if today!!
+    
     const RTPI_INFO = gql`
     query rtpiRequest($route:String!, $bestopid:String!){
       rtpiRequest(route:$route, bestopid:$bestopid){
@@ -139,6 +137,7 @@ changeBusTimes_X = (day)=>{
             variables={{route,direction,bestopid,requestedTimetable}}>
               {({ loading:loadingOne,data:one}) => (
                 <Query 
+                // skip={(this.state.bus_times_x[0].active) ? true : false }
                   query={RTPI_INFO} 
                   variables={{route,bestopid}}>
                   {

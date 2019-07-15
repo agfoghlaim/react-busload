@@ -2,8 +2,8 @@ import React from 'react'
 import styles from './LoginForm.module.css'
 
 const loginForm = (props) => {
-  return <div>
-         <h4>Login</h4>
+  return <div className ={styles.formWrapDiv}>
+         <h3>Login</h3>
         <form className={styles.theForm}>
         <div className={styles.formGroup}>
           <label>Email</label>

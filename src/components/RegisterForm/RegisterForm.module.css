@@ -2,17 +2,20 @@
   display:grid;
   grid-template-columns:1fr;
   grid-gap:2rem;
+  min-height:50vh;
 
 }
 
 .formGroup{
   display:grid;
-  grid-gap:0.5rem;
+  align-content: center;
+  margin:0.5em 0;
 }
 
 .formGroup > input{
   padding:0.5rem;
   font-size:1rem;
+  max-height:2rem;
 }
 
 .formGroup > label{
@@ -24,6 +27,7 @@ p.error{
   font-size:0.8em;
   min-height: 1.2em;
   margin: 0;
+  align-self: flex-end;
 }
 
 .valid{
@@ -45,6 +49,7 @@ p.error{
   padding: 0.5em 1em 0.5em 1em;
   border: solid #4f6128 1px;
   text-decoration: none;
+  max-height:4rem;
   
 }
 
@@ -54,3 +59,12 @@ p.error{
     text-decoration: none;
     cursor: pointer;
 }
+
+/* .formWrapDiv{
+  height:50vh;
+
+  padding:1em;
+  border-radius: 1em;
+  border:1px solid gray;
+  transition: all 1s;
+} */

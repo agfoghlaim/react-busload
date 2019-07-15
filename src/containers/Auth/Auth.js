@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
 import LoginForm from '../../components/LoginForm/LoginForm';
+
 import { Redirect }from 'react-router-dom';
 import { dealWithFirebaseRegister,dealWithFirebaseLogin } from '../../helpers';
+import ResetPassForm from '../../components/ResetPassForm/ResetPassForm';
 import styles from './Auth.module.css';
+import axios from 'axios';
 
 
 
@@ -26,7 +29,9 @@ class Auth extends Component{
       error:null,
       loginFail:null,
       registerFail:null,
-      emailVerifyRequired:false
+      resetFail:null,
+      emailVerifyRequired:false,
+      showReset:false
   }
 
 
@@ -41,12 +46,50 @@ class Auth extends Component{
        this.setState({loginFail:null})
       },  3000)
     }
+    if(this.state.resetFail !==null){
+      setTimeout(()=>{ 
+       this.setState({resetFail:null})
+      },  3000)
+    }
   }
   handleSwitchBetweenLoginRegisterForms  = ()=>{
     this.setState(previousState =>{
-      return { showRegisterForm : !previousState.showRegisterForm}
+      return { showRegisterForm : !previousState.showRegisterForm,showReset:false}
     })
-    
+  }
+
+  // handleResetInputChange = (e)=>{
+  //   this.setState({sendResetEmailTo:e.target.value})
+  // }
+
+  handleShowResetPassForm  = ()=>{
+    this.setState({showReset:true})
+  }
+
+  handleResetPass = (e)=>{
+    e.preventDefault();
+    if(!this.checkValidOnSubmit('reset')){
+      console.log("ignoring form")
+      this.showFormNotSubmitted('reset')
+      return false
+    }
+
+    console.log("mail to ", this.state.emailField.email)
+    const domain = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/`;
+    const key = `AIzaSyAoXxf2QSQwHDJOenPiziOTGzxijrZynLs`;
+    let resetUrl = `${domain}getOobConfirmationCode?key=${key}`;
+
+    let options = {
+      requestType:'PASSWORD_RESET',email:this.state.emailField.email
+    }
+    axios.post(resetUrl,options)
+    .then(r=>{
+      console.log("sent ", r)
+    })
+    .catch(e=>{
+      console.log(e)
+      console.log({...e})
+    })
   }
 
   loginSuccess = (loginResp,userDets)=>{
@@ -77,7 +120,10 @@ class Auth extends Component{
     console.log("register success, should show login form")
   }
 
-  
+  resetFail = (errormsg)=>{
+ 
+    this.setState({resetFail:'Email not sent'})
+  }
   loginFail = (errorMsg) =>{
     console.log(errorMsg)
     if(errorMsg === 'EMAIL_NOT_FOUND' || 'INVALID_EMAIL'){
@@ -127,6 +173,11 @@ class Auth extends Component{
         return true
       }else{return false;}
     }
+    if(registerOrLogin === 'reset'){
+      if(this.state.emailField.validity.isValid && this.state.emailField.email.length ){
+        return true
+      }else{return false;}
+    }
   }
 
   showFormNotSubmitted = (registerOrLogin)=>{
@@ -135,6 +186,9 @@ class Auth extends Component{
     }
     if(registerOrLogin === 'login'){
       this.loginFail();
+    }
+    if(registerOrLogin === 'reset'){
+      this.resetFail();
     }
   }
 
@@ -222,7 +276,7 @@ class Auth extends Component{
   }
 
 
-
+//for login and reg forms
   handleAnyInputChange = (e) =>{
     //if there is a submission error clear
     
@@ -249,14 +303,19 @@ class Auth extends Component{
   render(){
   
     return(
-      <div>
-        <h3>Auth Component</h3>
+      <div className={styles.authComp}>
+    
+
         {
-          (this.props.idToken) ? <Redirect to='/'/>
+          (this.props.idToken) ? 
+          
+          <Redirect to='/'/>
+
           : null
         }
+
         {
-          (this.state.showRegisterForm) ?
+          (this.state.showRegisterForm && !this.state.showReset) ?
         
     
         <RegisterForm 
@@ -271,9 +330,10 @@ class Auth extends Component{
         handleAnyInputChange={this.handleAnyInputChange} />
      
         :
+        (!this.state.showRegisterForm && !this.state.showReset) ?
         <LoginForm 
         emailVerifyRequired={this.state.emailVerifyRequired}
-        loginFail = {this.state.loginFail}
+       loginFail = {this.state.loginFail} 
         emailValue = {this.state.emailField.email}
         emailValidity = {this.state.emailField.validity}
         passwordValue = {this.state.passwordField.password}
@@ -281,11 +341,26 @@ class Auth extends Component{
         handleSubmit={this.handleFormSubmit}
         handleAnyInputChange={this.handleAnyInputChange}
          />
+
+         :
+         
+         <ResetPassForm
+         handleResetPass={this.handleResetPass}
+         handleAnyInputChange={this.handleAnyInputChange}
+         emailValidity={this.state.emailField.validity}
+         resetFail = {this.state.resetFail}
+         styles={styles}
+         
+         >
+
+         </ResetPassForm>
         }
         {/* <button className={styles.buttonMain} onClick={this.handleLogOut}>Logout</button> */}
+        <div className={styles.buttonGroup}>
+          <button className={styles.buttonLikeLink} onClick={this.handleSwitchBetweenLoginRegisterForms}>{this.state.showRegisterForm ? 'Login' : 'Register'}</button>
 
-        <button className={styles.buttonMain} onClick={this.handleSwitchBetweenLoginRegisterForms}>Show {this.state.showRegisterForm ? 'Login' : 'Register'} instead</button>
-
+          <button className={styles.buttonLikeLink} onClick={this.handleShowResetPassForm}>Forgot password?</button>
+        </div>
       </div>
     )
   }
