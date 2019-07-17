@@ -1,15 +1,20 @@
 .theForm{
+  /* display:grid;
+  grid-template-columns:1fr;
+  grid-gap:2rem;
+  min-height: 300px; */
   display:grid;
   grid-template-columns:1fr;
   grid-gap:2rem;
-  min-height:50vh;
+  min-height: 400px;
+ 
 
 }
 
 .formGroup{
   display:grid;
   align-content: center;
-  grid-gap:0.5em;
+  /* grid-gap:0.5em; */
   /* margin:0.5em 0; */
 }
 
@@ -63,11 +68,12 @@ p.error{
 }
 
 .authComp{
-  height:70vh;
-  /* background:gray; */
+  /* min-height:500px; */
   padding:1em;
   border:1px solid gray;
   border-radius: 1em;
+  height: auto;
+min-height: 500px;
 }
 
 .buttonLikeLink{
@@ -86,10 +92,10 @@ p.error{
   margin:1em 0;
 }
 
-.theForm{
+/* .theForm{
   display:grid;
   grid-template-columns:1fr;
   grid-gap:2rem;
   min-height:50vh;
 
-}
+} */

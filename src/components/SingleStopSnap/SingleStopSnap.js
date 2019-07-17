@@ -121,6 +121,27 @@ changeBusTimes_X = (day)=>{
         num_dry
         num_wet
         num_total
+        wet_snaps {
+          _id
+          dayOfWeek
+          queryDateTime
+          forBusDue
+          timetabled
+          actual
+          earlyOrLate
+          minutesOff
+        }
+        dry_snaps {
+          _id
+          queryScheduledTime
+          dayOfWeek
+          queryDateTime
+          forBusDue
+          timetabled
+          actual
+          earlyOrLate
+          minutesOff
+        }
       }
     }
     }`

@@ -9,9 +9,9 @@ const nav = (props) => {
 
     <div className={styles.navWrap}>
       <ul>
-        <li><a href="/">Home</a></li>
+        <li><Link to={'/'}>Home</Link></li>
         
-        <li><a href="/">About</a></li>
+        <li><Link to={'/'}>About</Link></li>
         {(props.userDets.isUser) ? 
 
        <li onClick={()=>props.handleLogOut()}>

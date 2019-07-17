@@ -2,7 +2,7 @@
   display:grid;
   grid-template-columns:1fr;
   grid-gap:2rem;
-  min-height:50vh;
+  min-height: 400px;
 
 }
 
@@ -16,6 +16,7 @@
   padding:0.5rem;
   font-size:1rem;
   max-height:2rem;
+
 }
 
 .formGroup > label{

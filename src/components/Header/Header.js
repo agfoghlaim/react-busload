@@ -12,7 +12,6 @@ const header = (props) => {
    <header className={styles.header}>
       <Weather />
       <Route exact path='/' component={HomeHero}/>
-   
       <Nav handleLogOut={props.handleLogOut} userDets={props.userDets}/>
 
 

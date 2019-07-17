@@ -3,7 +3,7 @@ import ApolloClient from "apollo-boost";
 import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter, Route } from 'react-router-dom';
 //import * as firebase from 'firebase';
-
+import Layout from '../components/Layout/Layout';
 
 import FindStop from './FindStop';
 import Auth from './Auth/Auth';
@@ -85,21 +85,14 @@ class App extends Component {
     return (
       <BrowserRouter>
         <ApolloProvider client={client} >
+          <Layout userDets ={this.state} handleLogOut={this.handleLogOut}>
         <div className={styles.App}>
-          {/* <Route path='/' component={Header} /> */}
-          {/* <Route path='/' component={Weather} /> */}
-          <Route path='/' render={(props) => <Header {...props} userDets ={this.state} handleLogOut={this.handleLogOut} />}
-          />
+  
+          {/* <Route path='/' render={(props) => <Header {...props} userDets ={this.state} handleLogOut={this.handleLogOut} />}
+          /> */}
 
-        
-
-          
-          
-          
           <Route path='/auth' render={(props) => <Auth {...props} handleLogin={this.handleLogin} handleLogOut={this.handleLogOut} idToken={this.state.idToken} userDets ={this.state} />}
           />
-
-
          
         {
           (this.state.isUser) ?
@@ -120,6 +113,7 @@ class App extends Component {
           <Route path='/:route/:direction/' exact component={BusRouteStopsList} />
           
         </div>
+        </Layout>
         </ApolloProvider>
       </BrowserRouter>
     );

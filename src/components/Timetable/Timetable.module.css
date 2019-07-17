@@ -39,12 +39,14 @@
    }
 }
 
-/* .tr{
-  padding:6em;
-} */
-/* .tr:hover{
-  background:#CBFA66;
-} */
+
+.tr:hover{
+  background: linear-gradient(45deg, rgba(90,72,110,1), rgba(90,72,110,0.8));
+}
+
+/* .tr:hover .tdClickable .td{
+  background:none;
+}  */
 
 .th{
   padding:1em;
@@ -63,6 +65,18 @@
 .td:hover{
   background: linear-gradient( rgba(79, 97, 40, 0.9), rgba(79, 97, 40, 0.81));
   border:1px solid  rgb(72, 85, 45);
-
-
 }
+
+.tdClickable{
+  cursor: pointer;
+  padding:1rem;
+  border:1px solid  rgba(79, 97, 40, 1);
+  background: linear-gradient( #88AD36, #92AD58);
+  color:white;
+  font-size:0.8em;
+}
+.tdClickable:hover{
+  background: linear-gradient( rgba(79, 97, 40, 0.9), rgba(79, 97, 40, 0.81));
+  border:1px solid  rgb(72, 85, 45);
+}
+

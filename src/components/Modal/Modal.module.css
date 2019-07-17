@@ -1,11 +1,22 @@
 .Modal{
-  background:pink;
+  background:white;
+  /* border:1px solid gray; */
+  border-radius: 1em;
   position:fixed;
   padding:1rem;
   width:90%;
   left:5%;
   top:10%;
+  z-index: 500;
   box-sizing:border-box;
   box-shadow: 1px 1px 1px #ccc;
   transition: all 0.2s ease-in-out;
+}
+
+.transShow{
+  background:red;
+}
+
+.transHide{
+  background:blue;
 }

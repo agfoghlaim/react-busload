@@ -1,6 +1,5 @@
 .ModalBg{
-  background:green;
-  opacity: 0.7;
+  background:rgba(79, 97, 40, 0.7);
   position:fixed;
   top:0;
   left:0;

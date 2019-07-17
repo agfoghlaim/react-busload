@@ -1,0 +1,15 @@
+.busDetsTable{
+  background:#DCE1CF;
+   /* background:#9DAD7B; */
+   width:100%;
+ }
+
+ .busDetsTable tr td{
+  padding:1em 0.5em;
+  text-align:left;
+ }
+
+ .busDetsTable thead tr th{
+  padding:1em 0.5em;
+  text-align:left;
+ }
