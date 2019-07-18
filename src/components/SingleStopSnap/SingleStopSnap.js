@@ -146,6 +146,7 @@ changeBusTimes_X = (day)=>{
     }
     }`
   let { bestopid, route, direction } = this.props.match.params;
+  console.log(this.props.match.params)
   let requestedTimetable = this.state.dayString()
   //let requestedTimetable = 'Tue'
   console.log("req timetable is ", requestedTimetable)

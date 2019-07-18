@@ -1,0 +1,14 @@
+.mapWrapDiv div{
+  max-width: 100%;
+}
+.markerBtn{
+  background:none;
+  border:none;
+  cursor: pointer;
+  max-width:1em;
+}
+
+.markerBtn img{
+
+  max-width:2em;
+}
