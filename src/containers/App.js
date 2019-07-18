@@ -10,6 +10,7 @@ import Auth from './Auth/Auth';
 
 //import Header from '../components/Header/Header';
 import UserSection from '../components/UserSection/UserSection'
+
 import SingleStopSnap from '../components/SingleStopSnap/SingleStopSnap';
 import BusRouteStopsList from '../components/BusRouteStopsList/BusRouteStopsList';
 //import Weather from '../components/Weather/Weather';
@@ -90,7 +91,7 @@ class App extends Component {
   
           {/* <Route path='/' render={(props) => <Header {...props} userDets ={this.state} handleLogOut={this.handleLogOut} />}
           /> */}
-
+      
           <Route path='/auth' render={(props) => <Auth {...props} handleLogin={this.handleLogin} handleLogOut={this.handleLogOut} idToken={this.state.idToken} userDets ={this.state} />}
           />
          
@@ -110,7 +111,7 @@ class App extends Component {
           
           
           <Route  path='/:route/:direction/:bestopid/' component={SingleStopSnap} />
-          
+         
           <Route path='/:route/:direction/' exact component={BusRouteStopsList} />
           
         </div>

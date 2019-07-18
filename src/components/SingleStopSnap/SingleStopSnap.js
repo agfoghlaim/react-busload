@@ -146,20 +146,22 @@ changeBusTimes_X = (day)=>{
     }
     }`
   let { bestopid, route, direction } = this.props.match.params;
-  console.log(this.props.match.params)
+  console.log(bestopid, route,direction)
   let requestedTimetable = this.state.dayString()
-  //let requestedTimetable = 'Tue'
+ 
   console.log("req timetable is ", requestedTimetable)
- // console.log(this.date.dayString())
+
   
-    if(!bestopid || !route || !direction) return <p>Something's not right</p>
+    if(!bestopid || !route || !direction){
+      return<p>Something's not right</p>
+    } else{
     
-    return<Query 
+          return<Query 
             query={SINGLE_STOP_SNAPS} 
             variables={{route,direction,bestopid,requestedTimetable}}>
               {({ loading:loadingOne,data:one}) => (
                 <Query 
-                // skip={(this.state.bus_times_x[0].active) ? true : false }
+                //  skip={(this.state.bus_times_x[0].active) ? true : false }
                   query={RTPI_INFO} 
                   variables={{route,bestopid}}>
                   {
@@ -174,10 +176,7 @@ changeBusTimes_X = (day)=>{
                         }).indexOf(item['bus'])===i;})
                        
                       return <React.Fragment>
-                        {/* <button className={styles.buttonInfo} onClick={()=>this.changeBusTimes_X(2)}>Week</button>
-                        <button className={styles.buttonInfo} onClick={()=>this.changeBusTimes_X(6)}>Sat</button>
-                        <button className={styles.buttonInfo} onClick={()=>this.changeBusTimes_X(0)}>Sun</button>
-                        <button className={styles.buttonInfo} onClick={()=>this.changeBusTimes_X('')}>Today</button> */}
+ 
                         {
                           
                           this.state.bus_times_x.map(bus=><button key={bus.label} className={(bus.active)? styles.buttonInfoActive : styles.buttonInfo} onClick={()=>this.changeBusTimes_X(bus.dayNum)}>{bus.label}</button>
@@ -185,17 +184,14 @@ changeBusTimes_X = (day)=>{
                           )
                         }
 
-                        
-
-
-                        <Timetable busRoutes={one.bus_times_x_snaps_2} rtpiData={two} route={route} />
+                      <Timetable busRoutes={one.bus_times_x_snaps_2} rtpiData={two} route={route} direction={direction} isToday={this.state.bus_times_x[0].active}/>
                       </React.Fragment>
                     }
                   }
                   </Query>
               )}
           </Query>
-  
+    }//end else
 
 
 

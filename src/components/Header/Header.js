@@ -8,7 +8,7 @@ import { Route } from 'react-router-dom';
 
 
 const header = (props) => {
-console.log(props)
+
  return (
    <header className={styles.header}>
       <Weather />

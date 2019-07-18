@@ -1,9 +1,12 @@
 import React from 'react';
 import styles from './BusRoutesList.module.css';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
+import BusRouteStopsList from '../BusRouteStopsList/BusRouteStopsList';
 
 const busRoutesList = (props) => {
- // console.log(props)
+  
+
+ //props.setSelectedRoute
     return(
       <div className={styles.routeListWrap} >
       <h3>Choose your route</h3>
@@ -11,7 +14,7 @@ const busRoutesList = (props) => {
       
         {
           props.busRoutes.map(busroute=>{
-            return <Link to={`${busroute.route}/${busroute.direction}`}  key={`${busroute.route}-${busroute.direction}`} className={styles.plainLink}><div 
+            return <Link onClick={(e)=>props.setSelectedRoute(e,busroute.route,busroute.direction)} to={`${busroute.route}/${busroute.direction}`}  key={`${busroute.route}-${busroute.direction}`} className={styles.plainLink}><div 
            
             className={styles.routebox}>
               <p className={styles.routeno}>{busroute.route}</p>
@@ -19,6 +22,7 @@ const busRoutesList = (props) => {
               </div></Link>
           })
         }
+         <Route path='/:route/:direction/'  component={BusRouteStopsList} />
       </div>
       </div>
     )

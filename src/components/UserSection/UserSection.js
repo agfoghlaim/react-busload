@@ -42,7 +42,7 @@ class UserSection extends Component {
       let getInfoUrl = `${domain}getAccountInfo?key=${key}`; 
       axios.post(getInfoUrl,{idToken:this.props.userDets.idToken})
       .then(r=>{
-        console.log(r)
+     
         this.setState({userInfo:r.data.users[0]})
       })
       .catch(e=>{
@@ -77,7 +77,7 @@ class UserSection extends Component {
   render(){
     return (
       <div className={styles.faveListWrap} >
-        <h3>{this.props.userDets.displayName}'s Quick Stops</h3>
+        <h3>Quick Stops</h3>
         {
           (this.props.emailResent)?
           <p>Email Sent. Please logout and check your emails.</p>

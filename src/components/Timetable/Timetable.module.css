@@ -4,10 +4,10 @@
 
 }
 
-@media only screen and (min-width: 600px) {
-  .timetableDiv {
-    max-width:70%;
-    margin-left:15%;
+@media only screen and (max-width: 600px) {
+  .th, .td{
+    padding:0.2em !important;
+    font-size:0.8em;
   }
 }
 .divAboveTable{
@@ -22,7 +22,6 @@
 }
 .table{
  background:#DCE1CF;
-  /* background:#9DAD7B; */
   width:100%;
 }
 @media only screen and (max-width: 600px) {
@@ -56,7 +55,7 @@
 }
 
 .td{
-  padding:1rem;
+  padding:1em;
   border:1px solid  rgba(79, 97, 40, 1);
   background: linear-gradient( #88AD36, #92AD58);
   color:white;

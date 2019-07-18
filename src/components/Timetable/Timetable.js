@@ -5,6 +5,7 @@ import { isWithinMinutesOf } from '../../helpers';
 import styles from './Timetable.module.css';
 import BusDets from './BusDets/BusDets';
 import Modal from '../Modal/Modal';
+import NextPrevStop from '../NextPrevStop/NextPrevStop';
 
 
 
@@ -20,7 +21,7 @@ class Timetable extends Component {
 state = {showModal:false, selectedBus:null, wetOrDry:null}
 
 findBus = (rtpiRes, due) =>{
-  // console.log(this.props)
+
    let relevantRoute = rtpiRes.filter(route=>{
      return isWithinMinutesOf(due, route.scheduleddeparturedatetime.substr(11,5), 3)
    })
@@ -32,37 +33,26 @@ findBus = (rtpiRes, due) =>{
 
 
 handleShowModal = (b,wetOrDry)=>{
-  //console.log("showing" , this.props)
-  console.log(wetOrDry)
   this.setState({showModal:true,selectedBus:b,wetOrDry:wetOrDry})
-
 }
 
 showModal = ()=>{
-  //i will be all info on the bus to show in modal??
   if(this.state.showModal){
-
-    return <Modal 
-    clickBg={this.closeModal} 
-    show={this.state.showModal}>
-    <BusDets busDets={this.state.selectedBus} wetOrDry={this.state.wetOrDry} />
-  </Modal> 
-  }else{
-    return null;
+    return (
+      <Modal 
+        clickBg={this.closeModal} 
+        show={this.state.showModal}>
+          <BusDets busDets={this.state.selectedBus} wetOrDry={this.state.wetOrDry} />
+      </Modal> 
+    )
   }
-
 }
-
-
 
 closeModal = ()=>{
   this.setState({showModal:false})
 }
 
-
-
 getAvgStrings=(avg)=>{
- // console.log(avg)
   if(avg ==='x'){
     return 'x';
   }
@@ -77,21 +67,22 @@ getAvgStrings=(avg)=>{
 
  
 render(){
- 
+  console.log(this.props)
+  if(this.props.rtpiData){
+    this.props.busRoutes.bus_times.map(bus=>bus.rtpi = this.findBus(this.props.rtpiData.rtpiRequest.results,bus.time))
+  }
 
- 
- this.props.busRoutes.bus_times.map(bus=>{
-   return bus.rtpi = this.findBus(this.props.rtpiData.rtpiRequest.results,bus.time)
- })
 
     return(
-     
       <div className={styles.timetableDiv}>
           {this.showModal()}
+
+        <NextPrevStop route={this.props.route} direction={this.props.direction} sequence={this.props.busRoutes.stop_sequence} stopName={this.props.busRoutes.name} />
         <div className={styles.divAboveTable}>
           <h5>{(this.props.busRoutes.bestopid) ? this.props.busRoutes.bestopid : 'FIX THIS!!!'}</h5>
-          {
-            (this.props.rtpiData.rtpiRequest.results[0] &&this.props.rtpiData.rtpiRequest.results[0].destination)?
+          { 
+            (this.props.rtpiData.rtpiRequest.results[0] &&this.props.rtpiData.rtpiRequest.results[0].destination)
+            ?
             <h5>Route {this.props.route} Towards {this.props.rtpiData.rtpiRequest.results[0].destination}</h5>
             :<h5>Route {this.props.route}</h5>
           }
@@ -100,13 +91,19 @@ render(){
           <h5>{this.props.busRoutes.stop_sequence}</h5>
           <h5>{this.props.busRoutes.timetable_name}</h5>
         </div>
-     
+          
       <table className={styles.table}>
         <thead>
           <tr className={styles.tr}>
             {/* <th>bus</th> */}
             <th className={styles.th}>Scheduled</th>
-            <th className={styles.th}>RTPI</th>
+            {
+              (this.props.isToday) ?
+              <th className={styles.th}>RTPI</th>
+              :
+              null
+            }
+            
             <th className={styles.th}><span className={styles.span}>Wet</span><img src={wet} alt='wet'/><h3>Usually</h3></th>
             <th className={styles.th}><span className={styles.span}>Dry</span><img src={dry} alt='dry'/><h3>Usually</h3></th>
             <th className={styles.th}>Average</th>
@@ -114,20 +111,22 @@ render(){
         </thead>
       {this.props.busRoutes.bus_times.map((b,i)=>{
 
-            // if(b.wet_avg === null) b.wet_avg = 'x'
-            // if(b.dry_avg === null) b.dry_avg = 'x'
-            // if(b.total_avg === null) b.total_avg = 'x'
-  
-            //   b.wet_avg = this.getAvgStrings(b.wet_avg)
-            //   b.dry_avg = this.getAvgStrings(b.dry_avg)
-            //   b.total_avg = this.getAvgStrings(b.total_avg)
+     
           return(
             <tbody key={b.bus}>
             <tr className={styles.tr}
              >
               
               <td className={styles.td}>{b.time}</td> 
+              
+              {
+              (this.props.isToday) ?
               <td className={styles.td}>{b.rtpi.departuredatetime}</td>
+              :
+              null
+            }
+
+            
               <td 
                 className={styles.tdClickable}
                 onClick={()=>this.handleShowModal(b,'wet')}

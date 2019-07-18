@@ -18,7 +18,7 @@ class Weather extends Component{
       this.setState({gotWeather:true,weather: r.data.currently})
     })
     .catch(e=>{
-      console.log("weather error ", e)
+      console.log("weather error ", {...e})
       this.setState({weatherError:'Could not get Weather.'})
     })
   }

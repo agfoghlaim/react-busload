@@ -4,6 +4,7 @@ import SaveFaveStopForm from './SaveFaveStopForm/SaveFaveStopForm';
 import axios from 'axios';
 import EditFaveStopForm from './EditFaveStopForm/EditFaveStopForm';
 import firebase from '../../config/fbConfig';
+import styles from './FaveStop.module.css';
 
 
 
@@ -122,9 +123,9 @@ class FaveStop extends Component{
       <div>
         { //ie if bring rendered by UserSection
           ( this.props.userStop )?
-          <div>
-          <button onClick={(e)=>this.showEditForm(e)}>Rename</button>
-          <button onClick={(e)=>this.deleteFaveStop(e)}>delete</button>
+          <div className={styles.buttonGrp}>
+          <button className={styles.buttonSmall} onClick={(e)=>this.showEditForm(e)}>Rename</button>
+          <button className={`${styles.buttonSmall} ${styles.redBtn}`} onClick={(e)=>this.deleteFaveStop(e)}>Delete</button>
           </div>
           :
           //ie if being rendered by SearchForStop

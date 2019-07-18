@@ -3,12 +3,11 @@ import { Link, withRouter } from 'react-router-dom';
 import styles from './Breadcrumbs.module.css';
 
 const breadcrumbs = (props) => {
-    console.log("bread props ", props)
+   // console.log("bread props ", props)
   let { route, direction, bestopid } = props.match.params
  // console.log( route, direction, bestopid )
     let str = route+direction;
-    console.log(route,direction)
-    console.log(str)
+
     switch(str){
       case '401W':
           str = 'towards Salthill';
@@ -42,12 +41,11 @@ const breadcrumbs = (props) => {
           break;
       default:
           str = '';
-     console.log("returning ", str)           
-    //return str;
+  
   }
 
 
-  console.log(props)
+ 
 
 
   return <div className={styles.breadcrumbDiv}>
