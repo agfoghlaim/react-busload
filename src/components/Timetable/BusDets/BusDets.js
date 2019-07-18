@@ -18,8 +18,8 @@ const busDets = (props) => {
     return <div>
       <img src={(props.wetOrDry === 'dry') ? dryIcon : wetIcon} alt={(props.wetOrDry === 'dry') ? 'dryIcon' : 'wetIcon'} />
 
-      <h5>No of snapshots for {`${props.wetOrDry}`} weather</h5><p>{props.busDets[`${arrName}`].length} </p>
-      <h5>Summary</h5>
+      <h5>No. of snapshots for {`${props.wetOrDry}`} weather</h5><p>{props.busDets[`${arrName}`].length} </p>
+      <h5>BusLoad Guesstimation</h5>
       <p>{
       (!isNaN(props.busDets[`${avgName}`]) && props.busDets[`${avgName}`] > 0) ? 
       `Usually about ${props.busDets[`${avgName}`]} mins late`

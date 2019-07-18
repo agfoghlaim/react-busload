@@ -8,12 +8,12 @@ import Layout from '../components/Layout/Layout';
 import FindStop from './FindStop';
 import Auth from './Auth/Auth';
 
-import Header from '../components/Header/Header';
+//import Header from '../components/Header/Header';
 import UserSection from '../components/UserSection/UserSection'
 import SingleStopSnap from '../components/SingleStopSnap/SingleStopSnap';
 import BusRouteStopsList from '../components/BusRouteStopsList/BusRouteStopsList';
-import Weather from '../components/Weather/Weather';
-import Pagination from '../components/Pagination/Pagination';
+//import Weather from '../components/Weather/Weather';
+//import Pagination from '../components/Pagination/Pagination';
 import styles from './App.module.css';
 
 // const firebaseConfig = {
@@ -106,8 +106,9 @@ class App extends Component {
           <Route path='/' exact render={(props) => <FindStop {...props} userDets ={this.state} />}
           />
 
-          <Route path='/:route/:direction/:bestopid' component={Pagination} />
-
+          {/* <Route path='/:route/:direction/' component={Pagination} /> */}
+          
+          
           <Route  path='/:route/:direction/:bestopid/' component={SingleStopSnap} />
           
           <Route path='/:route/:direction/' exact component={BusRouteStopsList} />

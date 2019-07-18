@@ -80,3 +80,11 @@
   border:1px solid  rgb(72, 85, 45);
 }
 
+.span{
+  font-size: 0.8em;
+  display:block;
+}
+
+.th img{
+  max-width: 70%;
+}

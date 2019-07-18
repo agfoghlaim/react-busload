@@ -7,8 +7,11 @@ return props.show ? <div
 className={styles.ModalBg}
 onClick = {props.clickBg}
 >
+  
+</div> 
 
-</div> : null
+: 
+null
 }
 
 export default modalBG;

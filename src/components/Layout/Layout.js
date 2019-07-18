@@ -4,6 +4,7 @@ import Header from '../Header/Header';
 import styles from './Layout.module.css';
 
 const layout = (props) => ( 
+
   <Tux>
     <div>
       <Header userDets ={props.userDets} handleLogOut={props.handleLogOut} />

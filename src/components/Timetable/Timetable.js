@@ -107,8 +107,8 @@ render(){
             {/* <th>bus</th> */}
             <th className={styles.th}>Scheduled</th>
             <th className={styles.th}>RTPI</th>
-            <th className={styles.th}>Wet<img src={wet} alt='wet'/></th>
-            <th className={styles.th}>Dry<img src={dry} alt='dry'/></th>
+            <th className={styles.th}><span className={styles.span}>Wet</span><img src={wet} alt='wet'/><h3>Usually</h3></th>
+            <th className={styles.th}><span className={styles.span}>Dry</span><img src={dry} alt='dry'/><h3>Usually</h3></th>
             <th className={styles.th}>Average</th>
           </tr>
         </thead>
@@ -133,14 +133,14 @@ render(){
                 onClick={()=>this.handleShowModal(b,'wet')}
                 
                 >
-                {b.wet_avg} <br />({b.num_wet} results)
+                {(b.wet_avg !==null) ? this.getAvgStrings(b.wet_avg) : '?'}<br />
               </td>
 
               <td 
                 className={styles.tdClickable}
                 onClick={()=>this.handleShowModal(b,'dry')}
               >
-                {b.dry_avg}<br /> ({b.num_dry} results)
+                {(b.dry_avg !==null) ? this.getAvgStrings(b.dry_avg) : '?'}<br /> 
               </td> 
 
               <td className={styles.td}> {b.total_avg}<br /> ({b.num_total} results)</td> 

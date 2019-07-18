@@ -1,0 +1,25 @@
+.breadcrumbDiv{
+  margin:1rem 0;
+  background:#97A3BA;
+  padding:1em;
+  height:1em;
+  color:white;
+  display: flex;
+  justify-content: flex-start;
+  
+}
+
+.breadLink{
+  color:white;
+  text-decoration: none;
+}
+
+.breadLink:hover{
+  color:#5A486E;
+  text-decoration: none;
+}
+
+.breadSlash{
+  margin: 0 1rem;
+}
+
