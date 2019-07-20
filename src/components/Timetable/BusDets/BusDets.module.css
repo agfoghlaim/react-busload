@@ -6,10 +6,35 @@
 
  .busDetsTable tr td{
   padding:1em 0.5em;
+  font-size:0.8em;
   text-align:left;
  }
 
  .busDetsTable thead tr th{
   padding:1em 0.5em;
+  font-size:0.8em;
   text-align:left;
  }
+
+ .tableTop{
+
+
+ }
+
+ @media only screen and (max-width: 450px) {
+  .busDetsTable{
+    background:orange;
+    padding:0.2em;
+   }
+
+   .busDetsTable tr td{
+    padding:0;
+    padding:1em 0.1em;
+  
+   }
+  
+   .busDetsTable thead tr th{
+    padding:1em 0.1em;
+  
+   }
+}

@@ -96,9 +96,11 @@ class SearchForStop extends Component {
                 onChange={(e)=>{this.handleShowStopsList(e);this.handleSearchStop(e)}} 
               />
               
-
+{/* 
               <Link to={`${this.state.selectedStop.route}/${this.state.selectedStop.direction}/${this.state.selectedStop.bestopid}`}
-              ><button  onClick={(e)=>this.props.setSelectedStopId(e,this.state.selectedStop)}className={styles.buttonMain}  >Go</button></Link>
+              ><button  onClick={(e)=>this.props.setSelectedStopId(e,this.state.selectedStop)}className={styles.buttonMain}  >Go</button></Link> */}
+              <Link to={`${this.state.selectedStop.route}/${this.state.selectedStop.direction}/${this.state.selectedStop.bestopid}`}
+              ><button  className={styles.buttonMain}  >Go</button></Link>
 
             {this.showUserFeature()}
 

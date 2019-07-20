@@ -14,7 +14,7 @@ const busRoutesList = (props) => {
       
         {
           props.busRoutes.map(busroute=>{
-            return <Link onClick={(e)=>props.setSelectedRoute(e,busroute.route,busroute.direction)} to={`${busroute.route}/${busroute.direction}`}  key={`${busroute.route}-${busroute.direction}`} className={styles.plainLink}><div 
+            return <Link to={`${busroute.route}/${busroute.direction}`}  key={`${busroute.route}-${busroute.direction}`} className={styles.plainLink}><div 
            
             className={styles.routebox}>
               <p className={styles.routeno}>{busroute.route}</p>

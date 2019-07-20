@@ -3,6 +3,7 @@ import { gql } from 'apollo-boost'; //parse queries
 import { Query } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import Maps from '../../containers/Maps/Maps';
+import styles from './BusRouteStopsList.module.css';
 
 
 /*
@@ -38,13 +39,14 @@ class BusRouteStopsList extends Component {
   //console.log(props)
   showLinks = (stops)=>{
     return stops.map(stop=>{
-      return <div key={stop.bestopid}>
-          <Link to={`${this.props.location.pathname}/${stop.bestopid}`} key={stop.bestopid}>
+      return <div key={stop.bestopid} className={styles.stopLinkDiv}>
+          <Link to={`${this.props.location.pathname}/${stop.bestopid}`} key={stop.bestopid} class={styles.Link}>
         <div key={stop.bestopid}>
-          <h4>{stop.name} <small>{stop.bestopid}</small></h4>
-          <p>{stop.stop_sequence}</p>
-          <p>{stop.latitude}</p>
-          <p>{stop.longitude}</p>
+          {/* <h4>{stop.name} <small>{stop.bestopid}</small></h4>
+          <p>{stop.stop_sequence}</p> */}
+          
+          <h4>{stop.stop_sequence} {stop.name} </h4>
+          <p><small>{stop.bestopid}</small></p>
         </div>
       </Link>
         
@@ -75,8 +77,8 @@ class BusRouteStopsList extends Component {
                     return <div>
                       {
                         this.showMap(data.busRouteOverviewLocal.stops)}
-                      { this.showLinks(data.busRouteOverviewLocal.stops)
-                      }
+                      <div className={styles.linksWrapDiv}>{ this.showLinks(data.busRouteOverviewLocal.stops)
+                      }</div>
                     </div>
 
                 }

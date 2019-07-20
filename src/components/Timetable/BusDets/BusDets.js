@@ -15,7 +15,7 @@ const busDets = (props) => {
 
 
   const tableTop = ()=>{
-    return <div>
+    return <div className={styles.tableTop}>
       <img src={(props.wetOrDry === 'dry') ? dryIcon : wetIcon} alt={(props.wetOrDry === 'dry') ? 'dryIcon' : 'wetIcon'} />
 
       <h5>No. of snapshots for {`${props.wetOrDry}`} weather</h5><p>{props.busDets[`${arrName}`].length} </p>
@@ -42,7 +42,7 @@ const busDets = (props) => {
                 {/* <td>{snap.queryScheduledTime.substring(6,11)}</td> */}
         
                 <td>{(snap.timetabled !== 'bus_not_found_on_rtpi') ? snap.timetabled : snap.forBusDue}</td>
-                <td>{snap.queryScheduledTime}</td>
+                <td>{snap.queryDateTime.substring(0,10)} @   {snap.queryScheduledTime} </td>
                 <td>{(snap.actual !== 'bus_not_found_on_rtpi') ? snap.actual.substring(10,16) : 'not found'}</td>
                 <td>{(snap.earlyOrLate !== 'bus_not_found_on_rtpi') ? snap.earlyOrLate  : `not found`}</td>
                 <td>{(snap.minutesOff !== 'bus_not_found_on_rtpi') ? snap.minutesOff  : `not found`}</td>

@@ -31,7 +31,7 @@ const NextPrevStop = (props) => {
    sequence = sequence.toString();
 
 return<div className={styles.nextPrevWrapDiv}>
-  
+  <div className={styles.pretend}></div>
   <Query 
     query={NEXT_PREV_QUERY} 
     variables={{route, direction, sequence}}>
@@ -41,7 +41,7 @@ return<div className={styles.nextPrevWrapDiv}>
           if (loading) return <p>loading...</p>;
           if (error) return `Error! ${error}`;
           if(data.nextPrevStops){
-            console.log(data.nextPrevStops)
+            //console.log(data.nextPrevStops)
               return <Tux>
                 
                 <div className={styles.prev}>
@@ -49,9 +49,10 @@ return<div className={styles.nextPrevWrapDiv}>
                     (data.nextPrevStops.prev)?
                     <Tux>
                       {/* <p>Previous Stop</p> */}
-                      <img className={styles.arrows} src={leftArrow} alt="left-arrow" />
-                      <Link to={`/${route}/${direction}/${data.nextPrevStops.prev.bestopid}`}>
-                        <p className={styles.nextPrevP}>{data.nextPrevStops.prev.name}</p>
+                      
+                      <Link className={styles.prevLink}  to={`/${route}/${direction}/${data.nextPrevStops.prev.bestopid}`}>
+                      <img className={styles.leftArrow} src={leftArrow} alt="left-arrow" />
+                        <p className={styles.prevP}>{data.nextPrevStops.prev.name}</p>
                       </Link>
                     </Tux>
                     :
@@ -66,7 +67,10 @@ return<div className={styles.nextPrevWrapDiv}>
                     
                       {/* <img className={styles.arrows} src={leftArrow} alt="left-arrow" /> */}
                     
-                        <p className={styles.thisStopP}>{props.stopName}</p>
+                        <p className={styles.thisStopP}> {props.stopName}
+                        
+                        </p>
+                      
                    
                     </Tux>
                   
@@ -80,9 +84,10 @@ return<div className={styles.nextPrevWrapDiv}>
                     (data.nextPrevStops.next)?
                     <Tux>
                       {/* <p>Next Stop</p> */}
-                      <img className={styles.arrows} src={rightArrow} alt="right-arrow" />
-                      <Link to={`/${route}/${direction}/${data.nextPrevStops.next.bestopid}`}>
-                        <p className={styles.nextPrevP}>{data.nextPrevStops.next.name}</p>
+                     
+                      <Link className={styles.nextLink} to={`/${route}/${direction}/${data.nextPrevStops.next.bestopid}`}>
+                      <img className={styles.rightArrow} src={rightArrow} alt="right-arrow" />
+                        <p className={styles.nextP}>{data.nextPrevStops.next.name}</p>
                       </Link>
                     </Tux>
                     :

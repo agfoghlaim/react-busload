@@ -10,13 +10,15 @@
   z-index: 500;
   box-sizing:border-box;
   box-shadow: 1px 1px 1px #ccc;
-  transition: all 0.2s ease-in-out;
+  transition: all 1s ease-in-out;
 }
 
-.transShow{
-  background:red;
+.ModalShow{
+  opacity:1;
+  transform: translateY(0);
 }
 
-.transHide{
-  background:blue;
+.ModalHide{
+  opacity:0;
+  transform: translateY(-200%);
 }

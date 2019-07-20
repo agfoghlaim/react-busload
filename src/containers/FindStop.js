@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { gql } from 'apollo-boost'; //parse queries
 import { graphql } from 'react-apollo';
-import { Route } from 'react-router-dom';
 import SearchForStop from '../components/SearchForStop/SearchForStop';
 import BusRoutesList from '../components/BusRoutesList/BusRoutesList';
-import BusRouteStopsList from '../components/BusRouteStopsList/BusRouteStopsList';
+
 
 
 const BUS_ROUTES_QUERY = gql`
@@ -27,24 +26,26 @@ state = {
 
 setSelectedStopId = (e, selectedStop) =>{
 e.preventDefault();
+//console.log(bestopid,route,bestopid)
   let {bestopid,route,direction} = selectedStop;
+  console.log(bestopid,route,bestopid)
   if(!bestopid || !route || !direction) return
-
+  console.log(bestopid,route,bestopid)
   this.setState({
     selectedStop:{bestopid,route,direction}
   }, ()=>console.log("state now ", this.state.selectedStop))
 }
 
-setSelectedRoute = (e,route,direction)=>{
-  this.setState({selectedRoute:{route,direction}})
-}
+// setSelectedRoute = (e,route,direction)=>{
+//   this.setState({selectedRoute:{route,direction}})
+// }
 
   getDataForRefine = () =>{
     let theData = this.props.data
     if(theData.loading)return <p>loading</p>
     if(theData.error)return <p>Could not load routes.</p>
     return <React.Fragment>
-      <BusRoutesList setSelectedRoute={this.setSelectedRoute}   busRoutes={theData.busRoutesOverview} />
+      <BusRoutesList   busRoutes={theData.busRoutesOverview} />
     </React.Fragment>
    
   }

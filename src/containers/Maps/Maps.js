@@ -45,7 +45,8 @@ class Maps extends Component{
             return<Marker 
               key={stop.bestopid}
               latitude={JSON.parse(stop.latitude)}
-              longitude={JSON.parse(stop.longitude)}>
+              longitude={JSON.parse(stop.longitude)}
+              offsetLeft={-20} offsetTop={-16}>
                <button onClick={(e)=>this.setSelectedStop(e,stop)} className={styles.markerBtn}>
                  <img src={busStopIcon} alt="bus stop icon" />
                </button>

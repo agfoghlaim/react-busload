@@ -123,6 +123,7 @@ changeBusTimes_X = (day)=>{
         num_total
         wet_snaps {
           _id
+          queryScheduledTime
           dayOfWeek
           queryDateTime
           forBusDue
@@ -149,7 +150,7 @@ changeBusTimes_X = (day)=>{
   console.log(bestopid, route,direction)
   let requestedTimetable = this.state.dayString()
  
-  console.log("req timetable is ", requestedTimetable)
+  //console.log("req timetable is ", requestedTimetable)
 
   
     if(!bestopid || !route || !direction){
@@ -176,13 +177,14 @@ changeBusTimes_X = (day)=>{
                         }).indexOf(item['bus'])===i;})
                        
                       return <React.Fragment>
- 
+                         <div className={styles.timetableBtnGrpDiv}>
                         {
-                          
+                         
                           this.state.bus_times_x.map(bus=><button key={bus.label} className={(bus.active)? styles.buttonInfoActive : styles.buttonInfo} onClick={()=>this.changeBusTimes_X(bus.dayNum)}>{bus.label}</button>
                           
                           )
                         }
+                        </div>
 
                       <Timetable busRoutes={one.bus_times_x_snaps_2} rtpiData={two} route={route} direction={direction} isToday={this.state.bus_times_x[0].active}/>
                       </React.Fragment>

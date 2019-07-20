@@ -53,6 +53,7 @@ closeModal = ()=>{
 }
 
 getAvgStrings=(avg)=>{
+  //console.log(avg)
   if(avg ==='x'){
     return 'x';
   }
@@ -61,6 +62,7 @@ getAvgStrings=(avg)=>{
   }else if(!isNaN(avg) && avg < 0){
     return `${avg} mins (early)`
   }else if(avg === 0){
+   
     return 'on time';
   }
 }
@@ -68,6 +70,7 @@ getAvgStrings=(avg)=>{
  
 render(){
   console.log(this.props)
+  const { stop_sequence,bestopid} = this.props.busRoutes;
   if(this.props.rtpiData){
     this.props.busRoutes.bus_times.map(bus=>bus.rtpi = this.findBus(this.props.rtpiData.rtpiRequest.results,bus.time))
   }
@@ -77,8 +80,8 @@ render(){
       <div className={styles.timetableDiv}>
           {this.showModal()}
 
-        <NextPrevStop route={this.props.route} direction={this.props.direction} sequence={this.props.busRoutes.stop_sequence} stopName={this.props.busRoutes.name} />
-        <div className={styles.divAboveTable}>
+        <NextPrevStop route={this.props.route} direction={this.props.direction} sequence={stop_sequence} stopName={this.props.busRoutes.name} bestopid={bestopid} />
+        {/* <div className={styles.divAboveTable}>
           <h5>{(this.props.busRoutes.bestopid) ? this.props.busRoutes.bestopid : 'FIX THIS!!!'}</h5>
           { 
             (this.props.rtpiData.rtpiRequest.results[0] &&this.props.rtpiData.rtpiRequest.results[0].destination)
@@ -90,7 +93,7 @@ render(){
           <h5>{this.props.busRoutes.name}</h5>
           <h5>{this.props.busRoutes.stop_sequence}</h5>
           <h5>{this.props.busRoutes.timetable_name}</h5>
-        </div>
+        </div> */}
           
       <table className={styles.table}>
         <thead>
@@ -142,7 +145,9 @@ render(){
                 {(b.dry_avg !==null) ? this.getAvgStrings(b.dry_avg) : '?'}<br /> 
               </td> 
 
-              <td className={styles.td}> {b.total_avg}<br /> ({b.num_total} results)</td> 
+              <td className={styles.td}
+              
+              > {(b.total_avg !==null) ? this.getAvgStrings(b.total_avg) : '?'}<br /> ({b.num_total} results)</td> 
               
             </tr>
             </tbody>

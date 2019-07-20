@@ -1,0 +1,20 @@
+.linksWrapDiv{
+  border-left:8px solid #4f6128;
+  padding-left:32px;
+  
+}
+
+.stopLinkDiv h4:before{
+  content:'';
+  border:4px solid #4f6128;
+  width:20px;
+  display:inline-block;
+  margin-left:-32px;
+  margin-right: 16px;
+}
+
+.Link{
+  color:gray;
+  text-decoration: none;
+ 
+}

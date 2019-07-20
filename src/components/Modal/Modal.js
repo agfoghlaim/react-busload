@@ -7,9 +7,9 @@ const modal = (props) => {
   console.log("propw show ", props.show)
 return (
   <Tux>
-    <ModalBG show={props.show} clickBg={props.clickBg}   />
+    <ModalBG  show={props.show} clickBg={props.clickBg}   />
     <div 
-      className={styles.Modal}
+      className={(props.show) ? `${styles.Modal} ${styles.ModalShow}` : `${styles.Modal} ${styles.ModalHide}`}
      
       >{props.children}
     </div>

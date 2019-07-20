@@ -38,6 +38,12 @@
    }
 }
 
+@media only screen and (max-width: 450px) {
+  .table{
+    font-size: 14px;
+   }
+  }
+
 
 .tr:hover{
   background: linear-gradient(45deg, rgba(90,72,110,1), rgba(90,72,110,0.8));
