@@ -4,12 +4,13 @@ import { Link, Route } from 'react-router-dom';
 import BusRouteStopsList from '../BusRouteStopsList/BusRouteStopsList';
 
 const busRoutesList = (props) => {
-  
+  //var points = [40, 100, 1, 5, 25, 10];
+props.busRoutes.sort((a, b)=>{return a.route-b.route});
 
  //props.setSelectedRoute
     return(
       <div className={styles.routeListWrap} >
-      <h3>Choose your route</h3>
+      <h3 className={styles.sectionH3}>Choose your route</h3>
       <div className={styles.routewrap} >
       
         {

@@ -81,19 +81,7 @@ render(){
           {this.showModal()}
 
         <NextPrevStop route={this.props.route} direction={this.props.direction} sequence={stop_sequence} stopName={this.props.busRoutes.name} bestopid={bestopid} />
-        {/* <div className={styles.divAboveTable}>
-          <h5>{(this.props.busRoutes.bestopid) ? this.props.busRoutes.bestopid : 'FIX THIS!!!'}</h5>
-          { 
-            (this.props.rtpiData.rtpiRequest.results[0] &&this.props.rtpiData.rtpiRequest.results[0].destination)
-            ?
-            <h5>Route {this.props.route} Towards {this.props.rtpiData.rtpiRequest.results[0].destination}</h5>
-            :<h5>Route {this.props.route}</h5>
-          }
-         
-          <h5>{this.props.busRoutes.name}</h5>
-          <h5>{this.props.busRoutes.stop_sequence}</h5>
-          <h5>{this.props.busRoutes.timetable_name}</h5>
-        </div> */}
+
           
       <table className={styles.table}>
         <thead>

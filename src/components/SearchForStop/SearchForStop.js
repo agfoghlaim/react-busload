@@ -84,7 +84,7 @@ class SearchForStop extends Component {
               return stop.name.toLowerCase().indexOf(this.state.searchSelectedStop.toLowerCase()) !== -1 || stop.bestopid.indexOf(this.state.searchSelectedStop) !== -1;
             })
             return <div className={styles.searchStopWrap}>
-              <h3>Find your stop</h3>
+              <h3 className={styles.sectionH3}>Find your stop</h3>
               <p><small>{this.state.selectedStop.stopname}</small></p>
               <div className={(this.props.currentUser.userId) ? styles.inputButtonDivUser : styles.inputButtonDiv }>
               <input 

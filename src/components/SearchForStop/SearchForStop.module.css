@@ -36,6 +36,10 @@
 .show{
   display: inline;
 }
+.sectionH3{
+  font-size:1.6em;
+  color:gray;
+  }
 
 .buttonMain{
   -webkit-border-radius: 2;

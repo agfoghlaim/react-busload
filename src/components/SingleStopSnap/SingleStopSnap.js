@@ -4,6 +4,9 @@ import { gql } from 'apollo-boost'; //parse queries
 import { Query } from 'react-apollo';
 import Timetable from '../Timetable/Timetable';
 import styles from './SingleStopSnap.module.css';
+import Spinner from '../UI/Spinner/Spinner';
+import ChooseTimetable from '../ChooseTimetable/ChooseTimetable'
+
 
 
 
@@ -13,9 +16,19 @@ import styles from './SingleStopSnap.module.css';
 class SingleStopSnap extends Component{
 
   state = {
+    // bus_times_x:[
+    //   {active:true,dayNum:'',label:'Today'},
+    //   {active:false,dayNum:2,label:'Weekday'},
+    //   {active:false,dayNum:6,label:'Saturday'},
+    //   {active:false,dayNum:0,label:'Sunday'}  
+    // ],
     bus_times_x:[
       {active:true,dayNum:'',label:'Today'},
-      {active:false,dayNum:2,label:'Weekday'},
+      {active:false,dayNum:1,label:'Monday'},
+      {active:false,dayNum:2,label:'Tuesday'},
+      {active:false,dayNum:3,label:'Wednesday'},
+      {active:false,dayNum:4,label:'Thursday'},
+      {active:false,dayNum:5,label:'Friday'},
       {active:false,dayNum:6,label:'Saturday'},
       {active:false,dayNum:0,label:'Sunday'}  
     ],
@@ -70,21 +83,52 @@ changeBusTimes_X = (day)=>{
 
     
 
+    // if(isTodayStr){
+    //   //let stateCopy = this.state.bus_times_x;
+    //   //stateCopy.active=true
+    //   stateCopy[0].active=true;
+    // }else if([1,2,3,4,5].includes(day)){
+    //   stateCopy[1].active=true;
+    // }else if(day === 6 ){
+    //   stateCopy[2].active=true;
+    // }else if(day === 0){
+    //   stateCopy[3].active=true;
+    // }
     if(isTodayStr){
       //let stateCopy = this.state.bus_times_x;
       //stateCopy.active=true
       stateCopy[0].active=true;
-    }else if([1,2,3,4,5].includes(day)){
+    }else if(day === 1){
       stateCopy[1].active=true;
-    }else if(day === 6 ){
+    }else if(day === 2){
       stateCopy[2].active=true;
-    }else if(day === 0){
+    }
+    else if(day === 3){
       stateCopy[3].active=true;
+    }
+    else if(day === 4){
+      stateCopy[4].active=true;
+    }
+    else if(day === 5){
+      stateCopy[5].active=true;
+    }
+    else if(day === 6 ){
+      stateCopy[6].active=true;
+    }else if(day === 0){
+      stateCopy[7].active=true;
     }
 
 
    
       this.setState({dayNumber:day,bus_times_x:stateCopy})
+  }
+
+  filterResponse = (resp) =>{
+       //filter out duplicate buses, this is happening because of how the timetables were copied and pasted from the Bus Éireann pdfs.
+       return resp.filter((item,i,arr)=>{
+        return arr.map((one)=>{
+          return one['bus']
+        }).indexOf(item['bus'])===i;})
   }
 
   render(){
@@ -150,49 +194,44 @@ changeBusTimes_X = (day)=>{
   console.log(bestopid, route,direction)
   let requestedTimetable = this.state.dayString()
  
-  //console.log("req timetable is ", requestedTimetable)
+  console.log("req timetable is ", requestedTimetable)
 
   
     if(!bestopid || !route || !direction){
       return<p>Something's not right</p>
     } else{
     
-          return<Query 
+      return<React.Fragment>
+   
+
+            <ChooseTimetable timetables={this.state.bus_times_x} changeBusTimes_X={this.changeBusTimes_X} />
+        
+        <Query 
             query={SINGLE_STOP_SNAPS} 
             variables={{route,direction,bestopid,requestedTimetable}}>
               {({ loading:loadingOne,data:one}) => (
                 <Query 
-                //  skip={(this.state.bus_times_x[0].active) ? true : false }
                   query={RTPI_INFO} 
                   variables={{route,bestopid}}>
                   {
                     ({ loading:loadingTwo,data:two }) => {
-                      if(loadingOne || loadingTwo)return<p>loading</p>
-                     // console.log("l1 ", loadingOne, one, two)
+                      if(loadingOne || loadingTwo) return <Spinner />
+            
 
-                      //filter out duplicate buses, this is happening because of how the timetables were copied and pasted from the Bus Éireann pdfs.
-                      one.bus_times_x_snaps_2.bus_times = one.bus_times_x_snaps_2.bus_times.filter((item,i,arr)=>{
-                        return arr.map((one)=>{
-                          return one['bus']
-                        }).indexOf(item['bus'])===i;})
-                       
-                      return <React.Fragment>
-                         <div className={styles.timetableBtnGrpDiv}>
-                        {
-                         
-                          this.state.bus_times_x.map(bus=><button key={bus.label} className={(bus.active)? styles.buttonInfoActive : styles.buttonInfo} onClick={()=>this.changeBusTimes_X(bus.dayNum)}>{bus.label}</button>
-                          
-                          )
-                        }
-                        </div>
+                      one.bus_times_x_snaps_2.bus_times = this.filterResponse(one.bus_times_x_snaps_2.bus_times)
 
-                      <Timetable busRoutes={one.bus_times_x_snaps_2} rtpiData={two} route={route} direction={direction} isToday={this.state.bus_times_x[0].active}/>
-                      </React.Fragment>
+                      return (
+                        <React.Fragment>
+                      
+                          <Timetable busRoutes={one.bus_times_x_snaps_2} rtpiData={two} route={route} direction={direction} isToday={this.state.bus_times_x[0].active}/>
+                        </React.Fragment>
+                      )
                     }
                   }
                   </Query>
               )}
-          </Query>
+      </Query>
+      </React.Fragment>
     }//end else
 
 

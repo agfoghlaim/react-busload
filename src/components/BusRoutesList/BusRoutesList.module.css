@@ -1,5 +1,6 @@
 .routeListWrap{
-  background:#eae7ec;
+  /* background:#eceee7; */
+  background:#384A6E;
   padding:1rem;
   margin:2rem 0;
 }
@@ -10,26 +11,28 @@
  
 }
 
+.sectionH3{
+font-size:1.6em;
+color:#fff;
+}
+
 .routebox{
-  /* background:#4f6128; */
-  /* background: linear-gradient( rgba(79, 97, 40, 0.9), rgba(79, 97, 40, 0.81)); */
-  background: linear-gradient( #88AD36, #92AD58);
+  background:white;
   padding:0.3rem;
-  color:white;
-  -webkit-box-shadow: 1px 1px 2px 0px rgba(35,41,23,1);
-  -moz-box-shadow: 1px 1px 2px 0px rgba(35,41,23,1);
-  box-shadow: 1px 1px 2px 0px rgba(35,41,23,1);
+  color:gray;
+  padding:1em;
+  border: 3px solid transparent;
+  transition:all 200ms ease-in-out;
+  min-height:150px;
+  display:grid;
+  align-items: center;
   
 }
 
 .routebox:hover{
-  /* background:#4f6128; */
-  background: linear-gradient( rgba(79, 97, 40, 0.9), rgba(79, 97, 40, 0.81));
-  -webkit-box-shadow: 2px 1px 2px 0px rgba(35,41,23,1);
-  -moz-box-shadow: 2px 1px 2px 0px rgba(35,41,23,1);
-  box-shadow: 2px 1px 2px 0px rgba(35,41,23,1);
-
-  
+  transform:scale(1.05);
+  border:2px solid #AD4F3E;
+  border-radius: 0.2em; 
 }
 
 .plainLink{
@@ -38,10 +41,24 @@
 
 .routeno{
   font-weight: 700;
+  border: 2px solid #943D2E;
+  /* display: inline; */
+  padding: 0.5em;
+  margin: 0.5em 0;
+  color: #943D2E;
+  border-radius: 0.2em;
+  text-align: center;
+  max-width: 3em;
+  height: 3em;
+  display: grid;
+  align-items: center;
 }
 
 .routename{
-  font-size: 0.8rem;
+  font-size: 1em;
+  color:#4f6128;
+  display: grid;
+  align-self: center;
 }
 
 

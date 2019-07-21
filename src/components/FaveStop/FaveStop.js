@@ -5,6 +5,7 @@ import axios from 'axios';
 import EditFaveStopForm from './EditFaveStopForm/EditFaveStopForm';
 import firebase from '../../config/fbConfig';
 import styles from './FaveStop.module.css';
+import Transition from 'react-transition-group/Transition';
 
 
 
@@ -65,7 +66,7 @@ class FaveStop extends Component{
     e.preventDefault();
     //console.log(this.props)
     const {bestopid,direction,route,fireBaseId,stopname,userid} = this.props.userStop;
-    console.log(this.props.userStop)
+    //console.log(this.props.userStop)
     //console.log("will test", this.state)
     let pretend = {
       bestopid,
@@ -76,7 +77,7 @@ class FaveStop extends Component{
       userid
     }
  
-    console.log("will save ", pretend)
+    //console.log("will save ", pretend)
     // let url = `https://busload-8ae3c.firebaseio.com/favourites/-LjI1-_SJJFpVmfkdwKy.json`
 
 
@@ -146,11 +147,22 @@ class FaveStop extends Component{
         }
 
         {(this.state.showEditForm) ? 
-          <Modal 
-            clickBg={this.closeModal} 
-            show={this.state.showEditForm}>
-            <EditFaveStopForm handleFaveInputChange={this.handleFaveInputChange} editFaveStop={this.editFaveStop} />
-          </Modal> 
+        <Transition
+        in={this.state.showEditForm}
+        timeout={1000}
+        mountOnEnter
+        unmountOnExit>
+          {
+            state=> (
+              <Modal 
+                clickBg={this.closeModal} 
+                show={state}>
+                <EditFaveStopForm handleFaveInputChange={this.handleFaveInputChange} editFaveStop={this.editFaveStop} />
+              </Modal>
+            )
+          }
+         
+          </Transition> 
         : null
         }
       </div>

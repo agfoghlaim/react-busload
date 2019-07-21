@@ -3,17 +3,28 @@ import styles from './Modal.module.css';
 import ModalBG from './ModalBG';
 import Tux from '../../hoc/Tux';
 
+
 const modal = (props) => {
-  console.log("propw show ", props.show)
+  console.log("propw show ", props)
+  const cssClasses = [
+    `${styles.Modal}`,
+   (props.show === 'entering') ?
+    `${styles.ModalShow}`
+    : (props.show === 'exiting') ?
+    `${styles.ModalHide}`
+    : null
+  ]
 return (
-  <Tux>
-    <ModalBG  show={props.show} clickBg={props.clickBg}   />
-    <div 
-      className={(props.show) ? `${styles.Modal} ${styles.ModalShow}` : `${styles.Modal} ${styles.ModalHide}`}
-     
-      >{props.children}
-    </div>
-  </Tux>
+
+        <Tux>
+          <ModalBG  show={props.show} clickBg={props.clickBg}   />
+          <div 
+            className={cssClasses.join('')}
+            >{props.children}
+          </div>
+        </Tux>
+  
+
 )
 }
 

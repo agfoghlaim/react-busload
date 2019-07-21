@@ -56,19 +56,19 @@ class UserSection extends Component {
     this._isMounted = false;
   }
 
-  resendEmailVerification=()=>{
-    const domain = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/`;
-    const key = `AIzaSyAoXxf2QSQwHDJOenPiziOTGzxijrZynLs`;
-    let resendUrl=`${domain}getOobConfirmationCode?key=${key}`
-    axios.post(resendUrl,{requestType:'VERIFY_EMAIL',idToken:this.props.userDets.idToken})
-    .then(w=>{
-      //console.log("email sent ", w)
-      this.setState({emailResent:true})
-    })
-    .catch(e=>{
-      console.log({...e})
-    })
-  }
+  // resendEmailVerification=()=>{
+  //   const domain = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/`;
+  //   const key = `AIzaSyAoXxf2QSQwHDJOenPiziOTGzxijrZynLs`;
+  //   let resendUrl=`${domain}getOobConfirmationCode?key=${key}`
+  //   axios.post(resendUrl,{requestType:'VERIFY_EMAIL',idToken:this.props.userDets.idToken})
+  //   .then(w=>{
+  //     //console.log("email sent ", w)
+  //     this.setState({emailResent:true})
+  //   })
+  //   .catch(e=>{
+  //     console.log({...e})
+  //   })
+  // }
 
   
 
@@ -78,12 +78,12 @@ class UserSection extends Component {
     return (
       <div className={styles.faveListWrap} >
         <h3>Quick Stops</h3>
-        {
+        {/* {
           (this.props.emailResent)?
           <p>Email Sent. Please logout and check your emails.</p>
           : null
-        }
-        {
+        } */}
+        {/* {
           (!this.props.userDets.emailVerified) ?
           <div className={styles.warningDiv}>
             <p className={styles.warningText}>Email Not Verified. Please logout and check your emails to continue.</p>
@@ -92,7 +92,7 @@ class UserSection extends Component {
           :
           null
           // <p>(verified) </p>
-        }
+        } */}
 
         <div className={styles.routewrap} >
         

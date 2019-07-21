@@ -17,7 +17,7 @@ class Auth extends Component{
       usernameField:{
         username:'',
         validity:{isValid:true,validMsgs:[]},
-        rules:{required:true,minLength:5,maxLength:20,charNum:true}},
+        rules:{required:true,minLength:3,maxLength:20,charNum:true}},
       passwordField:{password:'',
         validity:{isValid:true,validMsgs:[]},
         rules:{required:true,minLength:6,maxLength:20}},
@@ -98,13 +98,17 @@ class Auth extends Component{
     userDets:- is the response from gettingthe user dets when loggin in
     */
    //console.log(loginResp,userDets)
+   if(!userDets.data.users[0].emailVerified || userDets.data.users[0].emailVerified === 'false'){
+    this.setState({loginFail:'Please verify your email'})
+    return;
+   }
     let willExpireAt = new Date(new Date().getTime() + parseInt(loginResp.data.expiresIn)*1000)
     console.log(userDets.data.users[0])
     localStorage.setItem('idToken',loginResp.data.idToken);
     localStorage.setItem('userId',loginResp.data.localId);
     localStorage.setItem('expiresAt', willExpireAt);
     localStorage.setItem('displayName', loginResp.data.displayName);
-    localStorage.setItem('emailVerified',userDets.data.users[0].emailVerified)
+    // localStorage.setItem('emailVerified',userDets.data.users[0].emailVerified)
  //console.log("display name in auth ? ", loginResp.data.displayName)
     //call handleLogin, so app.js state can be updated
 

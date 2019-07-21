@@ -40,7 +40,8 @@ class BusRouteStopsList extends Component {
   showLinks = (stops)=>{
     return stops.map(stop=>{
       return <div key={stop.bestopid} className={styles.stopLinkDiv}>
-          <Link to={`${this.props.location.pathname}/${stop.bestopid}`} key={stop.bestopid} class={styles.Link}>
+       
+          <Link to={`${this.props.location.pathname}/${stop.bestopid}`} key={stop.bestopid} className={styles.Link}>
         <div key={stop.bestopid}>
           {/* <h4>{stop.name} <small>{stop.bestopid}</small></h4>
           <p>{stop.stop_sequence}</p> */}

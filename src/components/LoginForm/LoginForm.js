@@ -48,8 +48,8 @@ const loginForm = (props) => {
             {
               (props.emailVerifyRequired) ?
               <div>
-                <p>Please verify your email first.</p>
-                <button>Resend Verification Email (doesn't work)</button>
+                <p>Account Created. Please verify your email before logging in.</p>
+              
               </div>
               : null
             }
