@@ -24,13 +24,14 @@
   margin:0;
   padding:0;
   display:flex;
-  justify-content: space-between;
-  background:white;
+  justify-content: flex-start;
+  background:#3c4d3b;
   padding:1rem 0;
+  align-items: center;
 }
 
 .navWrap li a{
-  color:#4f6128;
+  color:#fff;
   font-weight:600;
   text-decoration: none;
 }

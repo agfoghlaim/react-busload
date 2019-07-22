@@ -1,5 +1,11 @@
 .mapWrapDiv div{
   max-width: 100%;
+
+}
+
+.mapWrapDiv {
+width:100%;
+  border-left: 8px solid #AD4F3E;
 }
 .markerBtn{
   background:none;
@@ -12,3 +18,8 @@
 
   max-width:2em;
 }
+
+/* .mapboxgl-canvas{
+  width: 100%;
+height: 100%;
+} */

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { gql } from 'apollo-boost'; //parse queries
 import { Query } from 'react-apollo';
 import Timetable from '../Timetable/Timetable';
-import styles from './SingleStopSnap.module.css';
+//import styles from './SingleStopSnap.module.css';
 import Spinner from '../UI/Spinner/Spinner';
 import ChooseTimetable from '../ChooseTimetable/ChooseTimetable'
 

@@ -1,14 +1,15 @@
 .homePageHeroWrap{
-  background-image: url('../../../img/rainBusGreen.png'), linear-gradient(#49424142, #d135310d);
+  background-image: url('../../../img/rainBusGreen2.png'), linear-gradient(#49424142, #d135310d);
   /* background-image: url('../../../img/rainBusGreen.png'); */
   /* background: linear-gradient(45deg, #4f6128, #5f7431e8); */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 60vh;
+  height: 70vh;
   display: grid;
   align-content: center;
   align-items: center;
+  position: relative;
 }
 .wrapOne{
   display:grid;
@@ -32,7 +33,12 @@
 
 
  .busoutline{
-  max-width: 50%;
+  max-height: 70%;
+  align-self: self-end;
+  display: grid;
+  justify-self: center;
+
+  position: absolute;
 } 
 
 

@@ -10,9 +10,12 @@
 }
 
 .weatherCompDiv{
-  background:#E7E0EF;
+  background:#f0f0f0;
   padding:1em;
-  height:60px;
+  height:10vh;
+  display:grid;
+  align-content: center;
+ 
 }
 .weatherP{
   margin:0;

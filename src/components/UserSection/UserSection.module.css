@@ -1,7 +1,15 @@
 .faveListWrap{
-  background:#e5edd3;
-  padding:1rem;
-  margin:2rem 0;
+ background: #f0f0f0;
+padding: 1rem;
+margin: 2rem 0;
+padding: 2rem 1rem;
+border-left: 10px solid #384a6e;
+  
+}
+.h3AndExpandCollapse{
+  display:flex;
+  grid-template-columns: 1fr 1fr;
+  justify-items:flex-start;
 }
 .routewrap{
   display:grid;
@@ -10,27 +18,94 @@
  
 }
 
+
+
 .routebox{
-  background:#5A486E;
+  background:white;
   padding:0.3rem;
-  -webkit-box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92);
-  -moz-box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92);
-  box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92);
+  color:gray;
+  padding:1em;
+  border: 2px solid transparent;
+  transition:all 200ms ease-in-out;
+  min-height:150px;
+  display:grid;
+  align-items: center;
   
 }
 
+.routeboxCollapsed{
+  background:white;
+  color:gray;
+  border: 2px solid transparent;
+  transition:all 200ms ease-in-out;
+  display:grid;
+  align-items: center;
+}
+
+.routebox .plainLink:hover {
+  transform:scale(1.03);
+  border:2px solid #384a6e;
+  border-radius: 0.2em; 
+  text-decoration: none;
+  background:whitesmoke;
+ 
+}
+
+.expandCollapseBtn{
+  background:none;
+  outline:none;
+  border:none;
+  cursor: pointer;
+}
+
+.expandCollapseBtn img{
+  max-width: 1.5em;
+
+}
+.sectionH3{
+  font-size:1.6em;
+  color:darkslategray;
+  }
+
 .plainLink{
   text-decoration: none;
+  border:2px solid transparent;
+  padding:1em 0.5em;
+  transition:all 400ms ease-in-out;
+  margin-bottom:0.5em;
+ 
+}
+.plainLinkCollapsed{
+  text-decoration: none;
+  border:2px solid transparent;
+  transition:all 400ms ease-in-out;
+}
+
+.plainLinkCollapsed:hover, .plainLinkCollapsed:focus{
+ 
+  border:2px solid #5f7dba;
+  
 }
 
 .routeno{
   font-weight: 700;
-  color:white;
+  color:#384a6e;
+}
+
+.routenoCollapsed{
+  font-weight: 700;
+  color: #384a6e;
+  margin: 0;
+  padding: 0.5em 1em;
 }
 
 .routename{
-  font-size: 0.8rem;
-  color:white;
+ 
+  color:darkslategray;
+  font-size: 0.8em;
+
+display: grid;
+align-self: center;
   
 }
 

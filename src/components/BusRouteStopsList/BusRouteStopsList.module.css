@@ -1,6 +1,9 @@
 .linksWrapDiv{
-  border-left:8px solid #AD4F3E;
-  padding-left:32px;
+  border-left: 0.5rem solid #AD4F3E;
+padding-left: 2rem;
+background: #f0f0f0;
+padding-top: 2rem;
+
   
 }
 
@@ -16,5 +19,27 @@
 .Link{
   color:gray;
   text-decoration: none;
- 
 }
+
+.Link div{
+  background:#f0f0f0;
+ 
+  background-image: url('../../img/onepix.png');
+  transition:all 0.5s ease-out;
+}
+
+.Link div:hover{
+  background:#f0f0f0;
+
+  background:none;
+}
+
+.sectionH3{
+  font-size:1.2em;
+  color:darkslategray;
+  display:inline;
+  background:white;
+  margin-left:-40px;
+  padding:0.2em 0.5em 0.2em 0;
+ 
+  }

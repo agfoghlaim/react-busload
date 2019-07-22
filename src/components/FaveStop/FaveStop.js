@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Modal from '../Modal/Modal';
 import SaveFaveStopForm from './SaveFaveStopForm/SaveFaveStopForm';
 import axios from 'axios';
@@ -6,6 +6,10 @@ import EditFaveStopForm from './EditFaveStopForm/EditFaveStopForm';
 import firebase from '../../config/fbConfig';
 import styles from './FaveStop.module.css';
 import Transition from 'react-transition-group/Transition';
+import plus from '../../img/plus.svg';
+import minus from '../../img/minus.svg';
+
+
 
 
 
@@ -13,7 +17,7 @@ class FaveStop extends Component{
 
   state = {
     faveStop: {userid:null,userStopName:undefined},
-    showFaveForm:false,showEditForm:false
+    showFaveForm:false,showEditForm:false, showBtnGrp:false
   }
  
   saveFaveStop = ()=>{
@@ -21,18 +25,19 @@ class FaveStop extends Component{
     const { route, direction, bestopid, stopname } = this.props.selectedStopDets.selectedStop; 
     if(!route || !direction || !bestopid || !stopname) return;
     this.setState({showFaveForm:true})
-    console.log("will save stop", stopname)
   }
-
 
   closeModal = ()=>{
     this.setState({showFaveForm:false,showEditForm:false})
   }
 
+  setShowBtnGrp = () =>{
+    this.setState((prev,current)=>{
+      return {showBtnGrp: !prev.showBtnGrp}
+    })
+  }
   handleFaveInputChange = (e)=>{
-    //console.log(e.target.value)
     this.setState({faveStop:{userStopName:e.target.value}})
-    //console.log("state?", this.state.faveStop)
   }
 
   handleSubmitFave =(e)=>{
@@ -40,6 +45,12 @@ class FaveStop extends Component{
     if(!this.props.userDets || this.props.userDets === undefined){
       return;
     }
+    if(!this.state.faveStop.userStopName) return;
+    
+
+    //should also check that user hasn't already saved this stop 
+
+
     const { route, direction, bestopid, stopname } = this.props.selectedStopDets.selectedStop; 
     const stopToSave ={
       userStopName:this.state.faveStop.userStopName,
@@ -64,10 +75,10 @@ class FaveStop extends Component{
 
   editFaveStop = (e)=>{
     e.preventDefault();
-    //console.log(this.props)
+    if(!this.state.faveStop.userStopName) return;
+
     const {bestopid,direction,route,fireBaseId,stopname,userid} = this.props.userStop;
-    //console.log(this.props.userStop)
-    //console.log("will test", this.state)
+  
     let pretend = {
       bestopid,
       direction,
@@ -76,10 +87,6 @@ class FaveStop extends Component{
       userStopName:this.state.faveStop.userStopName,
       userid
     }
- 
-    //console.log("will save ", pretend)
-    // let url = `https://busload-8ae3c.firebaseio.com/favourites/-LjI1-_SJJFpVmfkdwKy.json`
-
 
 
     let url = `https://busload-8ae3c.firebaseio.com/favourites/${fireBaseId}.json`
@@ -121,16 +128,40 @@ class FaveStop extends Component{
 
   render(){
     return(
-      <div>
+      <React.Fragment>
         { //ie if bring rendered by UserSection
           ( this.props.userStop )?
+          
+         
           <div className={styles.buttonGrp}>
-          <button className={styles.buttonSmall} onClick={(e)=>this.showEditForm(e)}>Rename</button>
-          <button className={`${styles.buttonSmall} ${styles.redBtn}`} onClick={(e)=>this.deleteFaveStop(e)}>Delete</button>
+            {(!this.state.showBtnGrp) ? 
+              // <button className={styles.showMore} onClick={this.setShowBtnGrp}>Edit</button> 
+              <button 
+          className={styles.expandCollapseBtn}
+          onClick={this.setShowBtnGrp}>
+            <img src={plus} alt={ "plus"} />
+            
+          </button>
+              : 
+              <React.Fragment>
+              <button className={`${styles.buttonSmall} ${styles.blueBtn}`} onClick={(e)=>this.showEditForm(e)}>Rename</button>
+
+              <button className={`${styles.buttonSmall} ${styles.redBtn}`} onClick={(e)=>this.deleteFaveStop(e)}>Delete</button>
+              
+              <button className={`${styles.expandCollapseBtn} ${styles.clearBtn}`} onClick={this.setShowBtnGrp}>
+              <img src={minus} alt={ "minus"} />
+              </button>
+              </React.Fragment>
+
+              
+            }
+       
+
           </div>
           :
           //ie if being rendered by SearchForStop
-          <button onClick={this.saveFaveStop}>Favourite</button>
+          <button className={styles.buttonMainFave} onClick={this.saveFaveStop}>Save </button>
+      
         }
     
   
@@ -157,7 +188,7 @@ class FaveStop extends Component{
               <Modal 
                 clickBg={this.closeModal} 
                 show={state}>
-                <EditFaveStopForm handleFaveInputChange={this.handleFaveInputChange} editFaveStop={this.editFaveStop} />
+                <EditFaveStopForm handleFaveInputChange={this.handleFaveInputChange} editFaveStop={this.editFaveStop} stopName={this.props.userStop.stopname} />
               </Modal>
             )
           }
@@ -165,7 +196,7 @@ class FaveStop extends Component{
           </Transition> 
         : null
         }
-      </div>
+      </React.Fragment>
     )
  
   

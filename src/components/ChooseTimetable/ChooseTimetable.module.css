@@ -2,7 +2,8 @@
 
   color: #fafafa;
   font-size: 1em;
-  background: #5A486E;
+  /* background: #5A486E; */
+  background: #384A6E;
   padding: 0.5em 1em 0.5em 1em;
   border: 6px solid white ;
   text-decoration: none;
@@ -11,13 +12,14 @@
 }
 
 .buttonInfo:hover{
-    background: #64507A;
+    /* background: #64507A; */
+    background:#5F7DBA;
     text-decoration: none;
     cursor: pointer;
 }
 
 .buttonInfoActive{
-  background:#9779BA;
+  background:#5F7DBA;
   transform:scale(1, 1);
  
  outline:none;

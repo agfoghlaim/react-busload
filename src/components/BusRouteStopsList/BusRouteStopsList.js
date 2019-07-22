@@ -38,6 +38,7 @@ class BusRouteStopsList extends Component {
  
   //console.log(props)
   showLinks = (stops)=>{
+    
     return stops.map(stop=>{
       return <div key={stop.bestopid} className={styles.stopLinkDiv}>
        
@@ -78,8 +79,11 @@ class BusRouteStopsList extends Component {
                     return <div>
                       {
                         this.showMap(data.busRouteOverviewLocal.stops)}
-                      <div className={styles.linksWrapDiv}>{ this.showLinks(data.busRouteOverviewLocal.stops)
-                      }</div>
+                      <div className={styles.linksWrapDiv}>
+                      <h3 className={styles.sectionH3}>Choose your Stop</h3>
+                      { this.showLinks(data.busRouteOverviewLocal.stops)
+                      }
+                      </div>
                     </div>
 
                 }

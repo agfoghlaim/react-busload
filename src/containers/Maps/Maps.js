@@ -13,7 +13,7 @@ class Maps extends Component{
       longitude:-9.04875088331228,
       latitude:53.2747740041651,
       zoom: 11,
-      width:'100vw',
+      width:'90vw',
       height:'400px'
     },
     selectedStop:null,

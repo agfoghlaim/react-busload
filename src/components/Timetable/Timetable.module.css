@@ -21,8 +21,10 @@
  
 }
 .table{
- background:#DCE1CF;
+ /* background:#DCE1CF; */
+ /* background-image: url('../../img/onepix.png'), linear-gradient(rgba(105,120,73,0.88),rgba(105,120,73,0.88)); */
   width:100%;
+  border-top: 10px solid #4f6128;
 }
 @media only screen and (max-width: 600px) {
   .td{
@@ -45,9 +47,9 @@
   }
 
 
-.tr:hover{
+/* .tr:hover{
   background: linear-gradient(45deg, rgba(90,72,110,1), rgba(90,72,110,0.8));
-}
+} */
 
 /* .tr:hover .tdClickable .td{
   background:none;
@@ -56,33 +58,48 @@
 .th{
   padding:1em;
   border:1.5px solid  rgba(79, 97, 40, 1);
+  background:rgba(105,120,73,0.88);
+  background-image: url('../../img/onepix.png');
   color:white;
-  background:#9DAD7B;
+  /* background:#9DAD7B; */
 }
-
+.tr{
+  background-image: url('../../img/onepix.png')
+}
 .td{
   padding:1em;
   border:1px solid  rgba(79, 97, 40, 1);
-  background: linear-gradient( #88AD36, #92AD58);
-  color:white;
+  background: linear-gradient(rgba(238, 238, 240, 0.8),rgba(240, 240, 240, 0.76));
+  color:darkslategray;
   font-size:0.8em;
+  /* background-image: url('../../img/onepix.png'); */
 }
-.td:hover{
+/* .td:hover{
   background: linear-gradient( rgba(79, 97, 40, 0.9), rgba(79, 97, 40, 0.81));
   border:1px solid  rgb(72, 85, 45);
-}
+} */
 
 .tdClickable{
   cursor: pointer;
   padding:1rem;
-  border:1px solid  rgba(79, 97, 40, 1);
-  background: linear-gradient( #88AD36, #92AD58);
-  color:white;
+  background: linear-gradient(rgba(238, 238, 240, 0.8),rgba(240, 240, 240, 0.76));
+  border:1px solid #4f6128;
+  color:darkslategray;
   font-size:0.8em;
+  transition:all 0.3s ease-out;
+  transform:translateZ(0);
+  backface-visibility: hidden;
 }
 .tdClickable:hover{
-  background: linear-gradient( rgba(79, 97, 40, 0.9), rgba(79, 97, 40, 0.81));
-  border:1px solid  rgb(72, 85, 45);
+
+  background: rgba(105,120,73,0.88);
+  background-image: url('../../img/onepix.png');
+  color:white;
+  transform:translateZ(0);
+  border:1px solid #4f6128;
+  /* transform:scale(1.05); */
+  
+  transform: scale(1.02) ;
 }
 
 .span{

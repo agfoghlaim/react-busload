@@ -1,35 +1,119 @@
 .buttonSmall{
-  -webkit-border-radius: 2;
+  /* -webkit-border-radius: 2;
   -moz-border-radius: 2;
-  border-radius: 2px;
-  color: #fafafa;
+  border-radius: 2px; */
+  color: darkslategray;
   font-size: 0.8em;
   font-weight: 600;
-  background: #4f6128;
+  
+  background: white;
   padding: 0.5em 1em 0.5em 1em;
-  border: solid #4f6128 1px;
+  border: solid darkslategray 1px;
   text-decoration: none;
   box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92);
 }
-
+.expandCollapseBtn{
+  background:none;
+  outline:none;
+  border:none;
+  cursor: pointer;
+}
+.expandCollapseBtn img{
+  max-width:1em;
+}
+.showMore{
+  background:none;
+  outline:none;
+  border:none;
+  cursor: pointer;
+  max-height: 2em;
+  
+}
 .buttonSmall:hover{
-
-    background: #5a7228;
-    text-decoration: none;
     cursor: pointer;
+    transition:all 0.3s ease-in;
 }
 
 .buttonGrp{
-  display:flex;
-  justify-content: space-around;
+  display:grid;
+  grid-template-columns: 2fr 2fr 1fr;
+ 
+ 
 }
 
 .redBtn{
-  background:#7A41BA;
+  background:#943d2e;
+  color:#fff;
+  box-shadow: none;
   
 }
 
 .redBtn:hover{
-  background:#9779BA;
+  background:#a15547;
+ 
+  /* color:darkslategray; */
+}
+
+.blueBtn{
+  background:#384a6e;
+  color:#fff;
+  box-shadow: none;
   
 }
+
+.blueBtn:hover{
+  background:#4e5e7e;
+ 
+  /* color:darkslategray; */
+}
+
+.greenBtn{
+  background:#4f6128 ;
+  color:#fff;
+  
+}
+
+.greenBtn:hover{
+  background:#5a7228;
+  /* color:darkslategray; */
+}
+
+.clearBtn{
+  background:white ;
+}
+
+.greenBtn:hover{
+  background:#5a7228;
+  /* color:darkslategray; */
+}
+
+
+
+
+.buttonMainFave{
+  border-radius: 2px;
+  color: #fafafa;
+  font-size: 1em;
+  background: #f58228;
+  padding: 0.5em 1em 0.5em 1em;
+  border: solid #ff992c 1px;
+  text-decoration: none;
+  padding:1em 2em;
+  box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92);
+  transition:all 0.2s linear;
+  
+}
+
+.expandCollapseBtn{
+  display: grid;
+}
+
+.buttonMainFave:hover{
+  background: #ff992c;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+
+

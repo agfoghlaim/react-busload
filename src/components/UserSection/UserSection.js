@@ -6,16 +6,19 @@ import firebase from '../../config/fbConfig';
 import axios from 'axios';
 import { Route } from 'react-router-dom';
 import UserProfile from '../UserProfile/UserProfile';
+import plus from '../../img/plus.svg';
+import minus from '../../img/minus.svg';
 
 class UserSection extends Component {
   _isMounted = false;
-  state = {stopName:'', faveStops:[], emailResent:false, userInfo:{}}
+  state = {stopName:'', faveStops:[], emailResent:false, userInfo:{}, expandFaves:false}
  
 
 
   componentDidMount(){
     this._isMounted = true;
-    console.log(this.props.userDets)
+   // console.log(this.props, this.state)
+  
     //get currently logged in users faveourite stops
     if(!this.props.userDets.userId) return
     const ref = firebase.database().ref(`favourites`);
@@ -56,6 +59,43 @@ class UserSection extends Component {
     this._isMounted = false;
   }
 
+handleSetExpandFaves = ()=>{
+  this.setState((prev,curr)=>{
+    return {expandFaves:!prev.expandFaves}
+  })
+}
+showCollapsedFaves = ()=>{
+    return this.state.faveStops.map(stop=>{
+      return  <div className={styles.routeboxCollapsed} key={stop.bestopid}>
+        <Link 
+        className={styles.plainLinkCollapsed} 
+        to={{
+          pathname:`/${stop.route}/${stop.direction}/${stop.bestopid}`
+        }}>
+        <p className={styles.routenoCollapsed}>{stop.userStopName}</p>
+        </Link>
+      </div>
+    })
+}
+
+showExpandedFaves = ()=>{
+  return             this.state.faveStops.map(stop=>{
+    return  <div className={styles.routebox} key={stop.bestopid}>
+      <Link 
+      className={styles.plainLink} 
+      to={{
+        pathname:`/${stop.route}/${stop.direction}/${stop.bestopid}`
+      }}>
+      <p className={styles.routeno}>{stop.userStopName}</p>
+      <p className={styles.routename}>{stop.stopname}</p>
+      <p className={styles.routename}>{stop.bestopid}</p>
+      </Link>
+      
+      <FaveStop userStop={stop}/>
+    </div>
+    
+    })
+}
   // resendEmailVerification=()=>{
   //   const domain = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/`;
   //   const key = `AIzaSyAoXxf2QSQwHDJOenPiziOTGzxijrZynLs`;
@@ -77,49 +117,31 @@ class UserSection extends Component {
   render(){
     return (
       <div className={styles.faveListWrap} >
-        <h3>Quick Stops</h3>
-        {/* {
-          (this.props.emailResent)?
-          <p>Email Sent. Please logout and check your emails.</p>
-          : null
-        } */}
-        {/* {
-          (!this.props.userDets.emailVerified) ?
-          <div className={styles.warningDiv}>
-            <p className={styles.warningText}>Email Not Verified. Please logout and check your emails to continue.</p>
-             <button onClick={this.resendEmailVerification}className={styles.buttonSmall}>Resend verification Email Now</button>
-          </div>
-          :
-          null
-          // <p>(verified) </p>
-        } */}
+        <div className={styles.h3AndExpandCollapse}>
+          
+          <button 
+          className={styles.expandCollapseBtn}
+          onClick={this.handleSetExpandFaves}>
+            <img src={this.state.expandFaves ? minus : plus} alt={this.state.expandFaves ? "minus" : "plus"} />
+            
+          </button>
+          <h3 className={styles.sectionH3}>Quick Stops</h3>
+        </div>
 
         <div className={styles.routewrap} >
         
           {
-            (this.state.faveStops.length) 
+            (this.state.faveStops.length && !this.state.expandFaves) 
 
             ?
-            
-            this.state.faveStops.map(stop=>{
-              return  <div className={styles.routebox} key={stop.bestopid}>
-                <Link 
-                className={styles.plainLink} 
-                to={{
-                  pathname:`/${stop.route}/${stop.direction}/${stop.bestopid}`
-                }}>
-                <p className={styles.routeno}>{stop.userStopName}</p>
-                <p className={styles.routename}>{stop.stopname}</p>
-                <p className={styles.routename}>{stop.bestopid}</p>
-                </Link>
-                <FaveStop userStop={stop}/>
-              </div>
-              
-              }
-            )
-
+            this.showCollapsedFaves()
+     
             :
-            
+
+            (this.state.faveStops.length && this.state.expandFaves) 
+            ?
+            this.showExpandedFaves()
+            :
             <p>Put your favourite bus stops here for quick access. </p>
             
           }
