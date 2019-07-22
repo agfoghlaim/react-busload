@@ -12,6 +12,7 @@ const nav = (props) => {
         <li><Link to={'/'}>Home</Link></li>
         
         <li><Link to={'/'}>About</Link></li>
+
         {(props.userDets.isUser) ? 
 
        <li onClick={()=>props.handleLogOut()}>

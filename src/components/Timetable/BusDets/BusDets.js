@@ -4,7 +4,7 @@ import dryIcon from '../../../img/dry.svg';
 import styles from './BusDets.module.css';
 
 const busDets = (props) => {
-  console.log(props)
+  //console.log(props)
   let arrName = 'dry_snaps';
   let avgName = 'dry_avg';
 
@@ -38,8 +38,8 @@ const busDets = (props) => {
       if(props.busDets[`${arrName}`].length){
         return props.busDets[`${arrName}`].map(snap=>{
           return(
-              <tr key={snap._id}>
-                {/* <td>{snap.queryScheduledTime.substring(6,11)}</td> */}
+              <tr className="snaps" key={snap._id}>
+           
         
                 <td>{(snap.timetabled !== 'bus_not_found_on_rtpi') ? snap.timetabled : snap.forBusDue}</td>
                 <td>{snap.queryDateTime.substring(0,10)} @   {snap.queryScheduledTime} </td>
@@ -55,7 +55,7 @@ const busDets = (props) => {
       }
   }
 
-  return <div key={props.busDets._id}>
+  return <div>
 
     {tableTop()}
     
