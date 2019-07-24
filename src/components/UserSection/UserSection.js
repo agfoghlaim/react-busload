@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom'
 import styles from './UserSection.module.css';
 import FaveStop from '../FaveStop/FaveStop';
@@ -8,6 +8,9 @@ import axios from 'axios';
 // import UserProfile from '../UserProfile/UserProfile';
 import plus from '../../img/plus.svg';
 import minus from '../../img/minus.svg';
+
+
+
 
 class UserSection extends Component {
   _isMounted = false;
@@ -60,14 +63,28 @@ class UserSection extends Component {
     this._isMounted = false;
   }
 
+
+addMoreLink =()=> <div className={styles.routeboxCollapsedInvert}>
+  <Link 
+  className={styles.plainLinkCollapsedInvert}
+  to={{pathname:`/`,hash:'#stops'}}>
+  <p className={styles.routenoCollapsedInvert}>
+    + Add Stops
+  </p>
+  </Link></div>
+
 handleSetExpandFaves = ()=>{
   this.setState((prev,curr)=>{
     return {expandFaves:!prev.expandFaves}
   })
 }
 showCollapsedFaves = ()=>{
-    return this.state.faveStops.map(stop=>{
-      return  <div className={styles.routeboxCollapsed} key={stop.bestopid}>
+  return <React.Fragment>{
+
+    
+
+    this.state.faveStops.map(stop=>{
+      return <div className={styles.routeboxCollapsed} key={stop.bestopid}>
         <Link 
         className={styles.plainLinkCollapsed} 
         to={{
@@ -77,6 +94,9 @@ showCollapsedFaves = ()=>{
         </Link>
       </div>
     })
+  }
+   {this.addMoreLink()}
+  </React.Fragment>
 }
 
 showExpandedFaves = ()=>{
@@ -126,9 +146,9 @@ showExpandedFaves = ()=>{
             <img src={this.state.expandFaves ? minus : plus} alt={this.state.expandFaves ? "minus" : "plus"} />
             
           </button>
-          <Link className={styles.breadLink}
-    to={{pathname:`/`,hash:'#stops'}}
-    >add </Link>  
+          {/* <Link className={styles.breadLink}
+    // to={{pathname:`/`,hash:'#stops'}}
+    >add </Link>   */}
           <h3 className={styles.sectionH3}>Quick Stops</h3>
         </div>
 

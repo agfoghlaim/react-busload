@@ -85,6 +85,11 @@ class SearchForStop extends Component {
             })
             return <div  className={styles.searchStopWrap}>
               <h3 className={styles.sectionH3}>Find your stop</h3>
+              {
+                (this.props.currentUser.userId) ?
+                <p className={styles.infoP}><small>Select your stop and click Save to add to Quick Links.</small></p>
+                : null
+              }
               <p><small>{this.state.selectedStop.stopname}</small></p>
               <div className={(this.props.currentUser.userId) ? styles.inputButtonDivUser : styles.inputButtonDiv }>
               <input 
@@ -96,9 +101,7 @@ class SearchForStop extends Component {
                 onChange={(e)=>{this.handleShowStopsList(e);this.handleSearchStop(e)}} 
               />
               
-{/* 
-              <Link to={`${this.state.selectedStop.route}/${this.state.selectedStop.direction}/${this.state.selectedStop.bestopid}`}
-              ><button  onClick={(e)=>this.props.setSelectedStopId(e,this.state.selectedStop)}className={styles.buttonMain}  >Go</button></Link> */}
+
            
                   <Link to={`${this.state.selectedStop.route}/${this.state.selectedStop.direction}/${this.state.selectedStop.bestopid}`}
                   ><button  className={styles.buttonMain}  >Go</button></Link>

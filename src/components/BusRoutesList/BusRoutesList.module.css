@@ -19,14 +19,14 @@ color:darkslategray;
 
 .routebox{
   /* background:white; */
-  /* background-image: url('../../img/onepix.png');
+  background-image: url('../../img/onepix.png');
   background-size:auto;
-  background-repeat: repeat; */
+  background-repeat: repeat;
   padding:0.3rem;
   color:gray;
   padding:1em;
   border: 2px solid transparent;
-  transition:all 200ms ease-in-out;
+  transition:all 0.3s ease-out;
   min-height:150px;
   display:grid;
   align-items: center;
@@ -40,20 +40,22 @@ color:darkslategray;
   transform:scale(1.05);
   border:2px solid #943d2e;
   border-radius: 0.2em; 
- 
+  box-shadow:2px 2px 4px #3c4d3b;
  
   /* background: url('../../img/onepix.png');  */
   background-repeat: repeat;
 }
 
 .routebox:hover p.routeno{
-  background: #F0F0F0;
+  background: #fff;
   border: 1px solid transparent;
+  
  } 
 
  .routebox:hover p.routename{
-  background: #F0F0F0;
+  background: #Fff;
   border: 1px solid transparent;
+  
  } 
 
 .plainLink{
@@ -75,18 +77,23 @@ color:darkslategray;
   height: 3em;
   display: grid;
   align-items: center;
-  background-image: url('../../img/onepix.png');
+  /* background-image: url('../../img/onepix.png'); */
   background-size:auto;
   background-repeat: repeat;
+  transition:all 0.5s ease-out;
+  background:white;
+  /* box-shadow:2px 2px 4px #3c4d3b; */
 }
 
 
 .routename{
   font-size: 1em;
   color:#4f6128;
+  background:white;
   display: grid;
   align-self: center;
-  background-image: url('../../img/onepix.png');
+  /* background-image: url('../../img/onepix.png'); */
+  transition:all 0.4s ease-out;
 }
 
 

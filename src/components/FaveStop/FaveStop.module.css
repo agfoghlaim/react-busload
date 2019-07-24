@@ -94,12 +94,12 @@
   border-radius: 2px;
   color: #fafafa;
   font-size: 1em;
-  background: #f58228;
+  background: #384a6e;
   padding: 0.5em 1em 0.5em 1em;
-  border: solid #ff992c 1px;
+  border: none;
   text-decoration: none;
   padding:1em 2em;
-  box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92);
+  /* box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92); */
   transition:all 0.2s linear;
   
 }
@@ -109,7 +109,7 @@
 }
 
 .buttonMainFave:hover{
-  background: #ff992c;
+  background: #5F7DBA;
     text-decoration: none;
     cursor: pointer;
 }

@@ -13,10 +13,12 @@ const NEXT_PREV_QUERY = gql`
       next{
         name
         bestopid
+        stop_sequence
       }
       prev{
         name
         bestopid
+        stop_sequence
       }
     }
   }
@@ -52,7 +54,7 @@ const NextPrevStop = (props) => {
                         
                         <Link className={styles.prevLink}  to={`/${route}/${direction}/${data.nextPrevStops.prev.bestopid}`}>
                         <img className={styles.leftArrow} src={leftArrow} alt="left-arrow" />
-                          <p className={styles.prevP}>{data.nextPrevStops.prev.name}</p>
+                          <p className={styles.prevP}><strong>{data.nextPrevStops.prev.stop_sequence}. </strong>  {data.nextPrevStops.prev.name}</p>
                         </Link>
                       </Tux>
                       :
@@ -67,9 +69,9 @@ const NextPrevStop = (props) => {
                       
                         {/* <img className={styles.arrows} src={leftArrow} alt="left-arrow" /> */}
                       
-                          <p className={styles.thisStopP}> {props.stopName}
-                          
+                          <p className={styles.thisStopP}>{props.sequence}. {props.stopName}
                           </p>
+                          
                         
                      
                       </Tux>
@@ -87,7 +89,7 @@ const NextPrevStop = (props) => {
                        
                         <Link className={styles.nextLink} to={`/${route}/${direction}/${data.nextPrevStops.next.bestopid}`}>
                         <img className={styles.rightArrow} src={rightArrow} alt="right-arrow" />
-                          <p className={styles.nextP}>{data.nextPrevStops.next.name}</p>
+                          <p className={styles.nextP}> <strong>{data.nextPrevStops.next.stop_sequence}. </strong> {data.nextPrevStops.next.name}</p>
                         </Link>
                       </Tux>
                       :

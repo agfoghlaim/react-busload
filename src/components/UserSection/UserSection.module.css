@@ -35,12 +35,20 @@ border-left: 10px solid #384a6e;
 
 .routeboxCollapsed{
   background:white;
-  color:gray;
   border: 2px solid transparent;
   transition:all 200ms ease-in-out;
   display:grid;
   align-items: center;
 }
+.routeboxCollapsedInvert{
+  background:#384a6e;
+  border: 2px solid transparent;
+  transition:all 200ms ease-in-out;
+  display:grid;
+  align-items: center;
+}
+
+
 
 .routebox .plainLink:hover {
   transform:scale(1.03);
@@ -71,21 +79,33 @@ border-left: 10px solid #384a6e;
   text-decoration: none;
   border:2px solid transparent;
   padding:1em 0.5em;
-  transition:all 400ms ease-in-out;
   margin-bottom:0.5em;
  
 }
 .plainLinkCollapsed{
   text-decoration: none;
   border:2px solid transparent;
-  transition:all 400ms ease-in-out;
+  transition: all 0.3s ease-out;
 }
 
-.plainLinkCollapsed:hover, .plainLinkCollapsed:focus{
+.plainLinkCollapsedInvert{
+  text-decoration: none;
+}
+
+
+
+.plainLinkCollapsed:hover, 
+.plainLinkCollapsed:focus{
  
-  border:2px solid #5f7dba;
+  border:2px solid #384a6e;
   
 }
+
+.plainLinkCollapsedInvert:hover, 
+.plainLinkCollapsedInvert:focus{
+  border:2px solid #fff;
+}
+
 
 .routeno{
   font-weight: 700;
@@ -99,13 +119,33 @@ border-left: 10px solid #384a6e;
   padding: 0.5em 1em;
 }
 
+.routenoCollapsedInvert{
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  padding: 0.5em 1em;
+}
+
+.routenoCollapsed{
+  font-weight: 700;
+  color: #384a6e;
+  margin: 0;
+  padding: 0.5em 1em;
+}
+
+.routenoCollapsedMore{
+  font-weight: 700;
+  color:#fff;
+  margin: 0;
+  padding: 0.5em 1em;
+}
+
 .routename{
  
   color:darkslategray;
   font-size: 0.8em;
-
-display: grid;
-align-self: center;
+  display: grid;
+  align-self: center;
   
 }
 

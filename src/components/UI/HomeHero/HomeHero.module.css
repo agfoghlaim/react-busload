@@ -1,10 +1,6 @@
 .homePageHeroWrap{
-  /* background-image: url('../../../img/rainBusGreen2.png'), linear-gradient(#49424142, #d135310d); */
-  /* background: #0e9aa6; */
-  background:#384a6e;
+  background:#f0f0f0;
   background-image: url('../../../img/sky.png');
-  /* background-image: url('../../../img/rainBusGreen.png'); */
-  /* background: linear-gradient(45deg, #4f6128, #5f7431e8); */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -17,12 +13,8 @@
 .wrapOne{
   display:grid;
   justify-content: center;
- 
- 
   justify-items:center;
-  /* background: linear-gradient(#494241e3, #202d2000); */
   padding: 10rem 0;
- 
 }
 
  .logo a{
@@ -31,7 +23,6 @@
   font-size: 2rem;
   font-weight:800;
   text-align: center;
-
 }
 
 
@@ -40,7 +31,6 @@
   align-self: self-end;
   display: grid;
   justify-self: center;
-
   position: absolute;
 } 
 
