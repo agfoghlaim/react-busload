@@ -6,6 +6,8 @@ import styles from './Timetable.module.css';
 import BusDets from './BusDets/BusDets';
 import Modal from '../Modal/Modal';
 import NextPrevStop from '../NextPrevStop/NextPrevStop';
+import ChooseTimetable from '../ChooseTimetable/ChooseTimetable';
+
 
 
 
@@ -82,6 +84,7 @@ render(){
 
         <NextPrevStop route={this.props.route} direction={this.props.direction} sequence={stop_sequence} stopName={this.props.busRoutes.name} bestopid={bestopid} />
 
+        <ChooseTimetable timetables={this.props.timetables} changeBusTimes_X={this.props.changeBusTimes_X} />
           
       <table className={styles.table}>
         <thead>

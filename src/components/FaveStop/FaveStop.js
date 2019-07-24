@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import Modal from '../Modal/Modal';
 import SaveFaveStopForm from './SaveFaveStopForm/SaveFaveStopForm';
 import axios from 'axios';
@@ -116,15 +116,15 @@ class FaveStop extends Component{
   }
 
 
-  showEditBtn=()=>{
-    //need to know if selected stop is in user faves
-    const { route, direction, bestopid, stopname } = this.props.selectedStopDets.selectedStop; 
-    if(route&&direction&&bestopid&&stopname){
-      return <button>the conditional button</button>
-    }else{
-      return null
-    }
-  }
+  // showEditBtn=()=>{
+  //   //need to know if selected stop is in user faves
+  //   const { route, direction, bestopid, stopname } = this.props.selectedStopDets.selectedStop; 
+  //   if(route&&direction&&bestopid&&stopname){
+  //     return <button>the conditional button</button>
+  //   }else{
+  //     return null
+  //   }
+  // }
 
   render(){
     return(

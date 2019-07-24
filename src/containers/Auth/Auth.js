@@ -30,6 +30,7 @@ class Auth extends Component{
       loginFail:null,
       registerFail:null,
       resetFail:null,
+      resetSent:null,
       emailVerifyRequired:false,
       showReset:false
   }
@@ -39,17 +40,22 @@ class Auth extends Component{
     if(this.state.registerFail !==null){
       setTimeout(()=>{ 
        this.setState({registerFail:null})
-      },  3000)
+      },  5000)
     }
     if(this.state.loginFail !==null){
       setTimeout(()=>{ 
        this.setState({loginFail:null})
-      },  3000)
+      },  5000)
     }
     if(this.state.resetFail !==null){
       setTimeout(()=>{ 
        this.setState({resetFail:null})
-      },  3000)
+      },  5000)
+    }
+    if(this.state.resetSent !==null){
+      setTimeout(()=>{ 
+       this.setState({resetFail:null})
+      },  5000)
     }
   }
   handleSwitchBetweenLoginRegisterForms  = ()=>{
@@ -84,11 +90,12 @@ class Auth extends Component{
     }
     axios.post(resetUrl,options)
     .then(r=>{
-      console.log("sent ", r)
+      this.setState({resetSent:'Email sent. Please check your mail and follow the link to reset password.'})
     })
     .catch(e=>{
       console.log(e)
       console.log({...e})
+      this.setState({resetFail:'Email not sent..'})
     })
   }
 
@@ -353,6 +360,7 @@ class Auth extends Component{
          handleAnyInputChange={this.handleAnyInputChange}
          emailValidity={this.state.emailField.validity}
          resetFail = {this.state.resetFail}
+         resetSent = {this.state.resetSent}
          styles={styles}
          
          >

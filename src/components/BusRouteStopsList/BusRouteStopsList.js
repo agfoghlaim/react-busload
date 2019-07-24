@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import Maps from '../../containers/Maps/Maps';
 import styles from './BusRouteStopsList.module.css';
+import BreadCrumbs from '../Breadcrumbs/Breadcrumbs';
 
 
 /*
@@ -62,10 +63,24 @@ class BusRouteStopsList extends Component {
     return <Maps stops={stops} currentPath={this.props.location.pathname} />
   }
 
+  checkValidRouteDirection =(r,d)=>{
+    const routes = [401,402,404,405,409];
+    const directions = ['w','e'];
+    if(!routes.includes(parseInt(r)) || ! directions.includes(d.toLowerCase())){
+      return false;
+    }else{
+      return true
+    }
+  }
   render(){
       //let { route, direction } = this.props.match.params;
       let { route, direction } = this.state.selectedRoute;
+
+      if(!this.checkValidRouteDirection(route,direction)) return <p>Oops! BusLoad is confused. Please go to the Home Page and start again. </p>
       return(
+        <React.Fragment>
+          <BreadCrumbs />
+       
         <Query 
           query={STOPS_LIST_QUERY} 
           variables={{route, direction}}>
@@ -73,7 +88,7 @@ class BusRouteStopsList extends Component {
               ({ loading, error, data }) => {
                   //console.log(data)
                 if (loading) return <p>loading...</p>;
-                if (error) return `Error! ${error}`;
+                if (error) return <p>Oops! BusLoad is having trouble communicating with the server. Please try again in a while.</p>;
                 if(data.busRouteOverviewLocal){
                   console.log(data.busRouteOverviewLocal)
                     return <div>
@@ -90,7 +105,9 @@ class BusRouteStopsList extends Component {
 
               }
             }
-          </Query>
+        </Query>
+        </React.Fragment>
+       
       )
   }
 }

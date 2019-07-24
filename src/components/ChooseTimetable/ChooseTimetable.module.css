@@ -3,10 +3,12 @@
   color: #fafafa;
   font-size: 1em;
   /* background: #5A486E; */
-  background: #384A6E;
+  /* background: #384A6E; */
+  background:#4F6128;
   padding: 0.5em 1em 0.5em 1em;
-  border: 6px solid white ;
+  border: 1px solid white ;
   text-decoration: none;
+  outline: none;
   /* box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92); */
   
 }
@@ -19,16 +21,16 @@
 }
 
 .buttonInfoActive{
+  border: 1px solid white ;
   background:#5F7DBA;
-  transform:scale(1, 1);
- 
+  transform:scale(1.1);
  outline:none;
   color: #fafafa;
   font-size: 1em;
   padding: 0.5em 1em 0.5em 1em;
-  border:  1px solid #5A486E;
+  /* border:  1px solid #5A486E; */
   text-decoration: none;
-  box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92);
+  /* box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92); */
   transition: all 0.2s linear;
 }
 /* .buttonInfoActive:hover{
@@ -39,5 +41,7 @@
 
 .timetableBtnGrpDiv{
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap:0.5em;
+  grid-template-columns: repeat(8,1fr);
+  /* grid-template-columns: 2fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr; */
 }

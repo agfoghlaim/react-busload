@@ -9,7 +9,7 @@ props.busRoutes.sort((a, b)=>{return a.route-b.route});
 
  //props.setSelectedRoute
     return(
-      <div className={styles.routeListWrap} >
+      <div  className={styles.routeListWrap} >
       <h3 className={styles.sectionH3}>Choose your route</h3>
       <div className={styles.routewrap} >
       

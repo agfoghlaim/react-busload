@@ -44,20 +44,36 @@ const breadcrumbs = (props) => {
   
   }
 
-
+{/* <Link  className={}><div 
+           
+           className={styles.routebox}>
+             <p className={styles.routeno}>{busroute.route}</p>
+             <p className={styles.routename}>{busroute.routename}</p>
+             </div></Link> */}
  
-
-
-  return <div className={styles.breadcrumbDiv}>
-    <Link className={styles.breadLink}to={`/`}>Home </Link>  
+ return <div className={`${styles.breadcrumbDiv} ${styles.plainLink}`}>
+    <Link className={styles.breadLink}
+    to={{pathname:`/`,hash:'#routes'}}
+    >All Routes </Link>  
     <span className={styles.breadSlash}>/</span>
-    <Link className={styles.breadLink}to={`/${route}/${direction}`}>{route} ({str}) </Link> 
+    <Link className={`${styles.breadLink} ${styles.routeno}`}to={`/${route}/${direction}`}>{route} ({str}) </Link> 
     <span className={styles.breadSlash}>
         {(bestopid) ? '/' : null}
     </span>
-    <span >{bestopid}</span>
+    <span className={styles.breadBusid}>{bestopid}</span>
+ 
+</div>
+
+//   return <div className={styles.breadcrumbDiv}>
+//     <Link className={styles.breadLink}to={`/`}>Home </Link>  
+//     <span className={styles.breadSlash}>/</span>
+//     <Link className={styles.breadLink}to={`/${route}/${direction}`}>{route} ({str}) </Link> 
+//     <span className={styles.breadSlash}>
+//         {(bestopid) ? '/' : null}
+//     </span>
+//     <span >{bestopid}</span>
     
-  </div>
+//   </div>
 }
 
 export default withRouter(breadcrumbs);

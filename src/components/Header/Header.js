@@ -14,7 +14,7 @@ const header = (props) => {
       <Weather />
       <Route exact path='/' component={HomeHero}/>
       <Nav handleLogOut={props.handleLogOut} userDets={props.userDets}/>
-     <Route path='/:route/:direction' component={Breadcrumbs} /> 
+     {/* <Route path='/:route/:direction' component={Breadcrumbs} />  */}
      {/* <Route path='/:route/:direction/:bestopid' component={Breadcrumbs} />  */}
 
 

@@ -25,6 +25,8 @@ const resetPassForm = (props) => {
 
             <p className={props.styles.error}>{props.resetFail}</p>
 
+            <p className={props.styles.error}>{props.resetSent}</p>
+
             <button className={props.styles.buttonMain} onClick={(e)=>props.handleResetPass(e)}>Send</button>
           </form>
           </div>

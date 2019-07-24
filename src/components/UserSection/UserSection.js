@@ -4,8 +4,8 @@ import styles from './UserSection.module.css';
 import FaveStop from '../FaveStop/FaveStop';
 import firebase from '../../config/fbConfig';
 import axios from 'axios';
-import { Route } from 'react-router-dom';
-import UserProfile from '../UserProfile/UserProfile';
+// import { Route } from 'react-router-dom';
+// import UserProfile from '../UserProfile/UserProfile';
 import plus from '../../img/plus.svg';
 import minus from '../../img/minus.svg';
 
@@ -16,6 +16,7 @@ class UserSection extends Component {
 
 
   componentDidMount(){
+    console.log(this.props)
     this._isMounted = true;
    // console.log(this.props, this.state)
   
@@ -125,6 +126,9 @@ showExpandedFaves = ()=>{
             <img src={this.state.expandFaves ? minus : plus} alt={this.state.expandFaves ? "minus" : "plus"} />
             
           </button>
+          <Link className={styles.breadLink}
+    to={{pathname:`/`,hash:'#stops'}}
+    >add </Link>  
           <h3 className={styles.sectionH3}>Quick Stops</h3>
         </div>
 
@@ -147,8 +151,9 @@ showExpandedFaves = ()=>{
           }
         </div>
 
-        <Route path='/user/:uid' render={(props) => <UserProfile {...props} userInfo ={this.state.userInfo} />}
-         />
+          {/* <Link to={`user/${this.props.userDets.userId}`}>go</Link>
+        <Route path='user/:uid' render={(props) => <UserProfile {...props} userInfo ={this.state.userInfo} />}
+         /> */}
       </div>
     )
   }

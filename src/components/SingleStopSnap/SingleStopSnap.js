@@ -5,7 +5,8 @@ import { Query } from 'react-apollo';
 import Timetable from '../Timetable/Timetable';
 //import styles from './SingleStopSnap.module.css';
 import Spinner from '../UI/Spinner/Spinner';
-import ChooseTimetable from '../ChooseTimetable/ChooseTimetable'
+//import ChooseTimetable from '../ChooseTimetable/ChooseTimetable'
+import BreadCrumbs from '../Breadcrumbs/Breadcrumbs';
 
 
 
@@ -202,9 +203,9 @@ changeBusTimes_X = (day)=>{
     } else{
     
       return<React.Fragment>
-   
-
-            <ChooseTimetable timetables={this.state.bus_times_x} changeBusTimes_X={this.changeBusTimes_X} />
+        <BreadCrumbs />
+{/* 
+            <ChooseTimetable timetables={this.state.bus_times_x} changeBusTimes_X={this.changeBusTimes_X} /> */}
         
         <Query 
             query={SINGLE_STOP_SNAPS} 
@@ -217,13 +218,23 @@ changeBusTimes_X = (day)=>{
                     ({ loading:loadingTwo,data:two }) => {
                       if(loadingOne || loadingTwo) return <Spinner />
             
+                      if(!one || !two)return <p>Oops! BusLoad is confused. Please go to the Home Page and start again. </p>
+
+                      if(!one.bus_times_x_snaps_2 )return <p>Oops! BusLoad has a problem. Please try again. </p>
 
                       one.bus_times_x_snaps_2.bus_times = this.filterResponse(one.bus_times_x_snaps_2.bus_times)
 
                       return (
                         <React.Fragment>
-                      
-                          <Timetable busRoutes={one.bus_times_x_snaps_2} rtpiData={two} route={route} direction={direction} isToday={this.state.bus_times_x[0].active}/>
+                          
+            
+                          <Timetable 
+                          timetables={this.state.bus_times_x} changeBusTimes_X={this.changeBusTimes_X}
+                          busRoutes={one.bus_times_x_snaps_2} 
+                          rtpiData={two} 
+                          route={route} 
+                          direction={direction} 
+                          isToday={this.state.bus_times_x[0].active}/>
                         </React.Fragment>
                       )
                     }

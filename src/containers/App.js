@@ -113,6 +113,8 @@ class App extends Component {
           <Route  path='/:route/:direction/:bestopid/' component={SingleStopSnap} />
          
           <Route path='/:route/:direction/' exact component={BusRouteStopsList} />
+
+          <Route render={()=><p>Not Found</p>}></Route>
           
         </div>
         </Layout>
