@@ -30,36 +30,49 @@ color:darkslategray;
   min-height:150px;
   display:grid;
   align-items: center;
+  align-content: center;
   
 }
 
 .routebox:hover{
-  background-image: url('../../img/onepix.png');
+  /* background-image: url('../../img/onepix.png'); */
   background-size:auto;
+  background:none;
   background-repeat: repeat;
   transform:scale(1.05);
   border:2px solid #943d2e;
+  /* background:#fff; */
   border-radius: 0.2em; 
-  box-shadow:2px 2px 4px #3c4d3b;
+  /* box-shadow:2px 2px 4px #3c4d3b; */
  
   /* background: url('../../img/onepix.png');  */
   background-repeat: repeat;
 }
 
 .routebox:hover p.routeno{
-  background: #fff;
+  background-image: url('../../img/onepix.png');
+  /* background: #fff; */
   border: 1px solid transparent;
+  padding: 0;
+  font-weight: bold;
+  /* background-image: url('../../img/onepix.png'); */
   
  } 
 
  .routebox:hover p.routename{
-  background: #Fff;
+  background-image: url('../../img/onepix.png');
+  /* background: #Fff; */
   border: 1px solid transparent;
+  font-weight: 500;
+  /* background-image: url('../../img/onepix.png'); */
   
  } 
 
 .plainLink{
   text-decoration: none;
+  /* background: white; */
+  align-content: center;
+display: grid;
 
   
 }
@@ -80,7 +93,7 @@ color:darkslategray;
   /* background-image: url('../../img/onepix.png'); */
   background-size:auto;
   background-repeat: repeat;
-  transition:all 0.5s ease-out;
+  transition:all 0.3s ease-out;
   background:white;
   /* box-shadow:2px 2px 4px #3c4d3b; */
 }
@@ -88,7 +101,7 @@ color:darkslategray;
 
 .routename{
   font-size: 1em;
-  color:#4f6128;
+  color:darkslategray;
   background:white;
   display: grid;
   align-self: center;

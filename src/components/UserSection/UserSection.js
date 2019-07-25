@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import styles from './UserSection.module.css';
 import FaveStop from '../FaveStop/FaveStop';

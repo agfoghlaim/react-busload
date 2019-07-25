@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from 'react-apollo';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 //import * as firebase from 'firebase';
 import Layout from '../components/Layout/Layout';
 
@@ -49,6 +49,9 @@ class App extends Component {
   handleLogOut = () =>{
     this.setState({idToken:null, userId:null,expiresAt:null,isUser:false,displayName:null})
     localStorage.clear();
+
+    //and firebase
+    
   }
 
   /*

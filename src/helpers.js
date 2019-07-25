@@ -1,6 +1,8 @@
-const axios = require('axios');
-module.exports = {
-  isWithinMinutesOf: function(busLoadTime,beTime,numMinutes){
+
+import firebase from './config/fbConfig';
+import axios from 'axios';
+
+  export const isWithinMinutesOf=(busLoadTime,beTime,numMinutes)=>{
  
     let theirDate = new Date();
     let myDate = new Date();
@@ -18,14 +20,14 @@ module.exports = {
 
     //is the difference less than numMinutes???
     return (diff <= numMinutes)? true : false;
-  },
-  getUserInfoFromFirebase: async function(url,idToken){
+  }
+ export const getUserInfoFromFirebase = async (url,idToken)=>{
     axios.post(url,{idToken})
     .then(r=>r)
     .catch(e=>console.log("error getting user info"))
-  },
+  }
  
-  dealWithFirebaseRegister: function(registerUrl,getInfoUrl,setInfoUrl,sendEmailUrl,newUser,newUserDetails){
+  export const dealWithFirebaseRegister= (registerUrl,getInfoUrl,setInfoUrl,sendEmailUrl,newUser,newUserDetails)=>{
     return new Promise((resolve,reject)=>{
 
         //for register
@@ -55,20 +57,48 @@ module.exports = {
         })
         .catch(e=>reject(e))
     })
-  },
-  dealWithFirebaseLogin: function(loginUrl,getInfoUrl,newUser){
+  }
+  // export const dealWithFirebaseLogin=(loginUrl,getInfoUrl,newUser)=>{
+  //   return new Promise((resolve,reject)=>{
+  //       axios.post(loginUrl,newUser)
+  //       .then(response=>{
+  //         console.log("at this poing check if email is verified??? ", response )
+  //         axios.post(getInfoUrl,{idToken:response.data.idToken})
+  //         .then(userDetsResp=>{
+  //           console.log("resolving with resp: ", response)
+  //           console.log("resolving with userDetsResp: ", userDetsResp)
+  //           resolve({response,userDetsResp})
+  //         })
+  //       })
+  //       .catch(e=>reject(e))
+      
+  //   })
+  // }
+
+  export const dealWithFirebaseLogin=(loginUrl,getInfoUrl,newUser)=>{
+    //console.log(newUser);
+    const { email, password } = newUser;
     return new Promise((resolve,reject)=>{
-        axios.post(loginUrl,newUser)
-        .then(response=>{
-          console.log("at this poing check if email is verified??? ", response )
-          axios.post(getInfoUrl,{idToken:response.data.idToken})
-          .then(userDetsResp=>{
-            console.log("now do i know if they're verified ??? ", userDetsResp)
-            resolve({response,userDetsResp})
-          })
-        })
-        .catch(e=>reject(e))
+      firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(r=>{
+     
+        const user = firebase.auth().currentUser;
+        if(user !==null){
+          let theUser = {
+            name:user.displayName,
+            email:user.email,
+            photoUrl:user.photoURL,
+            emailVerified:user.emailVerified,
+            uid:user.uid
+          }
+       
+          resolve({userDetsResp:theUser})
+        }
+
+        
+      })
+      .catch(error=>reject(error));
       
     })
   }
-}
+

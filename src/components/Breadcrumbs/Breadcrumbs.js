@@ -44,13 +44,7 @@ const breadcrumbs = (props) => {
   
   }
 
-{/* <Link  className={}><div 
-           
-           className={styles.routebox}>
-             <p className={styles.routeno}>{busroute.route}</p>
-             <p className={styles.routename}>{busroute.routename}</p>
-             </div></Link> */}
- 
+
  return <div className={`${styles.breadcrumbDiv} ${styles.plainLink}`}>
     <Link className={styles.breadLink}
     to={{pathname:`/`,hash:'#routes'}}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
 import LoginForm from '../../components/LoginForm/LoginForm';
-
+import firebase from '../../config/fbConfig'
 import { Redirect }from 'react-router-dom';
 import { dealWithFirebaseRegister,dealWithFirebaseLogin } from '../../helpers';
 import ResetPassForm from '../../components/ResetPassForm/ResetPassForm';
@@ -11,6 +11,10 @@ import axios from 'axios';
 
 
 class Auth extends Component{
+
+  componentDidMount(){
+   
+  }
 
   state={
       showRegisterForm:true,
@@ -64,9 +68,7 @@ class Auth extends Component{
     })
   }
 
-  // handleResetInputChange = (e)=>{
-  //   this.setState({sendResetEmailTo:e.target.value})
-  // }
+ 
 
   handleShowResetPassForm  = ()=>{
     this.setState({showReset:true})
@@ -99,27 +101,58 @@ class Auth extends Component{
     })
   }
 
-  loginSuccess = (loginResp,userDets)=>{
-    /*save user details to localStorage
-    loginResp:- is the response from verifyPassword/signUserUpWithEmail fb methods
-    userDets:- is the response from gettingthe user dets when loggin in
+  loginSuccess = (userDets)=>{
+    
+    /*
+
+    Login was originally implemented with Firebase Auth Rest API with user's token saved to local storage. Code has been changed to use SDK methods (because of problems using REST API version with Firebase Storage in UserProfile Component). I'm leaving the localStorage becuase if it's not broke...
+
     */
-   //console.log(loginResp,userDets)
-   if(!userDets.data.users[0].emailVerified || userDets.data.users[0].emailVerified === 'false'){
+  
+   if(!userDets.emailVerified || userDets.emailVerified === 'false'){
     this.setState({loginFail:'Please verify your email'})
     return;
    }
-    let willExpireAt = new Date(new Date().getTime() + parseInt(loginResp.data.expiresIn)*1000)
-    console.log(userDets.data.users[0])
-    localStorage.setItem('idToken',loginResp.data.idToken);
-    localStorage.setItem('userId',loginResp.data.localId);
-    localStorage.setItem('expiresAt', willExpireAt);
-    localStorage.setItem('displayName', loginResp.data.displayName);
-    // localStorage.setItem('emailVerified',userDets.data.users[0].emailVerified)
- //console.log("display name in auth ? ", loginResp.data.displayName)
+
+   firebase.auth().currentUser.getIdTokenResult(false)
+   .then(r=>{
+    let willExpireAt = r.expirationTime;
+
+     localStorage.setItem('idToken',r.token);
+     localStorage.setItem('userId',userDets.uid);
+     localStorage.setItem('expiresAt', willExpireAt);
+     localStorage.setItem('displayName', userDets.name);
+
+   
+     this.props.handleLogin(r.token,userDets.uid,willExpireAt,userDets.name,userDets.emailVerified)
+
+   })//end getIdTokenResult
+   .catch(e=>console.log("ERR ", e))
+  
+
+ 
+
+
+   /*
+   
+   OLD VERSION
+   
+   */
+  //  if(!userDets.data.users[0].emailVerified || userDets.data.users[0].emailVerified === 'false'){
+  //   this.setState({loginFail:'Please verify your email'})
+  //   return;
+  //  }
+ 
+    // let willExpireAt = new Date(new Date().getTime() + parseInt(loginResp.data.expiresIn)*1000)
+    // console.log(userDets.data.users[0])
+    // localStorage.setItem('idToken',loginResp.data.idToken);
+    // localStorage.setItem('userId',loginResp.data.localId);
+    // localStorage.setItem('expiresAt', willExpireAt);
+    // localStorage.setItem('displayName', loginResp.data.displayName);
+
     //call handleLogin, so app.js state can be updated
 
-    this.props.handleLogin(loginResp.data.idToken,loginResp.data.localId,willExpireAt,loginResp.data.displayName,userDets.data.users[0].emailVerified)
+    // this.props.handleLogin(loginResp.data.idToken,loginResp.data.localId,willExpireAt,loginResp.data.displayName,userDets.data.users[0].emailVerified)
   }
 
   registerSuccess=()=>{
@@ -170,6 +203,10 @@ class Auth extends Component{
 
   handleLogOut = () =>{
     this.props.handleLogOut();
+    firebase.auth().signOut()
+    .then(()=>console.log("signed out of fb"))
+    .catch(e=>console.log("error signing out of fb"))
+    
   }
 
   checkValidOnSubmit=(registerOrLogin) =>{
@@ -236,15 +273,12 @@ class Auth extends Component{
     if(registerOrLogin === 'login'){
       let resp = dealWithFirebaseLogin(loginUrl,getInfoUrl,newUser)
       resp.then(r=>{
-        // if(!r.userDetsResp.data.users[0].emailVerified){
-        //   this.setState({emailVerifyRequired:true})
-        
-        // }else{
-          this.loginSuccess(r.response,r.userDetsResp)
-       // }
-        
+       
+          this.loginSuccess(r.userDetsResp)
+   
       })
-      .catch(e=>this.loginFail(e.response.data.error.message))
+      //.catch(e=>this.loginFail(e.response.data.error.message))
+      .catch(e=>this.loginFail("Error Logging in"))
     }else{
       let resp = dealWithFirebaseRegister(registerUrl,getInfoUrl,setInfoUrl,sendEmailUrl,newUser,newUserDetails)
       resp.then(r=>this.registerSuccess(r.response,r.userDetsResp))
@@ -298,7 +332,7 @@ class Auth extends Component{
       this.setState({...oldState})
 
     }else{
-      console.log("not updating")
+      //console.log("not updating")
     }
     let newState = {...this.state}
     let findStr = `${e.target.id}Field`
@@ -312,7 +346,7 @@ class Auth extends Component{
 
 
   render(){
-  
+    console.log("props has no idtoken? ", this.props)
     return(
       <div className={styles.authComp}>
     
