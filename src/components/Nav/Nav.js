@@ -15,8 +15,9 @@ const nav = (props) => {
 
         {(props.userDets.isUser) ? 
 
-       <li onClick={()=>props.handleLogOut()}>
-         <button className={styles.buttonSmall}>Logout</button>
+       <li>
+         <button  onClick={()=>props.handleLogOut()} className={styles.buttonSmall}>Logout</button>
+         <Link to={`/user/${props.userDets.userId}`} className={styles.buttonSmall}>Profile</Link>
        </li>
          : 
          <li><Link to={'/auth'}>Sign Up/Sign In</Link></li>

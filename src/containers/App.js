@@ -4,64 +4,114 @@ import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter, Route } from 'react-router-dom';
 //import * as firebase from 'firebase';
 import Layout from '../components/Layout/Layout';
-
+//import firebase from '../config/fbConfig';
 import FindStop from './FindStop';
 import Auth from './Auth/Auth';
 
 //import Header from '../components/Header/Header';
 import UserSection from '../components/UserSection/UserSection'
-
+import UserProfile from '../components/UserProfile/UserProfile';
 import SingleStopSnap from '../components/SingleStopSnap/SingleStopSnap';
 import BusRouteStopsList from '../components/BusRouteStopsList/BusRouteStopsList';
 //import Weather from '../components/Weather/Weather';
 //import Pagination from '../components/Pagination/Pagination';
 import styles from './App.module.css';
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyAoXxf2QSQwHDJOenPiziOTGzxijrZynLs",
-//   authDomain: "busload-8ae3c.firebaseapp.com",
-//   databaseURL: "https://busload-8ae3c.firebaseio.com",
-//   projectId: "busload-8ae3c",
-//   storageBucket: "",
-//   messagingSenderId: "403334506746",
-//   appId: "1:403334506746:web:bc8e738bf317ce2e"
-// };
 
-// firebase.initializeApp(firebaseConfig);
+
+
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql'
 });
 
 class App extends Component {
-  state={ idToken:null, userId:null,expiresAt:null,isUser:false,displayName:null,emailVerified:null }
+  // state={ 
+  //   idToken:null, 
+  //   userId:null,
+  //   expiresAt:null,
+  //   isUser:false,
+  //   displayName:null,
+  //   email:null,
+  //   emailVerified:null,
+  //   photoURL:null,
+  //   profilePicName:null,
+  //   currentUser:{idToken:null, userId:null,expiresAt:null,isUser:false,displayName:null,emailVerified:null,photoURL:null}
+  // }
+  state={ 
+    idToken:null, 
+    userId:null,
+    expiresAt:null,
+    isUser:false,
+    displayName:null,
+    email:null,
+    emailVerified:null,
+    photoURL:null,
+    profilePicName:null
+  }
+ 
 
+  handleLogin =(idToken,userId,expiresAt,displayName,email,emailVerified, photoURL, profilePicName)=>{
 
-  handleLogin =(idToken,userId,expiresAt,displayName,emailVerified)=>{
-    //console.log("handle login disloayname?", displayName)
-   // console.log("updating app.js state userId ", userId)
-    this.setState({idToken:idToken,userId:userId,expiresAt:expiresAt,isUser:true,displayName:displayName,emailVerified:emailVerified})
+    this.setState({
+      idToken:idToken,
+      userId:userId,
+      expiresAt:expiresAt,
+      isUser:true,
+      displayName:displayName,
+      email:email,
+      emailVerified:emailVerified,
+      photoURL:photoURL,
+      profilePicName:profilePicName
+    })
 
-    //redirect to home page (with visible user section)
-   
     
   }
 
   handleLogOut = () =>{
-    this.setState({idToken:null, userId:null,expiresAt:null,isUser:false,displayName:null})
-    localStorage.clear();
-
-    //and firebase
-    
+    this.setState({idToken:null, userId:null,expiresAt:null,isUser:false,displayName:null, currentUser:{idToken:null, userId:null,expiresAt:null,isUser:false,displayName:null,emailVerified:null,photoURL:null}})
+    localStorage.clear();  
   }
+
+  handleUpdateUserProfile = (name,url,profilePicName)=>{
+    console.log("app updating profile",name,url,profilePicName)
+
+    this.setState(()=>{ 
+      return {
+        displayName:name,
+        photoURL:url,
+        profilePicName:profilePicName
+      }
+    }, );
+        localStorage.setItem('displayName', name);
+        localStorage.setItem('photoURL',url);
+        localStorage.setItem('profilePicName', profilePicName);
+
+  }
+
+  handleDeleteProfilePic = ()=>{
+    this.setState(()=>{ 
+      return {
+        photoURL:null,
+        profilePicName:null
+      }
+    }, );
+        localStorage.setItem('photoURL',null);
+        localStorage.setItem('profilePicName', null);
+  }
+
 
   /*
   AUTHENTICATION - need to check localStorage every time
   if there's a token, check if it hasn't expired and login if not
   if it has expired, delete? logout
+
+  UPDATE TODO: should check firebase currentUser not localStorage
   */
+
+
   componentDidMount(){
+
     let idToken = localStorage.getItem('idToken');
-    
     if(idToken){
       //check it not expired
       let expiresAt = localStorage.getItem('expiresAt');
@@ -70,7 +120,12 @@ class App extends Component {
         let userId = localStorage.getItem('userId')
         let displayName = localStorage.getItem('displayName')
         let emailVerified = JSON.parse(localStorage.getItem('emailVerified'))
-        this.handleLogin(idToken,userId,expiresAt,displayName,emailVerified)
+        let email = localStorage.getItem('email');
+        let photoURL = localStorage.getItem('photoURL');
+        let profilePicName = localStorage.getItem('profilePicName')
+
+        this.handleLogin(idToken,userId,expiresAt,displayName,email,emailVerified, photoURL, profilePicName)
+        // this.handleLogin(idToken,userId,expiresAt,displayName,emailVerified)
       }else{
         localStorage.clear()
       }
@@ -101,6 +156,14 @@ class App extends Component {
         {
           (this.state.isUser) ?
                   <Route path='/' render={(props) => <UserSection {...props} userDets ={this.state} />}
+                  />
+          : null
+   
+        }
+          {
+          (this.state.isUser) ?
+                  <Route 
+                  path='/user/:uid' render={(props) => <UserProfile {...props} handleUpdateUserProfile={this.handleUpdateUserProfile}  userDets={this.state} handleDeleteProfilePic={this.handleDeleteProfilePic}  />}
                   />
           : null
    

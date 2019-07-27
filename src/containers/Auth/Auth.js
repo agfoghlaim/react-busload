@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
 import LoginForm from '../../components/LoginForm/LoginForm';
-import firebase from '../../config/fbConfig'
+import firebase from '../../config/fbConfig';
 import { Redirect }from 'react-router-dom';
 import { dealWithFirebaseRegister,dealWithFirebaseLogin } from '../../helpers';
 import ResetPassForm from '../../components/ResetPassForm/ResetPassForm';
@@ -105,7 +105,7 @@ class Auth extends Component{
     
     /*
 
-    Login was originally implemented with Firebase Auth Rest API with user's token saved to local storage. Code has been changed to use SDK methods (because of problems using REST API version with Firebase Storage in UserProfile Component). I'm leaving the localStorage becuase if it's not broke...
+    Login was originally implemented with Firebase Auth Rest API with user's token saved to local storage. Code has been changed to use SDK methods (because of problems using REST API version with Firebase Storage in UserProfile Component). 
 
     */
   
@@ -116,15 +116,58 @@ class Auth extends Component{
 
    firebase.auth().currentUser.getIdTokenResult(false)
    .then(r=>{
+    //console.log("user dets ", userDets)
     let willExpireAt = r.expirationTime;
 
      localStorage.setItem('idToken',r.token);
      localStorage.setItem('userId',userDets.uid);
      localStorage.setItem('expiresAt', willExpireAt);
      localStorage.setItem('displayName', userDets.name);
+     localStorage.setItem('email', userDets.email);
+     localStorage.setItem('emailVerified', userDets.emailVerified);
+     
+     //need to get photoUrl and  profilePicName from users collection
+     firebase.database().ref('/users/' + userDets.uid).once('value').then((snapshot)=>{
 
+        //if no user collection
+        if(!snapshot.val()){
+          localStorage.setItem('photoURL',null);
+          localStorage.setItem('profilePicName', null);
+
+          //App state will === local storage
+          this.props.handleLogin(
+            r.token,
+            userDets.uid,
+            willExpireAt,
+            userDets.name,
+            userDets.email,
+            userDets.emailVerified,
+            null,
+            null
+           )
+        }else{
+              
+          localStorage.setItem('photoURL', snapshot.val().photoURL);
+          localStorage.setItem('profilePicName', snapshot.val().profilePicName);
+
+          this.props.handleLogin(
+            r.token,
+            userDets.uid,
+            willExpireAt,
+            userDets.name,
+            userDets.email,
+            userDets.emailVerified,
+            snapshot.val().photoURL,
+            snapshot.val().profilePicName
+          )
+        }
+      })
+      .catch(e=>console.log("snap ", e))
+     
+
+     
    
-     this.props.handleLogin(r.token,userDets.uid,willExpireAt,userDets.name,userDets.emailVerified)
+ 
 
    })//end getIdTokenResult
    .catch(e=>console.log("ERR ", e))
@@ -159,9 +202,12 @@ class Auth extends Component{
     //show login form
     //email sent message
     //then change login to refuse if email not verified
-    this.setState({emailVerifyRequired:true})
-    this.handleSwitchBetweenLoginRegisterForms()
+    this.setState({emailVerifyRequired:true});
+    this.handleSwitchBetweenLoginRegisterForms();
     console.log("register success, should show login form")
+
+    
+
   }
 
   resetFail = (errormsg)=>{
@@ -266,16 +312,13 @@ class Auth extends Component{
       idToken:undefined,
       displayName:this.state.usernameField.username,
       photoUrl:'',
-      deleteSttribute:[],
       returnSecureToken:true
     }
 
     if(registerOrLogin === 'login'){
       let resp = dealWithFirebaseLogin(loginUrl,getInfoUrl,newUser)
       resp.then(r=>{
-       
           this.loginSuccess(r.userDetsResp)
-   
       })
       //.catch(e=>this.loginFail(e.response.data.error.message))
       .catch(e=>this.loginFail("Error Logging in"))
@@ -346,7 +389,7 @@ class Auth extends Component{
 
 
   render(){
-    console.log("props has no idtoken? ", this.props)
+    //console.log("props has no idtoken? ", this.props)
     return(
       <div className={styles.authComp}>
     

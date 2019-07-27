@@ -26,30 +26,49 @@ import axios from 'axios';
     .then(r=>r)
     .catch(e=>console.log("error getting user info"))
   }
- 
+
+
   export const dealWithFirebaseRegister= (registerUrl,getInfoUrl,setInfoUrl,sendEmailUrl,newUser,newUserDetails)=>{
     return new Promise((resolve,reject)=>{
 
         //for register
         axios.post(registerUrl,newUser)
         .then(response=>{
+
           newUserDetails.idToken=response.data.idToken;
           axios.post(setInfoUrl,newUserDetails)
           .then(resp=>{
             //now we have resp from updating the profile upon registerins
-            //also need to get all the user details
-           // console.log("too here?1",response.data.idToken)
-              console.log("does this happen", sendEmailUrl,response.data.idToken)
               axios.post(sendEmailUrl,{requestType:'VERIFY_EMAIL',idToken:response.data.idToken})
               .then(w=>console.log("email sent ", w))
               .then(()=>{
                 axios.post(getInfoUrl,{idToken:response.data.idToken})
-                .then(emailResp=>{
+                .then(userDetails=>{
                   //console.log("infoResp", emailResp)  
                 })
                 .then(userDetsResp=>{
-                
-                  resolve({response,userDetsResp})
+                  console.log("this is userdetsresp ", newUserDetails)
+                  console.log("and original resp", response)
+                  //now save to Busload 'Users' collection
+                  firebase.database().ref(`/users/${response.data.localId}`).set({
+                    displayName: newUserDetails.displayName,
+                    photoURL: newUserDetails.photoUrl,
+                    email:newUser.email
+                  })
+                  .then(r=>{
+                    console.log("successful  profile update", r)
+                    resolve({response,newUserDetails})
+                  })
+                  .catch(e=>console.log("error updating profile",e))
+                //   , function(error) {
+                //     if (error) {
+                //       // The write failed...
+                //     } else {
+                //       // Data saved successfully!
+                //     }
+                //   });
+                // }
+              
                 })
               })
            
@@ -81,7 +100,8 @@ import axios from 'axios';
     return new Promise((resolve,reject)=>{
       firebase.auth().signInWithEmailAndPassword(email, password)
       .then(r=>{
-     
+     //   console.log("result from login ", r.user.uid)
+
         const user = firebase.auth().currentUser;
         if(user !==null){
           let theUser = {

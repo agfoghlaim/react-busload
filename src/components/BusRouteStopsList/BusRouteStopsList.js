@@ -75,7 +75,8 @@ class BusRouteStopsList extends Component {
   render(){
       //let { route, direction } = this.props.match.params;
       let { route, direction } = this.state.selectedRoute;
-
+      console.log(route,direction)
+      if(route==='user' || route === 'auth') return '';
       if(!this.checkValidRouteDirection(route,direction)) return <p>Oops! BusLoad is confused. Please go to the Home Page and start again. </p>
       return(
         <React.Fragment>

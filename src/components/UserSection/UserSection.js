@@ -19,7 +19,7 @@ class UserSection extends Component {
 
 
   componentDidMount(){
-    console.log(this.props)
+   // console.log(this.props)
     this._isMounted = true;
    // console.log(this.props, this.state)
   
