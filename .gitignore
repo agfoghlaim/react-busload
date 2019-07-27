@@ -23,3 +23,6 @@ yarn-error.log*
 .env
 
 completeListOfStops.json
+
+# dependencies
+/functions/node_modules
