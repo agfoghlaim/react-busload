@@ -1,11 +1,20 @@
 .mainProfileWrap{
   display: grid;
-  grid-template-areas: "user user""form .";
+  grid-template-areas: "user user""form linksAndSearch";
   grid-gap: 1em;
   grid-auto-columns: 1fr;
 }
 
-
+.linksAndSearch{
+  grid-area: linksAndSearch;
+  /* background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAABHNCS…AhSURBVAiZY2CgA/BLUpdKSzNmRRdnYvjPGP/izxdRdAkAsO8GRIFpQ48AAAAASUVORK5CYII=); */
+  /* padding: 0 2em; */
+  /* background-color: #f0f0f0; */
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 2fr;
+  grid-gap: 1em;
+}
 .profilePicWrap{
 display:grid;
 background-image: url('../../img/onepix.png');
@@ -14,6 +23,7 @@ align-items: center;
 align-content: center;
 padding:1em;
 grid-area: user;
+background-color: #f0f0f0;
 }
 .profilePicDiv{
   width:20vw;
@@ -27,16 +37,17 @@ grid-area: user;
   padding:1em; 
    border-radius: 50%;
 }
-@media only screen and (max-width: 800px) {
+/* @media only screen and (max-width: 800px) {
   .mainProfileWrap{
     grid-template-areas: "user user""form form";
  
   }
   
-}
+} */
 
 .profileFormWrap{
   padding: 2em;
+  
   background: #f0f0f0;
   grid-area: form;
 }
@@ -49,7 +60,20 @@ grid-area: user;
 .profilePicDiv img{
   max-width: 100%;
 }
+.SearchForStop{
+  background: #f0f0f0;
+  border-left: 10px solid #4f6128;
+  grid-gap: 1em;
+}
 
+.UserSection{
+  background: #f0f0f0;
+  border-left: 10px solid #384a6e;
+  grid-gap: 1em;
+}
+.toAllign{
+  margin-left:-10px;
+}
 .buttonSmall{
   -webkit-border-radius: 2;
   -moz-border-radius: 2;

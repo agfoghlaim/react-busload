@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import wet from '../../img/wet_white.svg';
 import dry from '../../img/dry_white.svg';
-import { isWithinMinutesOf } from '../../helpers';
+//import { isWithinMinutesOf } from '../../helpers';
 import styles from './Timetable.module.css';
 import BusDets from './BusDets/BusDets';
 import Modal from '../Modal/Modal';
 import NextPrevStop from '../NextPrevStop/NextPrevStop';
 import ChooseTimetable from '../ChooseTimetable/ChooseTimetable';
-
+import { isWithinMinutesOf } from '../../helpers';
 
 
 
@@ -20,7 +20,23 @@ class Timetable extends Component {
   //add a busRoutes.bus_times.rtpi field: false for no result, scheduleddeparture datetime if there is a result
 //console.log(this.props.busRoutes)
 
-state = {showModal:false, selectedBus:null, wetOrDry:null}
+state = {showModal:false, selectedBus:null, wetOrDry:null, showAll:false}
+
+filterNext = (resp) =>{
+  //get the next few buses only
+  console.log(resp)
+  let timeNow = new Date().toString().substring(16,21);
+  console.log(timeNow,resp[0].time)
+  return resp.filter((item,i,arr)=>{
+    return isWithinMinutesOf(timeNow,item.time,90)
+   })
+}
+
+handleToggleShowAll = ()=>{
+  this.setState((prev,current)=>{
+    return{showAll:!prev.showAll}
+  })
+}
 
 findBus = (rtpiRes, due) =>{
 
@@ -77,7 +93,11 @@ render(){
     this.props.busRoutes.bus_times.map(bus=>bus.rtpi = this.findBus(this.props.rtpiData.rtpiRequest.results,bus.time))
   }
 
-
+  let busesToShow = this.filterNext(this.props.busRoutes.bus_times);
+  console.log(busesToShow)
+  if(this.state.showAll){
+    busesToShow = this.props.busRoutes.bus_times;
+  }
     return(
       <div className={styles.timetableDiv}>
           {this.showModal()}
@@ -89,28 +109,34 @@ render(){
       <table className={styles.table}>
         <thead>
           <tr className={styles.tr}>
-            {/* <th>bus</th> */}
-            <th className={styles.th}>Scheduled</th>
+            <th className={styles.th}><span className={styles.span}>Bus</span><h3>Scheduled</h3><span className={styles.span}>time</span></th>
             {
               (this.props.isToday) ?
-              <th className={styles.th}>RTPI</th>
+              <th className={styles.th}>Real Time Info</th>
               :
               null
             }
             
-            <th className={styles.th}><span className={styles.span}>Wet</span><img src={wet} alt='wet'/><h3>Usually</h3></th>
-            <th className={styles.th}><span className={styles.span}>Dry</span><img src={dry} alt='dry'/><h3>Usually</h3></th>
-            <th className={styles.th}>Average</th>
+            <th className={styles.th}><img src={wet} alt='wet'/><span className={styles.span}>If it's wet</span><h3>BusLoad Predicts</h3><span className={styles.span}>this bus will be</span></th>
+            <th className={styles.th}><img src={dry} alt='dry'/><span className={styles.span}>If it's Dry</span><h3>BusLoad Predicts</h3><span className={styles.span}>this bus will be</span></th>
+            <th className={styles.th}><span className={styles.span}>On Average</span><h3>BusLoad Predicts</h3><span className={styles.span}>this bus will be</span></th>
           </tr>
         </thead>
-      {this.props.busRoutes.bus_times.map((b,i)=>{
-
+        
+          
+          <tbody className={styles.allNextWrap} onClick={this.handleToggleShowAll}><tr><td colSpan="5">{(!this.state.showAll)? 'Show All' : 'Show Less'}</td></tr></tbody>
+         
+        
+        
+      { 
+        
+        
+        //this.props.busRoutes.bus_times.map((b,i)=>{
+          busesToShow.map((b,i)=>{
      
           return(
             <tbody key={b.bus}>
-            <tr className={styles.tr}
-             >
-              
+            <tr className={styles.tr}>
               <td className={styles.td}>{b.time}</td> 
               
               {

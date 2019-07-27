@@ -132,6 +132,8 @@ changeBusTimes_X = (day)=>{
         }).indexOf(item['bus'])===i;})
   }
 
+
+
   render(){
 //only run if today!!
     
@@ -221,7 +223,7 @@ changeBusTimes_X = (day)=>{
                       if(!one || !two)return <p>Oops! BusLoad is confused. Please go to the Home Page and start again. </p>
 
                       if(!one.bus_times_x_snaps_2 )return <p>Oops! BusLoad has a problem. Please try again. </p>
-
+                      console.log(one)
                       one.bus_times_x_snaps_2.bus_times = this.filterResponse(one.bus_times_x_snaps_2.bus_times)
 
                       return (
@@ -229,7 +231,9 @@ changeBusTimes_X = (day)=>{
                           
             
                           <Timetable 
-                          timetables={this.state.bus_times_x} changeBusTimes_X={this.changeBusTimes_X}
+                          timetables={this.state.bus_times_x} 
+                  
+                          changeBusTimes_X={this.changeBusTimes_X}
                           busRoutes={one.bus_times_x_snaps_2} 
                           rtpiData={two} 
                           route={route} 

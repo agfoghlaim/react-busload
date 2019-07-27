@@ -5,6 +5,8 @@ import firebase from '../../config/fbConfig';
 import ProfileForm from './ProfileForm/ProfileForm';
 import styles from './UserProfile.module.css';
 import defaultProfile from '../../img/profile_default.svg';
+import SearchForStop from '../SearchForStop/SearchForStop';
+import UserSection from '../UserSection/UserSection';
 
 
 
@@ -36,17 +38,13 @@ class UserProfile extends Component {
 
 
   tryThis = ()=>{
-    //console.log("trying it")
-
     return new Promise((resolve, reject) => {
       let count = 0;
       let w;
       what();
       function what(){
         w = firebase.auth().currentUser;
-
-        //use timeout to imporve chances
-        setTimeout(()=>{
+        setTimeout(()=>{   //use timeout to imporve chances
           if(w !==null ){
             resolve(w);
           }
@@ -212,7 +210,23 @@ class UserProfile extends Component {
           :
           null
         }
- 
+
+        {/* <FindStop userDets={this.props.userDets}></FindStop> */}
+        <div className={styles.linksAndSearch}>
+          <div className={styles.SearchForStop}>
+            <div className={styles.toAllign}>
+              <SearchForStop currentUser={this.props.userDets} />
+            </div>
+          </div>
+
+          <div className={styles.UserSection}>
+            <div className={styles.toAllign}>
+              <UserSection userDets={this.props.userDets} />
+            </div>
+          </div>
+        </div>
+        
+        
   
   	  </div>
     )

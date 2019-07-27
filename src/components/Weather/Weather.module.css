@@ -5,20 +5,26 @@
 
 .infoText{
   font-size:0.8em;
-  color:#5A486E;
+  /* color:#5A486E; */
   margin:0;
+ 
 }
 
 .weatherCompDiv{
-  background:#f0f0f0;
-  padding:1em;
+  background: #ffffff;
+  padding: 0em 1em;
   height:10vh;
   display:grid;
   align-content: center;
+  /* background-image:url('../../img/bus_design.svg'), linear-gradient(darkslategray,darkslategray); */
+  
+
  
 }
 .weatherP{
   margin:0;
+  
+  font-weight: bold;
 
 }
 

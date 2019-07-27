@@ -6,6 +6,11 @@ body {
   /* font-family: sans-serif; */
   font-family: 'Montserrat', sans-serif;
   box-sizing: border-box;
+  background-image:url('./img/bus_design.svg'), linear-gradient(white,white);
+  color: darkslategray;
+  box-sizing: border-box;
+  
+  
  
 }
 

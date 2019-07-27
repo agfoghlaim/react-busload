@@ -8,6 +8,7 @@ import axios from 'axios';
 // import UserProfile from '../UserProfile/UserProfile';
 import plus from '../../img/plus.svg';
 import minus from '../../img/minus.svg';
+//import rightArrow from '../../img/right_arrow.svg';
 
 
 
@@ -64,14 +65,14 @@ class UserSection extends Component {
   }
 
 
-addMoreLink =()=> <div className={styles.routeboxCollapsedInvert}>
-  <Link 
-  className={styles.plainLinkCollapsedInvert}
-  to={{pathname:`/`,hash:'#stops'}}>
-  <p className={styles.routenoCollapsedInvert}>
-    + Add Stops
-  </p>
-  </Link></div>
+// addMoreLink =()=> <div className={styles.routeboxCollapsedInvert}>
+//   <Link 
+//   className={styles.plainLinkCollapsedInvert}
+//   to={{pathname:`/`,hash:'#stops'}}>
+//   <p className={styles.routenoCollapsedInvert}>
+//     + Add Stops
+//   </p>
+//   </Link></div>
 
 handleSetExpandFaves = ()=>{
   this.setState((prev,curr)=>{
@@ -84,18 +85,22 @@ showCollapsedFaves = ()=>{
     
 
     this.state.faveStops.map(stop=>{
-      return <div className={styles.routeboxCollapsed} key={stop.bestopid}>
+      return <div className={styles.routeboxCollapsedInvert} key={stop.bestopid}>
         <Link 
-        className={styles.plainLinkCollapsed} 
+        className={styles.plainLinkCollapsedInvert} 
         to={{
           pathname:`/bus/${stop.route}/${stop.direction}/${stop.bestopid}`
         }}>
-        <p className={styles.routenoCollapsed}>{stop.userStopName}</p>
+        <p className={styles.routenoCollapsedInvert}>{stop.userStopName} >
+        {/* <span classname={styles.goArrow}>
+          <img src={rightArrow} alt="right arrow" />
+          </span> */}
+          </p>
         </Link>
       </div>
     })
   }
-   {this.addMoreLink()}
+   {/* {this.addMoreLink()} */}
   </React.Fragment>
 }
 

@@ -8,6 +8,7 @@ position: relative;
   border-top:4px solid #4f6128;
   padding:1em;
   box-sizing: border-box;
+  background-image: url('../../img/onepix.png');
   /* justify-items: space-a
       box-sizing: border-box;round; */
 }

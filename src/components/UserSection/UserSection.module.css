@@ -36,19 +36,26 @@ border-left: 10px solid #384a6e;
 .routeboxCollapsed{
   background:white;
   border: 2px solid transparent;
-  transition:all 200ms ease-in-out;
+  transition:all 0.2s ease-in-out;
   display:grid;
   align-items: center;
 }
 .routeboxCollapsedInvert{
   background:#384a6e;
   border: 2px solid transparent;
-  transition:all 200ms ease-in-out;
+  transition:all 0.2s ease-in-out;
   display:grid;
   align-items: center;
 }
 
-
+.routeboxCollapsedInvert:hover,
+.routeboxCollapsedInvert:focus{
+  background: #fff;
+  border:2px solid #384a6e;
+}
+.routeboxCollapsedInvert:hover .routenoCollapsedInvert{
+  color:#384a6e;
+}
 
 .routebox .plainLink:hover {
   transform:scale(1.03);
@@ -101,10 +108,10 @@ border-left: 10px solid #384a6e;
   
 }
 
-.plainLinkCollapsedInvert:hover, 
+/* .plainLinkCollapsedInvert:hover, 
 .plainLinkCollapsedInvert:focus{
   border:2px solid #fff;
-}
+} */
 
 
 .routeno{
@@ -124,6 +131,7 @@ border-left: 10px solid #384a6e;
   color: #fff;
   margin: 0;
   padding: 0.5em 1em;
+  transition:all 0.2s ease-out;
 }
 
 .routenoCollapsed{

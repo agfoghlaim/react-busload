@@ -26,7 +26,7 @@ color:darkslategray;
   color:gray;
   padding:1em;
   border: 2px solid transparent;
-  transition:all 0.3s ease-out;
+  transition:all 0.3s linear;
   min-height:150px;
   display:grid;
   align-items: center;
@@ -65,7 +65,7 @@ color:darkslategray;
   /* background: #Fff; */
   border: 1px solid transparent;
   background-color:rgba(255,255,255,0);
-  font-weight: 500;
+ 
   /* background-image: url('../../img/onepix.png'); */
   
  } 
@@ -95,7 +95,7 @@ display: grid;
   /* background-image: url('../../img/onepix.png'); */
   background-size:auto;
   background-repeat: repeat;
-  transition:all 0.3s ease-out;
+  transition:all 0.3s linear;
   background:rgba(255,255,255,1);
   /* box-shadow:2px 2px 4px #3c4d3b; */
 }
@@ -108,7 +108,7 @@ display: grid;
   display: grid;
   align-self: center;
   /* background-image: url('../../img/onepix.png'); */
-  transition:all 0.4s ease-out;
+  transition:all 0.3s linear;
 }
 
 

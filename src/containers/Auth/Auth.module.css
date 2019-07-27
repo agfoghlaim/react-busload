@@ -70,10 +70,13 @@ p.error{
 .authComp{
   /* min-height:500px; */
   padding:1em;
-  border:1px solid gray;
-  border-radius: 1em;
+  border-right:10px solid darkslategray;
+  /* border-radius: 1em; */
   height: auto;
-min-height: 500px;
+min-height: 550px;
+background:#f0f0f0;
+/* background-image: url('../../img/onepix.png'); */
+
 }
 
 .buttonLikeLink{

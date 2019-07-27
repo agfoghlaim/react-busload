@@ -34,10 +34,10 @@
   .th{
     padding:0;
   }
-  .divAboveTable h5{
+  /* .divAboveTable h5{
  
-    /* background:blue; */
-   }
+  
+   } */
 }
 
 @media only screen and (max-width: 450px) {
@@ -86,7 +86,7 @@
   border:1px solid #4f6128;
   color:darkslategray;
   font-size:0.8em;
-  transition:all 0.3s ease-out;
+  transition:background 0.3s ease-out;
   transform:translateZ(0);
   backface-visibility: hidden;
 }
@@ -97,9 +97,10 @@
   color:white;
   transform:translateZ(0);
   border:1px solid #4f6128;
+  
   /* transform:scale(1.05); */
   
-  transform: scale(1.02) ;
+  /* transform: scale(1.02) ; */
 }
 
 .span{
@@ -108,5 +109,29 @@
 }
 
 .th img{
-  max-width: 70%;
+  max-width: 40%;
+}
+
+
+.allNextWrap{
+
+  
+}
+
+.allNextWrap tr td{
+  background:#4f6128;
+  padding:1em;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  transition:all 0.3s ease-out;
+  border:2px solid transparent;
+  cursor: pointer;
+}
+
+.allNextWrap tr td:hover,
+.allNextWrap tr td:hover{
+  /* color: darkslategray; */
+  background:#8dad47;
+  border:2px solid #4f6128;
 }

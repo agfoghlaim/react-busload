@@ -36,9 +36,9 @@ class Weather extends Component{
        
         (this.state.gotWeather) ?
         <div className={styles.weatherCompDiv}>
-          <p className={styles.weatherP}>{(this.state.weather.precipIntensity <= 0 ) ? 'Dry' : 'Wet'}
+          <p className={styles.weatherP}>Currently {(this.state.weather.precipIntensity <= 0 ) ? 'dry' : 'wet'}
         <img className={styles.weatherIcon} src={(this.state.weather.precipIntensity <= 0 ) ? dry : wet} alt='icon'/></p>
-        <p className={styles.infoText}>Eyre Square {new Date().toString()}</p>
+        <p className={styles.infoText}>Eyre Square <br></br>{new Date().toString().substring(0,21)}</p>
         
 
         </div>

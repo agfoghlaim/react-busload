@@ -83,11 +83,11 @@ class SearchForStop extends Component {
             let filteredStops = data.allstops.filter(stop=>{
               return stop.name.toLowerCase().indexOf(this.state.searchSelectedStop.toLowerCase()) !== -1 || stop.bestopid.indexOf(this.state.searchSelectedStop) !== -1;
             })
-            return <div  className={styles.searchStopWrap}>
+            return <div className={styles.searchStopWrap}>
               <h3 className={styles.sectionH3}>Find your stop</h3>
               {
                 (this.props.currentUser.userId) ?
-                <p className={styles.infoP}><small>Select your stop and click Save to add to Quick Links.</small></p>
+                <p className={styles.infoP}><small>Select your stop and click Save to add to Quick Stops.</small></p>
                 : null
               }
               <p><small>{this.state.selectedStop.stopname}</small></p>
@@ -101,10 +101,15 @@ class SearchForStop extends Component {
                 onChange={(e)=>{this.handleShowStopsList(e);this.handleSearchStop(e)}} 
               />
               
-
+              {
+                //if this.props.selectedStopId exists it means SearchForStop was rendered by FindStop Component, so show Go button. If !this.props.selectedStopId, was rendered by UserProfile(?) so only show save button
+                (this.props.setSelectedStopId) ?
+                <Link to={`bus/${this.state.selectedStop.route}/${this.state.selectedStop.direction}/${this.state.selectedStop.bestopid}`}
+                ><button  className={styles.buttonMain}  >Go</button></Link>
+                : <p></p>
+              }
            
-                  <Link to={`bus/${this.state.selectedStop.route}/${this.state.selectedStop.direction}/${this.state.selectedStop.bestopid}`}
-                  ><button  className={styles.buttonMain}  >Go</button></Link>
+             
 
                 {this.showUserFeature()}
           
