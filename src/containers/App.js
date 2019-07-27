@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from 'react-apollo';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 //import * as firebase from 'firebase';
 import Layout from '../components/Layout/Layout';
 //import firebase from '../config/fbConfig';
@@ -135,7 +135,12 @@ class App extends Component {
  
   }
 
+/*
 
+
+
+
+*/
 
 
 
@@ -149,14 +154,18 @@ class App extends Component {
   
           {/* <Route path='/' render={(props) => <Header {...props} userDets ={this.state} handleLogOut={this.handleLogOut} />}
           /> */}
-        
+        <Switch>
           <Route path='/auth' render={(props) => <Auth {...props} handleLogin={this.handleLogin} handleLogOut={this.handleLogOut} idToken={this.state.idToken} userDets ={this.state} />}
           />
          
         {
           (this.state.isUser) ?
-                  <Route path='/' render={(props) => <UserSection {...props} userDets ={this.state} />}
-                  />
+              <Route path='/' exact render={(props) => <div>
+                <UserSection {...props} userDets ={this.state} />
+                <FindStop {...props} userDets ={this.state} />
+                </div>
+                }
+              />
           : null
    
         }
@@ -170,18 +179,20 @@ class App extends Component {
         }
   
 
-          <Route path='/' exact render={(props) => <FindStop {...props} userDets ={this.state} />}
+          <Route 
+            path='/' 
+            exact render={(props) => <FindStop {...props} userDets ={this.state} />}
           />
 
           {/* <Route path='/:route/:direction/' component={Pagination} /> */}
           
-          
-          <Route  path='/:route/:direction/:bestopid/' component={SingleStopSnap} />
+        
+          <Route  path='/bus/:route/:direction/:bestopid/' component={SingleStopSnap} />
          
-          <Route path='/:route/:direction/' exact component={BusRouteStopsList} />
+          <Route path='/bus/:route/:direction/' exact component={BusRouteStopsList} />
 
           <Route render={()=><p>Not Found</p>}></Route>
-          
+          </Switch> 
         </div>
         </Layout>
         </ApolloProvider>

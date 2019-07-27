@@ -76,7 +76,7 @@ changeBusTimes_X = (day)=>{
       day = new Date().getDay()
     }
   //  this.props.history.push({pathname:`/${day}`})
-    this.props.history.replace(`/${this.props.match.params.route}/${this.props.match.params.direction}/${this.props.match.params.bestopid}/${day}`)
+    this.props.history.replace(`/bus/${this.props.match.params.route}/${this.props.match.params.direction}/${this.props.match.params.bestopid}/${day}`)
 
     //make all active false first
     let stateCopy = this.state.bus_times_x

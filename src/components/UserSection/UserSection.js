@@ -88,7 +88,7 @@ showCollapsedFaves = ()=>{
         <Link 
         className={styles.plainLinkCollapsed} 
         to={{
-          pathname:`/${stop.route}/${stop.direction}/${stop.bestopid}`
+          pathname:`/bus/${stop.route}/${stop.direction}/${stop.bestopid}`
         }}>
         <p className={styles.routenoCollapsed}>{stop.userStopName}</p>
         </Link>
@@ -105,7 +105,7 @@ showExpandedFaves = ()=>{
       <Link 
       className={styles.plainLink} 
       to={{
-        pathname:`/${stop.route}/${stop.direction}/${stop.bestopid}`
+        pathname:`/bus/${stop.route}/${stop.direction}/${stop.bestopid}`
       }}>
       <p className={styles.routeno}>{stop.userStopName}</p>
       <p className={styles.routename}>{stop.stopname}</p>

@@ -103,7 +103,7 @@ class SearchForStop extends Component {
               
 
            
-                  <Link to={`${this.state.selectedStop.route}/${this.state.selectedStop.direction}/${this.state.selectedStop.bestopid}`}
+                  <Link to={`bus/${this.state.selectedStop.route}/${this.state.selectedStop.direction}/${this.state.selectedStop.bestopid}`}
                   ><button  className={styles.buttonMain}  >Go</button></Link>
 
                 {this.showUserFeature()}

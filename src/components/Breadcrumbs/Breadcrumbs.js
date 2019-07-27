@@ -50,7 +50,7 @@ const breadcrumbs = (props) => {
     to={{pathname:`/`,hash:'#routes'}}
     >All Routes </Link>  
     <span className={styles.breadSlash}>/</span>
-    <Link className={`${styles.breadLink} ${styles.routeno}`}to={`/${route}/${direction}`}>{route} ({str}) </Link> 
+    <Link className={`${styles.breadLink} ${styles.routeno}`}to={`/bus/${route}/${direction}`}>{route} ({str}) </Link> 
     <span className={styles.breadSlash}>
         {(bestopid) ? '/' : null}
     </span>

@@ -15,7 +15,7 @@ props.busRoutes.sort((a, b)=>{return a.route-b.route});
       
         {
           props.busRoutes.map(busroute=>{
-            return <Link to={`${busroute.route}/${busroute.direction}`}  key={`${busroute.route}-${busroute.direction}`} className={styles.plainLink}><div 
+            return <Link to={`bus/${busroute.route}/${busroute.direction}`}  key={`${busroute.route}-${busroute.direction}`} className={styles.plainLink}><div 
            
             className={styles.routebox}>
               <p className={styles.routeno}>{busroute.route}</p>

@@ -52,7 +52,7 @@ const NextPrevStop = (props) => {
                       <Tux>
                         {/* <p>Previous Stop</p> */}
                         
-                        <Link className={styles.prevLink}  to={`/${route}/${direction}/${data.nextPrevStops.prev.bestopid}`}>
+                        <Link className={styles.prevLink}  to={`/bus/${route}/${direction}/${data.nextPrevStops.prev.bestopid}`}>
                         <img className={styles.leftArrow} src={leftArrow} alt="left-arrow" />
                           <p className={styles.prevP}><strong>{data.nextPrevStops.prev.stop_sequence}. </strong>  {data.nextPrevStops.prev.name}</p>
                         </Link>
@@ -87,7 +87,7 @@ const NextPrevStop = (props) => {
                       <Tux>
                         {/* <p>Next Stop</p> */}
                        
-                        <Link className={styles.nextLink} to={`/${route}/${direction}/${data.nextPrevStops.next.bestopid}`}>
+                        <Link className={styles.nextLink} to={`/bus/${route}/${direction}/${data.nextPrevStops.next.bestopid}`}>
                         <img className={styles.rightArrow} src={rightArrow} alt="right-arrow" />
                           <p className={styles.nextP}> <strong>{data.nextPrevStops.next.stop_sequence}. </strong> {data.nextPrevStops.next.name}</p>
                         </Link>
