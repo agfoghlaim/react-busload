@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import ReactDOM from "react-dom";
 import { gql } from 'apollo-boost'; //parse queries
 import { graphql } from 'react-apollo';

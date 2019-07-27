@@ -1,0 +1,22 @@
+.profilePicWrap{
+display:grid;
+
+justify-items: center;
+}
+.profilePicDiv{
+  width:20vw;
+height:20vw;
+  background:#edeff2;
+  border:1px solid #c5cbd5;
+  display:grid;
+  align-items:center;
+  justify-content: center;
+  padding:2px;
+  padding:1em; 
+   border-radius: 50%;
+}
+
+.profilePicDiv img{
+  max-width: 100%;
+}
+
