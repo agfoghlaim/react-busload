@@ -10,7 +10,7 @@ const layout = (props) => (
       <Header userDets ={props.userDets} handleLogOut={props.handleLogOut} />
     </div>
     <main className={styles.main}>
-      {/* <Maps /> */}
+ 
       {props.children}
     </main>
   </Tux>

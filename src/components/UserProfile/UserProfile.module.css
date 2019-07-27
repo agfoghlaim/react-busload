@@ -1,11 +1,23 @@
+.mainProfileWrap{
+  display: grid;
+  grid-template-areas: "user user""form .";
+  grid-gap: 1em;
+  grid-auto-columns: 1fr;
+}
+
+
 .profilePicWrap{
 display:grid;
-
+background-image: url('../../img/onepix.png');
 justify-items: center;
+align-items: center;
+align-content: center;
+padding:1em;
+grid-area: user;
 }
 .profilePicDiv{
   width:20vw;
-height:20vw;
+  height:20vw;
   background:#edeff2;
   border:1px solid #c5cbd5;
   display:grid;
@@ -15,8 +27,48 @@ height:20vw;
   padding:1em; 
    border-radius: 50%;
 }
+@media only screen and (max-width: 800px) {
+  .mainProfileWrap{
+    grid-template-areas: "user user""form form";
+ 
+  }
+  
+}
+
+.profileFormWrap{
+  padding: 2em;
+  background: #f0f0f0;
+  grid-area: form;
+}
+
+.profileUserName{
+  color:darkslategray;
+  font-weight: bold;
+}
 
 .profilePicDiv img{
   max-width: 100%;
 }
 
+.buttonSmall{
+  -webkit-border-radius: 2;
+  -moz-border-radius: 2;
+  border-radius: 2px;
+  color: #fafafa;
+  font-size: 0.8em;
+  font-weight: 600;
+  background: #384a6e;
+  padding: 0.5em 1em 0.5em 1em;
+  border: solid #4f6128 1px;
+  text-decoration: none;
+  transition: all 0.2s ease-out;
+  box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92);
+}
+
+.buttonSmall:hover{
+
+    background: #4e5e7e;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0);
+}

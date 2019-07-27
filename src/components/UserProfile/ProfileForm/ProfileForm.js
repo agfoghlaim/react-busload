@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import styles from './ProfileForm.module.css'
 
 const profileForm = (props) => {
-  return <div className ={styles.formWrapDiv}>
+  return <React.Fragment>
          <h3>Profile Form</h3>
         <form className={styles.theForm}>
         <div className={styles.formGroup}>
@@ -57,7 +57,7 @@ const profileForm = (props) => {
 
           </div>
         </form>
-  </div>
+  </React.Fragment>
 }
 
 export default profileForm; 

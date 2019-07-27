@@ -7,11 +7,19 @@ import styles from './UserProfile.module.css';
 import defaultProfile from '../../img/profile_default.svg';
 
 
+
 class UserProfile extends Component {
        
-  state = {uploadFile:null, remoteProfileUrl:null, remotePic:defaultProfile}
+  state = {uploadFile:null, remoteProfileUrl:null, remotePic:defaultProfile, fbCurrentUser:null, fbCurrentUserDets:{
+    lastSignInTime:null,
+    creationTime:null
+  }, showProfileForm:false}
 
-
+  handleShowProfileForm = (e)=>{
+    this.setState((prev,current)=>{
+      return{showProfileForm:!prev.showProfileForm}
+    })
+  }
   getProfilePicUrl = ()=>{
     firebase.storage().ref().child(`/images/${this.props.userDets.userId}/${this.props.userDets.profilePicName}`).getDownloadURL()
     .then(url => {
@@ -20,6 +28,56 @@ class UserProfile extends Component {
     }).catch(function(error) {
       console.log("error getting profileURL", error)
     });
+
+
+ 
+  }
+
+
+
+  tryThis = ()=>{
+    //console.log("trying it")
+
+    return new Promise((resolve, reject) => {
+      let count = 0;
+      let w;
+      what();
+      function what(){
+        w = firebase.auth().currentUser;
+
+        //use timeout to imporve chances
+        setTimeout(()=>{
+          if(w !==null ){
+            resolve(w);
+          }
+          else if(w===null && count >10){
+            reject("sorry marie")
+          }
+          else if(w===null){
+            count+=1;
+            what();
+          }
+        }, 150);
+      }
+    });
+  }
+
+  getCurrentUserByBruteForce = async()=>{
+    try {
+      let user = await this.tryThis();
+      if (user && user.email) {
+          console.log("wow", user, user.metadata.lastSignInTime, user.metadata.creationTime)
+          this.setState({
+            fbCurrentUser: true,
+            fbCurrentUserDets:{
+              lastSignInTime:user.metadata.lastSignInTime,
+              creationTime:user.metadata.creationTime
+            }
+          });
+      }
+    } catch(err) {
+      //console.log("no joy")
+    }
   }
 
   componentDidMount(){
@@ -27,6 +85,9 @@ class UserProfile extends Component {
     if(this.props.userDets.photoURL ==='null'|| this.props.userDets.photoURL === null || !this.props.userDets.photoURL  ){
       return;
     }else{this.getProfilePicUrl()}
+
+    this.getCurrentUserByBruteForce();
+    
   }
 
 
@@ -120,26 +181,38 @@ class UserProfile extends Component {
     backgroundSize: ' auto 100%',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
-    border: '4px solid #f0f0f0',
+    border: '2px solid #dbdee3',
     }
 
     return(
-      <div>
+      <div className={styles.mainProfileWrap}>
+    
         <div className={styles.profilePicWrap}>
-        {/* <div className={styles.profilePicDiv}> */}
-        <div style={picStyle}>
-          {/* {
-            (this.state.remoteProfileUrl)?
-            <img src={this.state.remoteProfileUrl} alt="profile pic" /> :
-            <img src={defaultProfile} alt="default profile" />
-          } */}
+          <div style={picStyle}></div>
+          <p className={styles.profileUserName}>{this.props.userDets.displayName}</p>
+          {
+            (this.state.fbCurrentUser) ?
+            <p >
+            <small> Member since:  {this.state.fbCurrentUserDets.creationTime}</small>
+          </p>
+          : null
+          }
+          
+          <button onClick={()=>this.handleShowProfileForm()} className={styles.buttonSmall}>
+            {(this.state.showProfileForm) ? 'hide' : 'edit'}
+          </button>
         </div>
-        <p>{this.props.userDets.displayName}</p>
-        </div>
-        
-        <ProfileForm handleFileChange={this.handleFileChange}
+        {
+          (this.state.showProfileForm) ?
+          <div className={styles.profileFormWrap}>
+          <ProfileForm handleFileChange={this.handleFileChange}
           handleUploadFile={this.handleUploadFile}
           deleteProfilePic={this.deleteProfilePic}/>
+          </div>
+          :
+          null
+        }
+ 
   
   	  </div>
     )
