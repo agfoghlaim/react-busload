@@ -11,16 +11,16 @@ import UserSection from '../UserSection/UserSection';
 
 
 class UserProfile extends Component {
-       
+
   state = {uploadFile:null, remoteProfileUrl:null, remotePic:defaultProfile, fbCurrentUser:null, fbCurrentUserDets:{
     lastSignInTime:null,
     creationTime:null
-  }, showProfileForm:false}
+  },  profilePicChangeOngoing:false, userName:this.props.userDets.displayName}
 
-  handleShowProfileForm = (e)=>{
-    this.setState((prev,current)=>{
-      return{showProfileForm:!prev.showProfileForm}
-    })
+  handleUserNameChange =(e)=>{
+    e.preventDefault();
+    console.log(e.target.value)
+    this.setState({userName:e.target.value})
   }
   getProfilePicUrl = ()=>{
     firebase.storage().ref().child(`/images/${this.props.userDets.userId}/${this.props.userDets.profilePicName}`).getDownloadURL()
@@ -30,12 +30,31 @@ class UserProfile extends Component {
     }).catch(function(error) {
       console.log("error getting profileURL", error)
     });
-
-
- 
   }
 
+  handleUpdateName = (e)=>{
+    e.preventDefault();
+    console.log("will update to ", this.state.userName)
+    firebase.database().ref(`/users/${this.props.userDets.userId}`).update({
+      displayName: this.state.userName
+    })
+    .then(r=>console.log("user updated ", r))
+    .catch(e=>console.log("error with user update ", e))
 
+    //update firebase user profile too???
+    var user = firebase.auth().currentUser;
+
+    user.updateProfile({
+      displayName: this.state.userName
+   
+    }).then(function(r) {
+      console.log("fb profile updated ", r)
+    }).catch(function(error) {
+      console.log("fb profile fail ", error)
+    });
+
+
+  }
 
   tryThis = ()=>{
     return new Promise((resolve, reject) => {
@@ -79,7 +98,10 @@ class UserProfile extends Component {
   }
 
   componentDidMount(){
+    console.log(this.props)
      //console.log(this.props.userDets.photoURL)
+
+    this.setState({userName:this.props.userDets.displayName})
     if(this.props.userDets.photoURL ==='null'|| this.props.userDets.photoURL === null || !this.props.userDets.photoURL  ){
       return;
     }else{this.getProfilePicUrl()}
@@ -143,7 +165,16 @@ class UserProfile extends Component {
      });
   }
 
-
+  handleChangeProfilePic = (e)=>{
+    e.preventDefault();
+    console.log("changing pic...", this.state.profilePicChangeOngoing);
+    this.setState((prev,current)=>{
+      return{profilePicChangeOngoing:!prev.profilePicChangeOngoing}
+    })
+    //hide current
+    //show upload file
+    //run delete and upload when we have new file
+  }
 
 
   deleteProfilePic = (e)=>{
@@ -196,19 +227,24 @@ class UserProfile extends Component {
           : null
           }
           
-          <button onClick={()=>this.handleShowProfileForm()} className={styles.buttonSmall}>
-            {(this.state.showProfileForm) ? 'hide' : 'edit'}
-          </button>
+        
         </div>
         {
-          (this.state.showProfileForm) ?
+         
           <div className={styles.profileFormWrap}>
           <ProfileForm handleFileChange={this.handleFileChange}
           handleUploadFile={this.handleUploadFile}
-          deleteProfilePic={this.deleteProfilePic}/>
+          deleteProfilePic={this.deleteProfilePic}
+          remoteProfileUrl={this.state.remoteProfileUrl}
+          handleChangeProfilePic={this.handleChangeProfilePic}
+          profilePicChangeOngoing={this.state.profilePicChangeOngoing}
+          handleShowProfileForm={this.handleShowProfileForm}
+          userName={this.state.userName}
+          handleUserNameChange={this.handleUserNameChange}
+          handleUpdateName={this.handleUpdateName}
+           />
           </div>
-          :
-          null
+     
         }
 
         {/* <FindStop userDets={this.props.userDets}></FindStop> */}
@@ -236,4 +272,5 @@ class UserProfile extends Component {
 }
 
 export default UserProfile;
+
 

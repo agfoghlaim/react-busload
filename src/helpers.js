@@ -23,6 +23,22 @@ import axios from 'axios';
 
     return (diff <= numMinutes)? true : false;
   }
+
+  export const inTheFuture= (toCheck, toCheckAgainst)=>{
+    let timeToCheck = new Date();
+    let timeToCheckAgainst = new Date();
+    
+    timeToCheck.setHours(toCheck.substr(0,2))
+    timeToCheck.setMinutes(toCheck.substr(3,2))
+   
+    // timeToCheckAgainst.setHours(toCheckAgainst.substr(0,2))
+    // timeToCheckAgainst.setMinutes(toCheckAgainst.substr(3,2))
+
+    return timeToCheck > timeToCheckAgainst === true
+  }
+
+
+
  export const getUserInfoFromFirebase = async (url,idToken)=>{
     axios.post(url,{idToken})
     .then(r=>r)

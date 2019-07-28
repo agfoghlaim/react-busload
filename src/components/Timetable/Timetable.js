@@ -7,7 +7,8 @@ import BusDets from './BusDets/BusDets';
 import Modal from '../Modal/Modal';
 import NextPrevStop from '../NextPrevStop/NextPrevStop';
 import ChooseTimetable from '../ChooseTimetable/ChooseTimetable';
-import { isWithinMinutesOf } from '../../helpers';
+import { isWithinMinutesOf, inTheFuture } from '../../helpers';
+import { isIt } from '../../helpers';
 
 
 
@@ -28,9 +29,10 @@ filterNext = (resp) =>{
   let timeNow = new Date().toString().substring(16,21);
   console.log(timeNow,resp[0].time)
   return resp.filter((item,i,arr)=>{
-    return isWithinMinutesOf(timeNow,item.time,90)
+    return inTheFuture(item.time) && isWithinMinutesOf(timeNow,item.time,120)
    })
 }
+
 
 handleToggleShowAll = ()=>{
   this.setState((prev,current)=>{
@@ -88,6 +90,14 @@ getAvgStrings=(avg)=>{
  
 render(){
   console.log(this.props)
+
+  const reJigRtpiStr = (str)=>{
+    if(!str) return;
+    return <span>
+      <p>{str.substring(10,16)}</p>
+      <p><small>{str.substring(0,10)}</small></p>
+    </span>
+  }
   const { stop_sequence,bestopid} = this.props.busRoutes;
   if(this.props.rtpiData){
     this.props.busRoutes.bus_times.map(bus=>bus.rtpi = this.findBus(this.props.rtpiData.rtpiRequest.results,bus.time))
@@ -109,22 +119,22 @@ render(){
       <table className={styles.table}>
         <thead>
           <tr className={styles.tr}>
-            <th className={styles.th}><span className={styles.span}>Bus</span><h3>Scheduled</h3><span className={styles.span}>time</span></th>
+            <th className={styles.th}><div className={styles.thWrap}><div className={styles.thTopDiv}><span className={styles.span}>Bus</span></div><h3>Scheduled</h3><span className={styles.span}>time</span></div></th>
             {
               (this.props.isToday) ?
-              <th className={styles.th}>Real Time Info</th>
+              <th className={styles.th}><div className={styles.thWrap}><div className={styles.thTopDiv}><span className={styles.span}></span></div><h3>Realtime<br></br>Time<br></br>Info</h3><span className={styles.span}></span></div></th>
               :
               null
             }
             
-            <th className={styles.th}><img src={wet} alt='wet'/><span className={styles.span}>If it's wet</span><h3>BusLoad Predicts</h3><span className={styles.span}>this bus will be</span></th>
-            <th className={styles.th}><img src={dry} alt='dry'/><span className={styles.span}>If it's Dry</span><h3>BusLoad Predicts</h3><span className={styles.span}>this bus will be</span></th>
-            <th className={styles.th}><span className={styles.span}>On Average</span><h3>BusLoad Predicts</h3><span className={styles.span}>this bus will be</span></th>
+            <th className={styles.th}><div className={styles.thWrap}><div className={styles.thTopDiv}><img src={wet} alt='wet'/><span className={styles.span}>If it's wet</span></div><h3>BusLoad<br></br>Predicts</h3><span className={styles.span}>this bus will be</span></div></th>
+            <th className={styles.th}><div className={styles.thWrap}><div className={styles.thTopDiv}><img src={dry} alt='dry'/><span className={styles.span}>If it's Dry</span></div><h3>BusLoad<br></br>Predicts</h3><span className={styles.span}>this bus will be</span></div></th>
+            <th className={styles.th}><div className={styles.thWrap}><div className={styles.thTopDiv}><span className={styles.span}>On Average</span></div><h3>BusLoad<br></br>Predicts</h3><span className={styles.span}>this bus will be</span></div></th>
           </tr>
         </thead>
         
           
-          <tbody className={styles.allNextWrap} onClick={this.handleToggleShowAll}><tr><td colSpan="5">{(!this.state.showAll)? 'Show All' : 'Show Less'}</td></tr></tbody>
+          <tbody className={styles.allNextWrap} onClick={this.handleToggleShowAll}><tr><td colSpan="5">{(!this.state.showAll)? 'Show All' : 'Show Next'}</td></tr></tbody>
          
         
         
@@ -141,7 +151,7 @@ render(){
               
               {
               (this.props.isToday) ?
-              <td className={styles.td}>{b.rtpi.departuredatetime}</td>
+              <td className={styles.td}>{reJigRtpiStr(b.rtpi.departuredatetime)}</td>
               :
               null
             }
