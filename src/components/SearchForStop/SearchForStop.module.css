@@ -7,6 +7,7 @@
   display: grid;
   margin: 2rem 0;
   background: #f0f0f0;
+  /* background:url('../../img/bus_design.svg'), linear-gradient(#f0f0f0,#f0f0f0); */
   border-left: 10px solid #4f6128;
   /* background: #dfe3d8; */
   padding:1em;
@@ -46,47 +47,62 @@
   .infoP{
     margin:0;
   }
+  .minHeightP{
+    min-height: 1em;
+  }
 
 .buttonMain{
-  -webkit-border-radius: 2;
-  -moz-border-radius: 2;
   border-radius: 2px;
   color: #fafafa;
   font-size: 1em;
   background: #4f6128;
   padding: 0.5em 1em 0.5em 1em;
-  border: solid #4f6128 1px;
+  border: 2px solid #4f6128 ;
   text-decoration: none;
   padding:1em 2em;
-  box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92);
   transition:all 0.2s linear;
-  
+  font-family: 'Montserrat', 'sans-serif';
+  font-weight: 500;
+  width: 100%;
+  height: 100%;
 }
 
-.buttonMain:hover{
 
-    background: #5a7228;
+
+.buttonMain:hover,
+.buttonMain:focus{
+  outline:none;
+    background: #8DAD47;
     text-decoration: none;
     cursor: pointer;
+    /* box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92); */
+   
+    
 }
 
 
-/* .theUl{
-  list-style-type:none;
-  text-align: left;
-  margin:0;
-  padding:0;
+.tooltip {
+  position: relative;
+  /* position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; */
 }
 
-.theUlHide{
-  display:none;
+.tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  color: white;
+  background:rgba(47,79,79,0.9);
+  text-align: center;
+  font-size: 0.8em;
+  max-width:100%;
+  position: absolute;
+  left:0;
+  top:-5em;
+  z-index: 1;
+  padding:1em 0;
 }
 
-
-.theUl::before{
-  content:"";
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
-
-.theLi{
-  padding:10px 5px;
-} */

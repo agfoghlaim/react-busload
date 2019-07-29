@@ -17,7 +17,8 @@ const loginForm = (props) => {
             {
                 (props.emailValidity.validMsgs.length) ?
                 <p className={styles.error}>{props.emailValidity.validMsgs[0]}</p>
-                : null
+                : 
+                <p className={styles.error}></p>
               }
           </div>
 
@@ -40,7 +41,7 @@ const loginForm = (props) => {
 
                 : 
                 
-                null
+                <p className={styles.error}></p>
               }
 
           </div>
@@ -51,7 +52,8 @@ const loginForm = (props) => {
                 <p>Account Created. Please verify your email before logging in.</p>
               
               </div>
-              : null
+              : 
+              <p className={styles.error}></p>
             }
           <button className={styles.buttonMain} onClick={(e)=>props.handleSubmit(e,'login')}>Login</button>
         </form>

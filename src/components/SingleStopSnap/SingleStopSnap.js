@@ -25,13 +25,13 @@ class SingleStopSnap extends Component{
     // ],
     bus_times_x:[
       {active:true,dayNum:'',label:'Today'},
-      {active:false,dayNum:1,label:'Monday'},
-      {active:false,dayNum:2,label:'Tuesday'},
-      {active:false,dayNum:3,label:'Wednesday'},
-      {active:false,dayNum:4,label:'Thursday'},
-      {active:false,dayNum:5,label:'Friday'},
-      {active:false,dayNum:6,label:'Saturday'},
-      {active:false,dayNum:0,label:'Sunday'}  
+      {active:false,dayNum:1,label:'Mon'},
+      {active:false,dayNum:2,label:'Tues'},
+      {active:false,dayNum:3,label:'Wed'},
+      {active:false,dayNum:4,label:'Thurs'},
+      {active:false,dayNum:5,label:'Fri'},
+      {active:false,dayNum:6,label:'Sat'},
+      {active:false,dayNum:0,label:'Sun'}  
     ],
 
   

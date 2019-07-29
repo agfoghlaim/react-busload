@@ -9,6 +9,7 @@
 .formGroup{
   display:grid;
   align-content: center;
+  grid-gap: 1em;
 
 }
 
@@ -16,6 +17,7 @@
   padding:0.5rem;
   font-size:1rem;
   max-height:2rem;
+
 
 }
 
@@ -26,7 +28,7 @@
 p.error{
   color:#943D2E;
   font-size:0.8em;
-  min-height: 1.2em;
+  min-height: 1.4em;
   margin: 0;
   align-self: flex-end;
 }
@@ -91,4 +93,11 @@ p.error{
 
 .profileImgForEdit{
   max-width: 100%;
+}
+
+.profilePicDiv{
+  display: grid;
+  align-items: center;
+  justify-content: start;
+  grid-gap: 1em;
 }

@@ -3,7 +3,7 @@ import RegisterForm from '../../components/RegisterForm/RegisterForm';
 import LoginForm from '../../components/LoginForm/LoginForm';
 import firebase from '../../config/fbConfig';
 import { Redirect }from 'react-router-dom';
-import { dealWithFirebaseRegister,dealWithFirebaseLogin } from '../../helpers';
+import { dealWithFirebaseRegister,dealWithFirebaseLogin,checkIfValid } from '../../helpers';
 import ResetPassForm from '../../components/ResetPassForm/ResetPassForm';
 import styles from './Auth.module.css';
 import axios from 'axios';
@@ -331,57 +331,63 @@ class Auth extends Component{
   }//end handle form submit
 
 
-  checkIfValid = (rules,toCheck)=>{
-    //will change isValid value in appropiate toCheck
-    //let isValid = true;
-    let validity = {isValid:true,validMsgs:[]}
-   // console.log("is valid? ", toCheck)
-    if(rules.required){
-      validity.isValid = toCheck.trim() !== '' && validity.isValid;
-      if(!validity.isValid) validity.validMsgs.push('Required Field')
-    }
-    if(rules.minLength){
-      validity.isValid = toCheck.length >= rules.minLength && validity.isValid
-      if(!validity.isValid) validity.validMsgs.push(`Should be ${rules.minLength}+ characters`)
-    }
-    if(rules.maxLength){
-      validity.isValid = toCheck.length <= rules.maxLength && validity.isValid
-      if(!validity.isValid) validity.validMsgs.push(`Should ${rules.maxLength} characters or less`)
-    }
-    if(rules.email){
-      const re = /\S+@\S+\.\S+/;
-      validity.isValid = re.test(toCheck) && validity.isValid
-      if(!validity.isValid) validity.validMsgs.push(`Please enter a valid email`)
-    }
-    if(rules.charNum){
-      const re = /[^A-Za-z0-9-]/
-      validity.isValid = !re.test(toCheck) && validity.isValid
-      if(!validity.isValid) validity.validMsgs.push(`Please enter letters or numbers only`)
-    }
-   // console.log("isvalid is ", validity.isValid)
-    return validity;
+  // checkIfValid = (rules,toCheck)=>{
+  //   //will change isValid value in appropiate toCheck
+  //   //let isValid = true;
+  //   let validity = {isValid:true,validMsgs:[]}
+  //  // console.log("is valid? ", toCheck)
+  //   if(rules.required){
+  //     validity.isValid = toCheck.trim() !== '' && validity.isValid;
+  //     if(!validity.isValid) validity.validMsgs.push('Required Field')
+  //   }
+  //   if(rules.minLength){
+  //     validity.isValid = toCheck.length >= rules.minLength && validity.isValid
+  //     if(!validity.isValid) validity.validMsgs.push(`Should be ${rules.minLength}+ characters`)
+  //   }
+  //   if(rules.maxLength){
+  //     validity.isValid = toCheck.length <= rules.maxLength && validity.isValid
+  //     if(!validity.isValid) validity.validMsgs.push(`Should ${rules.maxLength} characters or less`)
+  //   }
+  //   if(rules.email){
+  //     const re = /\S+@\S+\.\S+/;
+  //     validity.isValid = re.test(toCheck) && validity.isValid
+  //     if(!validity.isValid) validity.validMsgs.push(`Please enter a valid email`)
+  //   }
+  //   if(rules.charNum){
+  //     const re = /[^A-Za-z0-9-]/
+  //     validity.isValid = !re.test(toCheck) && validity.isValid
+  //     if(!validity.isValid) validity.validMsgs.push(`Please enter letters or numbers only`)
+  //   }
+  //   console.log("isvalid is ", validity.isValid)
+  //   return validity;
  
-  }
+  // }
 
 
 //for login and reg forms
   handleAnyInputChange = (e) =>{
-    //if there is a submission error clear
-    
-    if(this.state.loginFail || this.state.registerFail){
-      let oldState = {...this.state}
-      oldState.registerFail = null;
-      oldState.loginFail = null;
-      this.setState({...oldState})
 
-    }else{
-      //console.log("not updating")
-    }
+
+    //if there is a submission error clear
+    //[now handled with timeouts in did mount]
+    // if(this.state.loginFail || this.state.registerFail){
+    //   let oldState = {...this.state}
+    //   oldState.registerFail = null;
+    //   oldState.loginFail = null;
+    //   this.setState({...oldState})
+
+    // }else{
+    //   //console.log("not updating")
+    // }
+
+
     let newState = {...this.state}
+
+    //find field that has changed, check it's validity
     let findStr = `${e.target.id}Field`
     //console.log(`${e.target.id}Field`,findStr)
     newState[`${findStr}`][`${e.target.id}`] = e.target.value
-    newState[`${findStr}`][`validity`] = this.checkIfValid(newState[`${findStr}`].rules, e.target.value)
+    newState[`${findStr}`][`validity`] = checkIfValid(newState[`${findStr}`].rules, e.target.value)
    // console.log("setting state to ", newState)
     this.setState({...newState})
   // console.log(this.state[`${findStr}`][`${e.target.id}`])

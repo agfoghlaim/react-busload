@@ -19,7 +19,8 @@ const registerForm = (props) => {
             {
               (props.emailValidity.validMsgs.length) ?
               <p className={styles.error}>{props.emailValidity.validMsgs[0]}</p>
-              : null
+              : 
+              <p className={styles.error}></p>
             }
           </div>
 
@@ -36,7 +37,8 @@ const registerForm = (props) => {
             {
               (props.passwordValidity.validMsgs.length) ?
               <p className={styles.error}>{props.passwordValidity.validMsgs[0]}</p>
-              : null
+              : 
+              <p className={styles.error}></p>
             }
 
           </div>
@@ -58,7 +60,7 @@ const registerForm = (props) => {
               <p className={styles.error}>{props.usernameValidity.validMsgs[0]}</p>
 
               : 
-              null
+              <p className={styles.error}></p>
 
               }
           </div>

@@ -17,18 +17,23 @@ const busDets = (props) => {
   const tableTop = ()=>{
     return <div className={styles.tableTop}>
       <img src={(props.wetOrDry === 'dry') ? dryIcon : wetIcon} alt={(props.wetOrDry === 'dry') ? 'dryIcon' : 'wetIcon'} />
-
-      <h5>No. of snapshots for {`${props.wetOrDry}`} weather</h5><p>{props.busDets[`${arrName}`].length} </p>
-      <h5>BusLoad Guesstimation</h5>
       <p>{
       (!isNaN(props.busDets[`${avgName}`]) && props.busDets[`${avgName}`] > 0) ? 
-      `Usually about ${props.busDets[`${avgName}`]} mins late`
+      `Probably about ${props.busDets[`${avgName}`]} min(s) late*`
       : (!isNaN(props.busDets[`${avgName}`]) && props.busDets[`${avgName}`] < 0) ?
-      `Usually about ${props.busDets[`${avgName}`]} mins early`
+      `Probably about ${props.busDets[`${avgName}`]} min(s) early*`
       :  (!isNaN(props.busDets[`${avgName}`]) && props.busDets[`${avgName}`] === 0) ?
-      'Usually ontime'
+      'Probably ontime*'
       :'unknown'
       }</p>
+
+      <p>
+        Prediction is based on {props.busDets[`${arrName}`].length} snapshots for  {`${props.wetOrDry}`} weather
+      </p>
+
+      
+     
+      
     </div>
   }
 
@@ -64,7 +69,7 @@ const busDets = (props) => {
         <tr>
         <th>Due at</th>
         <th>BusLoad checked at</th>
-        <th>Arrived at</th>
+        <th>Departed at</th>
         <th>Status</th>
         <th>No. Mins</th>
         </tr>
@@ -75,7 +80,9 @@ const busDets = (props) => {
 
       </tbody>
     </table>
- 
+  
+    <p><small>*BusLoad checks and saves real time info for bus stops two mins before a bus is scheduled to depart.  There is no guarentee that the bus actually departed at the times stated.  </small></p>
+
   </div>
 }
 

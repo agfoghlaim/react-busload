@@ -90,7 +90,12 @@ class SearchForStop extends Component {
                 <p className={styles.infoP}><small>Select your stop and click Save to add to Quick Stops.</small></p>
                 : null
               }
-              <p><small>{this.state.selectedStop.stopname}</small></p>
+              <p className={styles.minHeightP}>
+                <small>
+                <strong>Selected:</strong>
+                {(this.state.selectedStop.stopname) ? ` ${this.state.selectedStop.stopname}` : ' '}
+                </small>
+                </p>
               <div className={(this.props.currentUser.userId) ? styles.inputButtonDivUser : styles.inputButtonDiv }>
               <input 
                 type="text"
@@ -104,8 +109,13 @@ class SearchForStop extends Component {
               {
                 //if this.props.selectedStopId exists it means SearchForStop was rendered by FindStop Component, so show Go button. If !this.props.selectedStopId, was rendered by UserProfile(?) so only show save button
                 (this.props.setSelectedStopId) ?
-                <Link to={`bus/${this.state.selectedStop.route}/${this.state.selectedStop.direction}/${this.state.selectedStop.bestopid}`}
-                ><button  className={styles.buttonMain}  >Go</button></Link>
+                <Link  
+                  to={(this.state.selectedStop.route)?`bus/${this.state.selectedStop.route}/${this.state.selectedStop.direction}/${this.state.selectedStop.bestopid}`:'/'}
+                >
+                  <button  className={`${styles.buttonMain} ${styles.tooltip}`}><span className={styles.tooltiptext}>View timetable</span> Go</button>
+                 
+
+                </Link>
                 : <p></p>
               }
            

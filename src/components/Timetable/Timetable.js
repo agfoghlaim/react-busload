@@ -8,7 +8,7 @@ import Modal from '../Modal/Modal';
 import NextPrevStop from '../NextPrevStop/NextPrevStop';
 import ChooseTimetable from '../ChooseTimetable/ChooseTimetable';
 import { isWithinMinutesOf, inTheFuture } from '../../helpers';
-import { isIt } from '../../helpers';
+// import { isIt } from '../../helpers';
 
 
 
@@ -119,10 +119,10 @@ render(){
       <table className={styles.table}>
         <thead>
           <tr className={styles.tr}>
-            <th className={styles.th}><div className={styles.thWrap}><div className={styles.thTopDiv}><span className={styles.span}>Bus</span></div><h3>Scheduled</h3><span className={styles.span}>time</span></div></th>
+            <th className={styles.th}><div className={styles.thWrap}><div className={styles.thTopDiv}><span className={styles.span}>Bus</span></div><h3>Scheduled</h3><span className={styles.span}>at</span></div></th>
             {
               (this.props.isToday) ?
-              <th className={styles.th}><div className={styles.thWrap}><div className={styles.thTopDiv}><span className={styles.span}></span></div><h3>Realtime<br></br>Time<br></br>Info</h3><span className={styles.span}></span></div></th>
+              <th className={styles.th}><div className={styles.thWrap}><div className={styles.thTopDiv}><span className={styles.span}>Bus</span></div><h3>Expected</h3><span className={styles.span}>at</span></div></th>
               :
               null
             }
@@ -134,7 +134,7 @@ render(){
         </thead>
         
           
-          <tbody className={styles.allNextWrap} onClick={this.handleToggleShowAll}><tr><td colSpan="5">{(!this.state.showAll)? 'Show All' : 'Show Next'}</td></tr></tbody>
+          <tbody ><tr className={styles.allNextWrap} onClick={this.handleToggleShowAll}><td colSpan="5">{(!this.state.showAll)? 'Show All' : 'Show Next'}</td></tr>
          
         
         
@@ -142,49 +142,51 @@ render(){
         
         
         //this.props.busRoutes.bus_times.map((b,i)=>{
+          // <tbody >
           busesToShow.map((b,i)=>{
      
           return(
-            <tbody key={b.bus}>
-            <tr className={styles.tr}>
-              <td className={styles.td}>{b.time}</td> 
-              
-              {
-              (this.props.isToday) ?
-              <td className={styles.td}>{reJigRtpiStr(b.rtpi.departuredatetime)}</td>
-              :
-              null
-            }
-
-            
-              <td 
-                className={styles.tdClickable}
-                onClick={()=>this.handleShowModal(b,'wet')}
+              <React.Fragment>
+              <tr className={styles.tr} key={b.bus}>
+                <td className={styles.td}>{b.time}</td> 
                 
+                {
+                (this.props.isToday) ?
+                <td className={styles.td}>{reJigRtpiStr(b.rtpi.departuredatetime)}</td>
+                :
+                null
+              }
+
+              
+                <td 
+                  className={styles.tdClickable}
+                  onClick={()=>this.handleShowModal(b,'wet')}
+                  
+                  >
+                  {(b.wet_avg !==null) ? this.getAvgStrings(b.wet_avg) : '?'}<br />
+                </td>
+
+                <td 
+                  className={styles.tdClickable}
+                  onClick={()=>this.handleShowModal(b,'dry')}
                 >
-                {(b.wet_avg !==null) ? this.getAvgStrings(b.wet_avg) : '?'}<br />
-              </td>
+                  {(b.dry_avg !==null) ? this.getAvgStrings(b.dry_avg) : '?'}<br /> 
+                </td> 
 
-              <td 
-                className={styles.tdClickable}
-                onClick={()=>this.handleShowModal(b,'dry')}
-              >
-                {(b.dry_avg !==null) ? this.getAvgStrings(b.dry_avg) : '?'}<br /> 
-              </td> 
-
-              <td className={styles.td}
-              
-              > {(b.total_avg !==null) ? this.getAvgStrings(b.total_avg) : '?'}<br /> ({b.num_total} results)</td> 
-              
-            </tr>
-            </tbody>
+                <td className={styles.td}
+                
+                > {(b.total_avg !==null) ? this.getAvgStrings(b.total_avg) : '?'}<br /> ({b.num_total} results)</td> 
+                
+              </tr>
+              </React.Fragment> 
           )
-        
+          // {/* </tbody> 
+          
       })
   }
 
 
-
+      </tbody>
       </table>
       </div>
     )

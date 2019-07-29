@@ -4,13 +4,8 @@ import styles from './UserSection.module.css';
 import FaveStop from '../FaveStop/FaveStop';
 import firebase from '../../config/fbConfig';
 import axios from 'axios';
-// import { Route } from 'react-router-dom';
-// import UserProfile from '../UserProfile/UserProfile';
 import plus from '../../img/plus.svg';
 import minus from '../../img/minus.svg';
-//import rightArrow from '../../img/right_arrow.svg';
-
-
 
 
 class UserSection extends Component {
@@ -18,12 +13,10 @@ class UserSection extends Component {
   state = {stopName:'', faveStops:[], emailResent:false, userInfo:{}, expandFaves:false}
  
 
-
   componentDidMount(){
-   // console.log(this.props)
     this._isMounted = true;
-   // console.log(this.props, this.state)
   
+
     //get currently logged in users faveourite stops
     if(!this.props.userDets.userId) return
     const ref = firebase.database().ref(`favourites`);
@@ -92,9 +85,7 @@ showCollapsedFaves = ()=>{
           pathname:`/bus/${stop.route}/${stop.direction}/${stop.bestopid}`
         }}>
         <p className={styles.routenoCollapsedInvert}>{stop.userStopName} >
-        {/* <span classname={styles.goArrow}>
-          <img src={rightArrow} alt="right arrow" />
-          </span> */}
+    
           </p>
         </Link>
       </div>
@@ -122,38 +113,33 @@ showExpandedFaves = ()=>{
     
     })
 }
-  // resendEmailVerification=()=>{
-  //   const domain = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/`;
-  //   const key = `AIzaSyAoXxf2QSQwHDJOenPiziOTGzxijrZynLs`;
-  //   let resendUrl=`${domain}getOobConfirmationCode?key=${key}`
-  //   axios.post(resendUrl,{requestType:'VERIFY_EMAIL',idToken:this.props.userDets.idToken})
-  //   .then(w=>{
-  //     //console.log("email sent ", w)
-  //     this.setState({emailResent:true})
-  //   })
-  //   .catch(e=>{
-  //     console.log({...e})
-  //   })
-  // }
-
-  
-
-
 
   render(){
+
     return (
       <div className={styles.faveListWrap} >
         <div className={styles.h3AndExpandCollapse}>
           
-          <button 
-          className={styles.expandCollapseBtn}
-          onClick={this.handleSetExpandFaves}>
-            <img src={this.state.expandFaves ? minus : plus} alt={this.state.expandFaves ? "minus" : "plus"} />
+          {
             
-          </button>
-          {/* <Link className={styles.breadLink}
-    // to={{pathname:`/`,hash:'#stops'}}
-    >add </Link>   */}
+            //only show expand button on the UserProfile Component
+            //this is dodgy. UserProfile is the only place this comp renders that's not with router so using that.
+            (!this.props.location)
+
+            ?
+
+            <button 
+              className={styles.expandCollapseBtn}
+              onClick={this.handleSetExpandFaves}>
+              <img src={this.state.expandFaves ? minus : plus} alt={this.state.expandFaves ? "minus" : "plus"} />
+            </button>
+
+            :
+
+            null
+          }
+    
+
           <h3 className={styles.sectionH3}>Quick Stops</h3>
         </div>
 
@@ -163,22 +149,23 @@ showExpandedFaves = ()=>{
             (this.state.faveStops.length && !this.state.expandFaves) 
 
             ?
+
             this.showCollapsedFaves()
      
             :
 
             (this.state.faveStops.length && this.state.expandFaves) 
+
             ?
             this.showExpandedFaves()
+
             :
+            
             <p>Put your favourite bus stops here for quick access. </p>
             
           }
         </div>
 
-          {/* <Link to={`user/${this.props.userDets.userId}`}>go</Link>
-        <Route path='user/:uid' render={(props) => <UserProfile {...props} userInfo ={this.state.userInfo} />}
-         /> */}
       </div>
     )
   }

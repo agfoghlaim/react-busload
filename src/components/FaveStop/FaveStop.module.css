@@ -96,11 +96,13 @@
   font-size: 1em;
   background: #384a6e;
   padding: 0.5em 1em 0.5em 1em;
-  border: none;
+  border: 2px solid #384a6e;
   text-decoration: none;
   padding:1em 2em;
-  /* box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92); */
   transition:all 0.2s linear;
+  font-family: 'Montserrat', 'sans-serif';
+  font-weight: 500;
+  width: 100%;
   
 }
 
@@ -108,10 +110,40 @@
   display: grid;
 }
 
-.buttonMainFave:hover{
-  background: #5F7DBA;
+.buttonMainFave:hover,
+.buttonMainFave:focus{
+  outline:none;
+  background: #fff;
     text-decoration: none;
     cursor: pointer;
+    color:#384a6e;
+}
+
+
+.tooltip {
+  position: relative;
+  /* position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; */
+}
+
+.tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  color: white;
+  background:rgba(47,79,79,0.9);
+  text-align: center;
+  font-size: 0.8em;
+  max-width:100%;
+  position: absolute;
+  left:0;
+  top:-5em;
+  z-index: 1;
+  padding:1em 0;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
 
 

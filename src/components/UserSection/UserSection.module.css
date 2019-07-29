@@ -1,5 +1,6 @@
 .faveListWrap{
  background: #f0f0f0;
+ background:url('../../img/bus_design.svg'), linear-gradient(#f0f0f0,#f0f0f0);
 padding: 1rem;
 margin: 2rem 0;
 padding: 2rem 1rem;

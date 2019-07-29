@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from 'react-apollo';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+
 //import * as firebase from 'firebase';
 import Layout from '../components/Layout/Layout';
 //import firebase from '../config/fbConfig';
@@ -25,6 +26,7 @@ const client = new ApolloClient({
 });
 
 class App extends Component {
+  
   // state={ 
   //   idToken:null, 
   //   userId:null,
@@ -69,7 +71,11 @@ class App extends Component {
 
   handleLogOut = () =>{
     this.setState({idToken:null, userId:null,expiresAt:null,isUser:false,displayName:null, currentUser:{idToken:null, userId:null,expiresAt:null,isUser:false,displayName:null,emailVerified:null,photoURL:null}})
-    localStorage.clear();  
+    localStorage.clear();
+
+   
+    
+
   }
 
   handleUpdateUserProfile = (name,url,profilePicName)=>{
@@ -86,6 +92,12 @@ class App extends Component {
         localStorage.setItem('photoURL',url);
         localStorage.setItem('profilePicName', profilePicName);
 
+  }
+
+  handleUserNameUpdated = (name)=>{
+    console.log("appknows username updated")
+    this.setState({ displayName:name });
+    localStorage.setItem('displayName', name);
   }
 
   handleDeleteProfilePic = ()=>{
@@ -169,15 +181,7 @@ class App extends Component {
           : null
    
         }
-          {
-          (this.state.isUser) ?
-                  <Route 
-                  path='/user/:uid' render={(props) => <UserProfile {...props} handleUpdateUserProfile={this.handleUpdateUserProfile}  userDets={this.state} handleDeleteProfilePic={this.handleDeleteProfilePic}  />}
-                  />
-          : null
-   
-        }
-  
+
 
           <Route 
             path='/' 
@@ -190,6 +194,17 @@ class App extends Component {
           <Route  path='/bus/:route/:direction/:bestopid/' component={SingleStopSnap} />
          
           <Route path='/bus/:route/:direction/' exact component={BusRouteStopsList} />
+
+          {
+          (this.state.isUser) ?
+                  <Route 
+                  path='/user/:uid' render={(props) => <UserProfile {...props} handleUpdateUserProfile={this.handleUpdateUserProfile}  userDets={this.state} handleDeleteProfilePic={this.handleDeleteProfilePic} handleUserNameUpdated={this.handleUserNameUpdated} />}
+                  />
+          : 
+            <Redirect to="/"/>
+
+        }
+  
 
           <Route render={()=><p>Not Found</p>}></Route>
           </Switch> 

@@ -7,20 +7,40 @@ import styles from './UserProfile.module.css';
 import defaultProfile from '../../img/profile_default.svg';
 import SearchForStop from '../SearchForStop/SearchForStop';
 import UserSection from '../UserSection/UserSection';
+import { checkIfValid } from '../../helpers';
 
 
 
 class UserProfile extends Component {
 
-  state = {uploadFile:null, remoteProfileUrl:null, remotePic:defaultProfile, fbCurrentUser:null, fbCurrentUserDets:{
+  state = {
+    userNameField: {
+      rules:{required:true,minLength:3,maxLength:20,charNum:true},
+      userid:null,
+      userName:'',
+      validity:{isValid:true,validMsgs:[]}
+    },
+    uploadFile:null, 
+    remoteProfileUrl:null, 
+    remotePic:defaultProfile, 
+    fbCurrentUser:null, 
+    fbCurrentUserDets:{
     lastSignInTime:null,
-    creationTime:null
-  },  profilePicChangeOngoing:false, userName:this.props.userDets.displayName}
+    creationTime:null, 
+    userNameFail:null
+    } 
+    // profilePicChangeOngoing:false, userName:this.props.userDets.displayName,
+
+}
 
   handleUserNameChange =(e)=>{
     e.preventDefault();
-    console.log(e.target.value)
-    this.setState({userName:e.target.value})
+    let newState = {...this.state}
+   
+    //use userNameField rules in state to check validity
+    newState.userNameField.userName = e.target.value;
+    newState.userNameField.validity = checkIfValid(newState.userNameField.rules, e.target.value)
+    this.setState({...newState})
   }
   getProfilePicUrl = ()=>{
     firebase.storage().ref().child(`/images/${this.props.userDets.userId}/${this.props.userDets.profilePicName}`).getDownloadURL()
@@ -32,26 +52,45 @@ class UserProfile extends Component {
     });
   }
 
+  checkValidOnSubmit = ()=>{
+    if(this.state.userNameField.validity.isValid && this.state.userNameField.userName.length ){
+      return true
+    }else{return false;}
+  }
+
   handleUpdateName = (e)=>{
     e.preventDefault();
-    console.log("will update to ", this.state.userName)
+    //check validity
+    if(!this.props.userDets || this.props.userDets === undefined)return;
+    
+    if(!this.state.userNameField.userName) return;
+
+  
+    if(!this.checkValidOnSubmit()){
+      console.log("ignoring form")
+      this.setState({userNameFail:'Form not submitted. Please check for errors.'})
+      return false;
+    }
     firebase.database().ref(`/users/${this.props.userDets.userId}`).update({
-      displayName: this.state.userName
+      displayName: this.state.userNameField.userName
     })
-    .then(r=>console.log("user updated ", r))
+    .then(r=>{
+      console.log("user updated ", r);
+      //update firebase user profile too???
+      var user = firebase.auth().currentUser;
+      user.updateProfile({
+        displayName: this.state.userNameField.userName
+      }).then(r=> {
+        console.log("fb profile updated will tell app", r)
+        this.props.handleUserNameUpdated(this.state.userNameField.userName);
+          //and tell App.js (localStorage & state)
+      })
+    })
     .catch(e=>console.log("error with user update ", e))
 
-    //update firebase user profile too???
-    var user = firebase.auth().currentUser;
 
-    user.updateProfile({
-      displayName: this.state.userName
-   
-    }).then(function(r) {
-      console.log("fb profile updated ", r)
-    }).catch(function(error) {
-      console.log("fb profile fail ", error)
-    });
+
+  
 
 
   }
@@ -97,11 +136,19 @@ class UserProfile extends Component {
     }
   }
 
+  componentDidUpdate(){
+    if(this.state.userNameFail !==null){
+      setTimeout(()=>{ 
+       this.setState({userNameFail:null})
+      },  5000)
+    }
+  }
+
   componentDidMount(){
-    console.log(this.props)
+    //console.log(this.props)
      //console.log(this.props.userDets.photoURL)
 
-    this.setState({userName:this.props.userDets.displayName})
+    //this.setState({userNameField:{userName:this.props.userDets.displayName}})
     if(this.props.userDets.photoURL ==='null'|| this.props.userDets.photoURL === null || !this.props.userDets.photoURL  ){
       return;
     }else{this.getProfilePicUrl()}
@@ -239,9 +286,11 @@ class UserProfile extends Component {
           handleChangeProfilePic={this.handleChangeProfilePic}
           profilePicChangeOngoing={this.state.profilePicChangeOngoing}
           handleShowProfileForm={this.handleShowProfileForm}
-          userName={this.state.userName}
+          userName={this.state.userNameField.userName}
           handleUserNameChange={this.handleUserNameChange}
           handleUpdateName={this.handleUpdateName}
+          userNameValidity = {this.state.userNameField.validity}
+          userNameFail={this.state.userNameFail}
            />
           </div>
      

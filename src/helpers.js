@@ -140,3 +140,35 @@ import axios from 'axios';
     })
   }
 
+
+  export const checkIfValid = (rules,toCheck)=>{
+    //will change isValid value in appropiate toCheck
+    //let isValid = true;
+    let validity = {isValid:true,validMsgs:[]}
+   // console.log("is valid? ", toCheck)
+    if(rules.required){
+      validity.isValid = toCheck.trim() !== '' && validity.isValid;
+      if(!validity.isValid) validity.validMsgs.push('Required Field')
+    }
+    if(rules.minLength){
+      validity.isValid = toCheck.length >= rules.minLength && validity.isValid
+      if(!validity.isValid) validity.validMsgs.push(`Should be ${rules.minLength}+ characters`)
+    }
+    if(rules.maxLength){
+      validity.isValid = toCheck.length <= rules.maxLength && validity.isValid
+      if(!validity.isValid) validity.validMsgs.push(`Should ${rules.maxLength} characters or less`)
+    }
+    if(rules.email){
+      const re = /\S+@\S+\.\S+/;
+      validity.isValid = re.test(toCheck) && validity.isValid
+      if(!validity.isValid) validity.validMsgs.push(`Please enter a valid email`)
+    }
+    if(rules.charNum){
+      const re = /[^A-Za-z0-9-]/
+      validity.isValid = !re.test(toCheck) && validity.isValid
+      if(!validity.isValid) validity.validMsgs.push(`Please enter letters or numbers only`)
+    }
+    console.log("isvalid is ", validity.isValid)
+    return validity;
+ 
+  }

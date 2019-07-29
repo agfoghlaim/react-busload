@@ -19,7 +19,8 @@ const resetPassForm = (props) => {
                {
                 (props.emailValidity.validMsgs.length) ?
                 <p className={props.styles.error}>{props.emailValidity.validMsgs[0]}</p>
-                : null
+                : 
+                <p className={props.styles.error}></p>
               }
             </div>
 

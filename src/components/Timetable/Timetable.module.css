@@ -25,6 +25,7 @@
  /* background-image: url('../../img/onepix.png'), linear-gradient(rgba(105,120,73,0.88),rgba(105,120,73,0.88)); */
   width:100%;
   border-top: 10px solid #4f6128;
+  background:#ffffff;
 }
 @media only screen and (max-width: 600px) {
   .td{
@@ -47,12 +48,13 @@
 
 
 .tr{
-  background-image: url('../../img/onepix.png')
+  /* background-image: url('../../img/onepix.png') */
 }
 .td{
+  background-image: url('../../img/onepix2.png');
   padding:1em;
-  border:1px solid  rgba(79, 97, 40, 1);
-  background: linear-gradient(rgba(238, 238, 240, 0.8),rgba(240, 240, 240, 0.76));
+  /* border:1px solid  rgba(79, 97, 40, 1); */
+  /* background:rgba(255, 255, 255, 0.76); */
   color:darkslategray;
   font-size:0.8em;
   /* background-image: url('../../img/onepix.png'); */
@@ -65,21 +67,23 @@
 .tdClickable{
   cursor: pointer;
   padding:1rem;
-  background: linear-gradient(rgba(238, 238, 240, 0.8),rgba(240, 240, 240, 0.76));
-  border:1px solid #4f6128;
+  background-image: url('../../img/onepix2.png');
+  /* background:rgba(255, 255, 255, 0.76); */
+  /* background: linear-gradient(rgba(238, 238, 240, 0.8),rgba(240, 240, 240, 0.76)); */
+  border:2px solid transparent;
   color:darkslategray;
   font-size:0.8em;
-  transition:background 0.3s ease-out;
+  transition:all 0.3s linear;
   transform:translateZ(0);
   backface-visibility: hidden;
 }
 .tdClickable:hover{
 
-  background: rgba(105,120,73,0.88);
-  background-image: url('../../img/onepix.png');
-  color:white;
+  /* background: rgba(105,120,73,0.88); */
+  background:white;
+  /* color:dar; */
   transform:translateZ(0);
-  border:1px solid #4f6128;
+  border:2px solid #daded2;
   
   /* transform:scale(1.05); */
   
@@ -97,8 +101,9 @@
 .th{
   /* padding:1em; */
   border:1.5px solid  rgba(79, 97, 40, 1);
-  background:rgba(105,120,73,0.88);
-  background-image: url('../../img/onepix.png');
+  background:rgb(105,120,73);
+  background-image: url('../../img/onepix2.png');
+  /* background-image: url('../../img/onepix.png'); */
   color:white;
   /* background:#9DAD7B; */
 }
@@ -116,7 +121,7 @@
   
 }
 
-.allNextWrap tr td{
+.allNextWrap td{
   background:#4f6128;
   padding:1em;
   color: white;
@@ -127,8 +132,8 @@
   cursor: pointer;
 }
 
-.allNextWrap tr td:hover,
-.allNextWrap tr td:hover{
+.allNextWrap td:hover,
+.allNextWrap td:hover{
   /* color: darkslategray; */
   background:#8dad47;
   border:2px solid #4f6128;

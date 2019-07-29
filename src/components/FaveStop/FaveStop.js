@@ -8,6 +8,7 @@ import styles from './FaveStop.module.css';
 import Transition from 'react-transition-group/Transition';
 import plus from '../../img/plus.svg';
 import minus from '../../img/minus.svg';
+import { checkIfValid } from '../../helpers';
 
 
 
@@ -16,8 +17,15 @@ import minus from '../../img/minus.svg';
 class FaveStop extends Component{
 
   state = {
-    faveStop: {userid:null,userStopName:undefined},
-    showFaveForm:false,showEditForm:false, showBtnGrp:false
+    faveStop: {
+      userid:null,
+      userStopName:undefined,
+      validity:{isValid:true,validMsgs:[]},
+      rules:{required:true,minLength:3,maxLength:20,charNum:true}
+    },
+    showFaveForm:false,showEditForm:false, showBtnGrp:false,saveStopFail:null, saveFeedbackMsg:''
+
+   
   }
  
   saveFaveStop = ()=>{
@@ -37,7 +45,20 @@ class FaveStop extends Component{
     })
   }
   handleFaveInputChange = (e)=>{
-    this.setState({faveStop:{userStopName:e.target.value}})
+   // this.setState({faveStop:{userStopName:e.target.value}})
+    e.preventDefault();
+    let newState = {...this.state}
+
+    //use rules in state to check validity
+    newState.faveStop.userStopName = e.target.value
+    newState.faveStop.validity = checkIfValid(newState.faveStop.rules, e.target.value)
+    this.setState({...newState})
+  }
+
+  checkValidOnSubmit = ()=>{
+    if(this.state.faveStop.validity.isValid && this.state.faveStop.userStopName.length ){
+      return true
+    }else{return false;}
   }
 
   handleSubmitFave =(e)=>{
@@ -46,8 +67,14 @@ class FaveStop extends Component{
       return;
     }
     if(!this.state.faveStop.userStopName) return;
-    
 
+  
+    if(!this.checkValidOnSubmit()){
+      console.log("ignoring form")
+      this.setState({saveStopFail:'Form not submitted.'})
+      return false;
+    }
+    
     //should also check that user hasn't already saved this stop 
 
 
@@ -62,10 +89,18 @@ class FaveStop extends Component{
     }
     console.log("form submitted saving ", stopToSave)
     axios.post(`https://busload-8ae3c.firebaseio.com/favourites.json`,stopToSave)
-    .then(r=>{console.log("stopSaved resp", r)
-      this.closeModal();
+    .then(r=>{
+    
+      //need to delay closing modal so there's time to show a confirmation message...
+      this.setState({saveFeedbackMsg:'Saved to Quickstops'})
+      setTimeout(()=>{  this.closeModal();},2000)
+    
     })
-    .catch(e=>console.log("error saving to fb ", {...e}))
+    .catch(e=>{
+      console.log("error saving to fb ", {...e})
+      this.setState({saveFeedbackMsg:'Oh no your stop was not saved.'})
+      setTimeout(()=>{  this.closeModal();},2000)
+    })
   
   }
 
@@ -90,7 +125,7 @@ class FaveStop extends Component{
 
 
     let url = `https://busload-8ae3c.firebaseio.com/favourites/${fireBaseId}.json`
-    console.log(url)
+ 
     axios.put(url,pretend)
     .then(r=>{
       console.log("r ", r);this.closeModal();
@@ -99,7 +134,7 @@ class FaveStop extends Component{
 
 
 
-//https://busload-8ae3c.firebaseio.com/favourites/-LjI1-_SJJFpVmfkdwKy
+
   }
 
   deleteFaveStop = (e)=>{
@@ -116,17 +151,8 @@ class FaveStop extends Component{
   }
 
 
-  // showEditBtn=()=>{
-  //   //need to know if selected stop is in user faves
-  //   const { route, direction, bestopid, stopname } = this.props.selectedStopDets.selectedStop; 
-  //   if(route&&direction&&bestopid&&stopname){
-  //     return <button>the conditional button</button>
-  //   }else{
-  //     return null
-  //   }
-  // }
-
   render(){
+   
     return(
       <React.Fragment>
         { //ie if bring rendered by UserSection
@@ -160,7 +186,11 @@ class FaveStop extends Component{
           </div>
           :
           //ie if being rendered by SearchForStop
-          <button className={styles.buttonMainFave} onClick={this.saveFaveStop}>Save </button>
+          
+            
+            <button className={`${styles.buttonMainFave} ${styles.tooltip}`} onClick={this.saveFaveStop}>Save <span className={styles.tooltiptext}>Save to Quickstops</span></button>
+          
+          
       
         }
     
@@ -172,7 +202,12 @@ class FaveStop extends Component{
             show={this.state.showFaveForm}>
             <SaveFaveStopForm 
             handleFaveInputChange={this.handleFaveInputChange}
-            handleSubmitFave={this.handleSubmitFave}/>
+            handleSubmitFave={this.handleSubmitFave}
+            faveStopValidity={this.state.faveStop.validity}
+            faveStop={this.state.faveStop.userStopName}
+            saveStopFail={this.state.saveStopFail}
+            saveFeedbackMsg={this.state.saveFeedbackMsg}
+            />
           </Modal> 
         : null
         }

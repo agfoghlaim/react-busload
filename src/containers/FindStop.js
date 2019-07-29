@@ -4,7 +4,7 @@ import { gql } from 'apollo-boost'; //parse queries
 import { graphql } from 'react-apollo';
 import SearchForStop from '../components/SearchForStop/SearchForStop';
 import BusRoutesList from '../components/BusRoutesList/BusRoutesList';
-import UserSection from '../components/UserSection/UserSection';
+//import UserSection from '../components/UserSection/UserSection';
 
 
 const BUS_ROUTES_QUERY = gql`

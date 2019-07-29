@@ -3,9 +3,9 @@ import Tux from '../../hoc/Tux';
 import Header from '../Header/Header';
 import styles from './Layout.module.css';
 
-const layout = (props) => ( 
+const layout = (props) => { 
 
-  <Tux>
+  return<Tux>
     <div>
       <Header userDets ={props.userDets} handleLogOut={props.handleLogOut} />
     </div>
@@ -14,7 +14,7 @@ const layout = (props) => (
       {props.children}
     </main>
   </Tux>
-)
+}
 
 
 export default layout;
