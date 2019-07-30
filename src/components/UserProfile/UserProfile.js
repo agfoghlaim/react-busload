@@ -75,13 +75,13 @@ class UserProfile extends Component {
       displayName: this.state.userNameField.userName
     })
     .then(r=>{
-      console.log("user updated ", r);
+    
       //update firebase user profile too???
       var user = firebase.auth().currentUser;
       user.updateProfile({
         displayName: this.state.userNameField.userName
       }).then(r=> {
-        console.log("fb profile updated will tell app", r)
+      
         this.props.handleUserNameUpdated(this.state.userNameField.userName);
           //and tell App.js (localStorage & state)
       })
@@ -145,10 +145,11 @@ class UserProfile extends Component {
   }
 
   componentDidMount(){
-    //console.log(this.props)
-     //console.log(this.props.userDets.photoURL)
-
-    //this.setState({userNameField:{userName:this.props.userDets.displayName}})
+    console.log(this.props)
+    // if(this.props.userDets){
+    //   this.setState({userNameField:{userName:this.props.userDets.displayName}})
+    // }
+  
     if(this.props.userDets.photoURL ==='null'|| this.props.userDets.photoURL === null || !this.props.userDets.photoURL  ){
       return;
     }else{this.getProfilePicUrl()}
@@ -160,12 +161,14 @@ class UserProfile extends Component {
 
   handleFileChange =(e) =>{
     e.preventDefault();
-    console.log(e.target.files[0])
+    //console.log(e.target.files[0])
     this.setState({uploadFile:e.target.files[0]})
   }
 
   handleUploadFile =(e)=>{
     e.preventDefault();
+    console.log(this.state)
+    if(!this.state.uploadFile) return;
     const storageRef = firebase.storage().ref();
     const uploadTask = storageRef.child(`images/${this.props.userDets.userId}/${this.state.uploadFile.name}`).put(this.state.uploadFile);
 
@@ -214,7 +217,7 @@ class UserProfile extends Component {
 
   handleChangeProfilePic = (e)=>{
     e.preventDefault();
-    console.log("changing pic...", this.state.profilePicChangeOngoing);
+ 
     this.setState((prev,current)=>{
       return{profilePicChangeOngoing:!prev.profilePicChangeOngoing}
     })
@@ -297,7 +300,7 @@ class UserProfile extends Component {
         }
 
         {/* <FindStop userDets={this.props.userDets}></FindStop> */}
-        <div className={styles.linksAndSearch}>
+        {/* <div className={styles.linksAndSearch}> */}
           <div className={styles.SearchForStop}>
             <div className={styles.toAllign}>
               <SearchForStop currentUser={this.props.userDets} />
@@ -309,7 +312,7 @@ class UserProfile extends Component {
               <UserSection userDets={this.props.userDets} />
             </div>
           </div>
-        </div>
+        {/* </div> */}
         
         
   

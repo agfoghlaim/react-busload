@@ -250,7 +250,7 @@ class Auth extends Component{
   handleLogOut = () =>{
     this.props.handleLogOut();
     firebase.auth().signOut()
-    .then(()=>console.log("signed out of fb"))
+    .then(()=>{})
     .catch(e=>console.log("error signing out of fb"))
     
   }

@@ -25,7 +25,7 @@ const NEXT_PREV_QUERY = gql`
 `
 
 const NextPrevStop = (props) => {
-  console.log(props)
+ 
   //need route, direction and stop_sequence
   let { route, direction, sequence } = props;
    route = route.toString();

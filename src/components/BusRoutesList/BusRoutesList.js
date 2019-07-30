@@ -3,6 +3,7 @@ import styles from './BusRoutesList.module.css';
 import { Link, Route } from 'react-router-dom';
 import BusRouteStopsList from '../BusRouteStopsList/BusRouteStopsList';
 
+
 const busRoutesList = (props) => {
   //var points = [40, 100, 1, 5, 25, 10];
 props.busRoutes.sort((a, b)=>{return a.route-b.route});

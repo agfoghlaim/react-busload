@@ -1,6 +1,6 @@
 .ModalBg{
-  background:rgba(60, 77, 59, 0.9);
- 
+  background:rgba(60, 77, 59, 0.85);
+  z-index: 3;
   position:fixed;
   top:0;
   left:0;

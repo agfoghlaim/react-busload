@@ -7,6 +7,7 @@
   display: grid;
   margin: 2rem 0;
   background: #f0f0f0;
+  background:url('../../img/bus_design.svg'), linear-gradient(#f0f0f0,#f0f0f0);
   /* background:url('../../img/bus_design.svg'), linear-gradient(#f0f0f0,#f0f0f0); */
   border-left: 10px solid #4f6128;
   /* background: #dfe3d8; */
@@ -19,6 +20,10 @@
   grid-gap: 0.2rem;
   display: grid;
 }
+
+
+
+
 .inputButtonDiv{
   width: 100%;
   grid-template-columns: 6fr 1fr;
@@ -49,6 +54,10 @@
   }
   .minHeightP{
     min-height: 1em;
+  }
+
+  .minHeightP small{
+    background:white;
   }
 
 .buttonMain{
@@ -106,3 +115,33 @@
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+
+@media only screen and (max-width: 650px) {
+  .inputButtonDivUser{
+    width: 100%;
+    grid-template-columns:  1fr;
+   
+  }
+
+  .tooltiptext {
+    left:0.2em;
+    top:0.2em;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .inputButtonDiv{
+    width: 100%;
+    grid-template-columns:  1fr;
+   
+  }
+
+  .tooltiptext {
+    left:0.2em;
+    top:0.2em;
+  }
+}
+
+
+
+

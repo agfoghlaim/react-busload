@@ -1,6 +1,6 @@
 .mainProfileWrap{
   display: grid;
-  grid-template-areas: "user user""form linksAndSearch";
+  grid-template-areas: "user user" "searchForStop form " " quickStops .";
   grid-gap: 1em;
   grid-auto-columns: 1fr;
 }
@@ -47,8 +47,7 @@ background-color: #f0f0f0;
 
 .profileFormWrap{
   padding: 2em;
-  
-  background: #f0f0f0;
+  background:url('../../img/bus_design.svg'), linear-gradient(#f0f0f0,#f0f0f0);
   grid-area: form;
 }
 
@@ -61,19 +60,36 @@ background-color: #f0f0f0;
   max-width: 100%;
 }
 .SearchForStop{
-  background: #f0f0f0;
-  border-left: 10px solid #4f6128;
-  grid-gap: 1em;
+  grid-area: searchForStop;
+      background: #f0f0f0;
+    border-left: 10px solid #4f6128;
+    grid-gap: 1em;
+    background:url('../../img/bus_design.svg'), linear-gradient(#f0f0f0,#f0f0f0);
+
 }
 
 .UserSection{
+  grid-area: quickStops;
   background: #f0f0f0;
   border-left: 10px solid #384a6e;
   grid-gap: 1em;
+  background:url('../../img/bus_design.svg'), linear-gradient(#f0f0f0,#f0f0f0);
 }
 .toAllign{
   margin-left:-10px;
+  
+  /* display:grid;
+  align-content: center; */
+  height: 100%;
+
 }
+
+/* .toAllign div{
+  background:none;
+  margin:0;
+  max-height:100%;
+
+} */
 .buttonSmall{
   -webkit-border-radius: 2;
   -moz-border-radius: 2;
@@ -95,4 +111,15 @@ background-color: #f0f0f0;
     text-decoration: none;
     cursor: pointer;
     box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0);
+}
+
+
+
+
+@media only screen and (max-width: 900px) {
+  .mainProfileWrap{
+
+    grid-template-areas: "user" "searchForStop" "quickStops" "form" ;
+  
+  }
 }

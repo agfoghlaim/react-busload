@@ -5,7 +5,7 @@ import styles from './ProfileForm.module.css'
 const profileForm = (props) => {
   // console.log(props)
   return <React.Fragment>
-        <h3>Profile Form</h3>
+ 
         <form className={styles.theForm}>
         <div className={styles.formGroup}>
           <label>New Username</label>

@@ -25,9 +25,9 @@ state = {showModal:false, selectedBus:null, wetOrDry:null, showAll:false}
 
 filterNext = (resp) =>{
   //get the next few buses only
-  console.log(resp)
+  
   let timeNow = new Date().toString().substring(16,21);
-  console.log(timeNow,resp[0].time)
+  //console.log(timeNow,resp[0].time)
   return resp.filter((item,i,arr)=>{
     return inTheFuture(item.time) && isWithinMinutesOf(timeNow,item.time,120)
    })
@@ -89,8 +89,7 @@ getAvgStrings=(avg)=>{
 
  
 render(){
-  console.log(this.props)
-
+  
   const reJigRtpiStr = (str)=>{
     if(!str) return;
     return <span>
@@ -104,7 +103,7 @@ render(){
   }
 
   let busesToShow = this.filterNext(this.props.busRoutes.bus_times);
-  console.log(busesToShow)
+  
   if(this.state.showAll){
     busesToShow = this.props.busRoutes.bus_times;
   }
@@ -146,8 +145,8 @@ render(){
           busesToShow.map((b,i)=>{
      
           return(
-              <React.Fragment>
-              <tr className={styles.tr} key={b.bus}>
+              <React.Fragment key={b.bus}>
+              <tr className={styles.tr} >
                 <td className={styles.td}>{b.time}</td> 
                 
                 {

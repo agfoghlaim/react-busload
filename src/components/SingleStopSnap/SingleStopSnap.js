@@ -40,7 +40,7 @@ class SingleStopSnap extends Component{
     let dayNumber = parseInt(this.dayNumber)
 
     if(dayNumber === 1){
-      console.log("sending week", dayNumber)
+     // console.log("sending week", dayNumber)
       return 'Mon';
     }
     else if(dayNumber === 2){
@@ -194,10 +194,10 @@ changeBusTimes_X = (day)=>{
     }
     }`
   let { bestopid, route, direction } = this.props.match.params;
-  console.log(bestopid, route,direction)
+  //console.log(bestopid, route,direction)
   let requestedTimetable = this.state.dayString()
  
-  console.log("req timetable is ", requestedTimetable)
+  //console.log("req timetable is ", requestedTimetable)
 
   
     if(!bestopid || !route || !direction){
@@ -223,7 +223,7 @@ changeBusTimes_X = (day)=>{
                       if(!one || !two)return <p>Oops! BusLoad is confused. Please go to the Home Page and start again. </p>
 
                       if(!one.bus_times_x_snaps_2 )return <p>Oops! BusLoad has a problem. Please try again. </p>
-                      console.log(one)
+                      //console.log(one)
                       one.bus_times_x_snaps_2.bus_times = this.filterResponse(one.bus_times_x_snaps_2.bus_times)
 
                       return (

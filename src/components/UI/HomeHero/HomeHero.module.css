@@ -27,12 +27,34 @@
 
 
  .busoutline{
-  height: 77%;
+  height: 40vh;
   align-self: self-end;
   display: grid;
   justify-self: center;
   position: absolute;
 } 
+
+
+@media only screen and (max-width: 600px) {
+  .homePageHeroWrap{
+    max-height: 30vh;
+  }
+
+  .busoutline{
+    max-height: 23vh;
+   
+  } 
+}
+@media only screen and (max-width: 600px) {
+  .homePageHeroWrap{
+    max-height: 30vh;
+  }
+
+  .busoutline{
+    max-height: 23vh;
+   
+  } 
+}
 
 
 

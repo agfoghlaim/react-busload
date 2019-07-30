@@ -1,6 +1,7 @@
 .linksWrapDiv{
   border-left: 0.5rem solid #AD4F3E;
 padding-left: 2rem;
+padding-right: 2rem;
 background: #f0f0f0;
 padding-top: 2rem;
 
@@ -21,17 +22,30 @@ padding-top: 2rem;
   text-decoration: none;
 }
 
-.Link div{
+/* .Link div{
   background:#f0f0f0;
  
   background-image: url('../../img/onepix.png');
-  transition:all 0.5s ease-out;
+  transition:all 0.5s linear;
 }
 
 .Link div:hover{
   background:#f0f0f0;
 
   background:none;
+} */
+
+.linkDiv{
+  background:rgba(240, 240, 240, 0);
+  /* background:rgba(0, 0, 0, 0); */
+  background-image: url('../../img/onepix2.png');
+  transition:all 0.5s linear;
+}
+
+.linkDiv:hover{
+  background:rgba(240, 240, 240, 1);
+  /* background-image:none; */
+  /* background:rgba(0, 0, 0, 0); */
 }
 
 .sectionH3{

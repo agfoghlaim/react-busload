@@ -1,7 +1,7 @@
 .Modal{
   background:white;
   /* border:1px solid gray; */
-  border-radius: 1em;
+  /* border-radius: 1em; */
   position:fixed;
   padding:1rem;
   width:90%;
@@ -42,4 +42,22 @@
     background: #5a7228;
     text-decoration: none;
     cursor: pointer;
+}
+
+.closeModal{
+  position: absolute;
+  right:10px;
+  top:10px;
+ padding:0.3em 0.6em;
+  background:#f0f0f0;
+  border-radius:0.2em;
+  cursor: pointer;
+  transition:background 0.2s linear;
+}
+
+.closeModal:hover{
+  background:#8dad47;
+  color:#fff;
+  
+
 }

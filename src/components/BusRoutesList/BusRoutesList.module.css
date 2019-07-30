@@ -2,6 +2,7 @@
   /* background:#eceee7; */
   background: #f0f0f0;
   /* background:url('../../img/bus_design.svg'), linear-gradient(#f0f0f0,#f0f0f0); */
+   background:url('../../img/bus_design.svg'), linear-gradient(#f0f0f0,#f0f0f0);
   padding:1rem;
   margin:2rem 0;
   border-left: 10px solid #943d2e;
@@ -20,11 +21,12 @@ color:darkslategray;
 
 .routebox{
   /* background:white; */
+  background: #f0f0f0;
   background-image: url('../../img/onepix.png');
   background-size:auto;
   background-repeat: repeat;
   padding:0.3rem;
-  color:gray;
+  color:darkslategray;
   padding:1em;
   border: 2px solid transparent;
   transition:all 0.3s linear;
@@ -33,12 +35,13 @@ color:darkslategray;
   align-items: center;
   align-content: center;
   
+  
 }
 
 .routebox:hover{
   /* background-image: url('../../img/onepix.png'); */
   background-size:auto;
-  background:none;
+  background-image:none;
   background-repeat: repeat;
   transform:scale(1.05);
   border:2px solid #943d2e;
@@ -113,14 +116,16 @@ display: grid;
 }
 
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
   .routewrap{
     grid-template-columns: 1fr 1fr;
   }
 }
 
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 500px) {
   .routewrap{
     grid-template-columns: 1fr;
   }
 }
+
+

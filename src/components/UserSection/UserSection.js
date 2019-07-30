@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment} from 'react';
 import { Link } from 'react-router-dom'
 import styles from './UserSection.module.css';
 import FaveStop from '../FaveStop/FaveStop';
@@ -74,9 +74,6 @@ handleSetExpandFaves = ()=>{
 }
 showCollapsedFaves = ()=>{
   return <React.Fragment>{
-
-    
-
     this.state.faveStops.map(stop=>{
       return <div className={styles.routeboxCollapsedInvert} key={stop.bestopid}>
         <Link 
@@ -84,8 +81,7 @@ showCollapsedFaves = ()=>{
         to={{
           pathname:`/bus/${stop.route}/${stop.direction}/${stop.bestopid}`
         }}>
-        <p className={styles.routenoCollapsedInvert}>{stop.userStopName} >
-    
+        <p className={styles.routenoCollapsedInvert}>{stop.userStopName}<span className={styles.arrowSpan}>></span>
           </p>
         </Link>
       </div>
@@ -127,12 +123,14 @@ showExpandedFaves = ()=>{
             (!this.props.location)
 
             ?
-
+            <div className={styles.editDiv}>
             <button 
               className={styles.expandCollapseBtn}
               onClick={this.handleSetExpandFaves}>
               <img src={this.state.expandFaves ? minus : plus} alt={this.state.expandFaves ? "minus" : "plus"} />
             </button>
+            <span className={styles.editSpan}>Edit</span>
+            </div>
 
             :
 

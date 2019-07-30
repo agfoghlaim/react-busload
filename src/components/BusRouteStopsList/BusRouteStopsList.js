@@ -44,7 +44,7 @@ class BusRouteStopsList extends Component {
       return <div key={stop.bestopid} className={styles.stopLinkDiv}>
        
           <Link to={`${this.props.location.pathname}/${stop.bestopid}`} key={stop.bestopid} className={styles.Link}>
-        <div key={stop.bestopid}>
+        <div className={styles.linkDiv} key={stop.bestopid}>
           {/* <h4>{stop.name} <small>{stop.bestopid}</small></h4>
           <p>{stop.stop_sequence}</p> */}
           
@@ -75,7 +75,7 @@ class BusRouteStopsList extends Component {
   render(){
       //let { route, direction } = this.props.match.params;
       let { route, direction } = this.state.selectedRoute;
-      console.log(route,direction)
+     
       if(route==='user' || route === 'auth') return '';
       if(!this.checkValidRouteDirection(route,direction)) return <p>Oops! BusLoad is confused. Please go to the Home Page and start again. </p>
       return(
@@ -84,14 +84,14 @@ class BusRouteStopsList extends Component {
        
         <Query 
           query={STOPS_LIST_QUERY} 
-          variables={{route, direction}}>
+          variables={{route, direction}}> 
             {
               ({ loading, error, data }) => {
                   //console.log(data)
                 if (loading) return <p>loading...</p>;
                 if (error) return <p>Oops! BusLoad is having trouble communicating with the server. Please try again in a while.</p>;
                 if(data.busRouteOverviewLocal){
-                  console.log(data.busRouteOverviewLocal)
+                  //console.log(data.busRouteOverviewLocal)
                     return <div>
                       {
                         this.showMap(data.busRouteOverviewLocal.stops)}

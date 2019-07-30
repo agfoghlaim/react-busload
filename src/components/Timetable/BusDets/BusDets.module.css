@@ -8,6 +8,7 @@
   padding:1em 0.5em;
   font-size:0.8em;
   text-align:left;
+  border-bottom: 2px solid #acb8ab
  }
 
  .busDetsTable thead tr th{
@@ -27,7 +28,7 @@
 
  @media only screen and (max-width: 450px) {
   .busDetsTable{
-    background:orange;
+ 
     padding:0.2em;
    }
 
@@ -41,4 +42,31 @@
     padding:1em 0.1em;
   
    }
+}
+
+.predictSpan{
+  background: #4f5e4e;
+  color: white;
+  padding: 0.2em;
+  border-right: 1px solid white;
+
+}
+.predictSpan2{
+  background: #dce1cf;
+    color: #4f5e4e;
+    padding: 0.2em;    
+    border-left: 1px solid white;
+    
+}
+
+.predictionDiv{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+ 
+  align-items: center;
+  margin-top: 1em;
+  background: #dce1cf;
+  border-left: 8px solid #dce1cf;
+  border-right: 8px solid #4f5e4e;
+  
 }

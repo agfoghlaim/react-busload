@@ -11,7 +11,7 @@ const nav = (props) => {
       <ul>
         <li><Link to={'/'}>Home</Link></li>
         
-        <li><Link to={'/'}>About</Link></li>
+        {/* <li><Link to={'/'}>About</Link></li> */}
 
         {(props.userDets.isUser) 
 

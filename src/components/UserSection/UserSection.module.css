@@ -14,7 +14,7 @@ border-left: 10px solid #384a6e;
 }
 .routewrap{
   display:grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  /* grid-template-columns: 1fr 1fr 1fr; */
   grid-gap:1rem;
  
 }
@@ -116,34 +116,39 @@ border-left: 10px solid #384a6e;
 
 
 .routeno{
-  font-weight: 700;
+  font-weight: 500;
   color:#384a6e;
 }
 
 .routenoCollapsed{
-  font-weight: 700;
+  font-weight: 500;
   color: #384a6e;
   margin: 0;
   padding: 0.5em 1em;
 }
 
 .routenoCollapsedInvert{
-  font-weight: 700;
+  font-weight: 500;
   color: #fff;
   margin: 0;
   padding: 0.5em 1em;
   transition:all 0.2s ease-out;
+  position: relative;
+}
+.arrowSpan{
+  position: absolute;
+  right: 1em;
 }
 
 .routenoCollapsed{
-  font-weight: 700;
+  font-weight: 500;
   color: #384a6e;
   margin: 0;
   padding: 0.5em 1em;
 }
 
 .routenoCollapsedMore{
-  font-weight: 700;
+  font-weight: 500;
   color:#fff;
   margin: 0;
   padding: 0.5em 1em;
@@ -203,4 +208,17 @@ border-left: 10px solid #384a6e;
   background:#f4f8ed;
   padding:1em;
   display:grid;
+}
+
+.editSpan{
+  display: inline;
+  font-size: 1.6em;
+  margin-right: 0.3em;
+  font-weight: bold;
+}
+
+.editDiv{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
 }

@@ -5,6 +5,7 @@ import styles from './SearchForStop.module.css'
 import SearchStopList from './SearchStopList';
 import { Link } from 'react-router-dom';
 import FaveStop from '../FaveStop/FaveStop';
+import Spinner from '../UI/Spinner/Spinner';
 
 
 const allStopsQuery = gql`
@@ -74,7 +75,9 @@ class SearchForStop extends Component {
     return<Query query={allStopsQuery}>
       {
         ( {loading, error, data} ) =>{
-          if(loading) return <p>Loading...</p>
+          if(loading) return <div className={styles.searchStopWrap}>
+            <Spinner />
+          </div>
           if(error){
             console.log(error);
             return <p>Could not load stops.</p>
@@ -112,7 +115,10 @@ class SearchForStop extends Component {
                 <Link  
                   to={(this.state.selectedStop.route)?`bus/${this.state.selectedStop.route}/${this.state.selectedStop.direction}/${this.state.selectedStop.bestopid}`:'/'}
                 >
-                  <button  className={`${styles.buttonMain} ${styles.tooltip}`}><span className={styles.tooltiptext}>View timetable</span> Go</button>
+                  <button  className={`${styles.buttonMain} ${styles.tooltip}`}>
+                    <span className={styles.tooltiptext}>
+                      {(this.state.selectedStop.bestopid) ?
+                      'View timetable' : 'Select stop first'}</span> Go</button>
                  
 
                 </Link>

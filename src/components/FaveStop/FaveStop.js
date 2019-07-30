@@ -15,13 +15,13 @@ import { checkIfValid } from '../../helpers';
 
 
 class FaveStop extends Component{
-
+  
   state = {
     faveStop: {
       userid:null,
       userStopName:undefined,
       validity:{isValid:true,validMsgs:[]},
-      rules:{required:true,minLength:3,maxLength:20,charNum:true}
+      rules:{required:true,minLength:3,maxLength:20}
     },
     showFaveForm:false,showEditForm:false, showBtnGrp:false,saveStopFail:null, saveFeedbackMsg:''
 
@@ -170,13 +170,15 @@ class FaveStop extends Component{
           </button>
               : 
               <React.Fragment>
+                  <button className={`${styles.expandCollapseBtn} ${styles.clearBtn}`} onClick={this.setShowBtnGrp}>
+              <img src={minus} alt={ "minus"} />
+              </button>
+              
               <button className={`${styles.buttonSmall} ${styles.blueBtn}`} onClick={(e)=>this.showEditForm(e)}>Rename</button>
 
               <button className={`${styles.buttonSmall} ${styles.redBtn}`} onClick={(e)=>this.deleteFaveStop(e)}>Delete</button>
               
-              <button className={`${styles.expandCollapseBtn} ${styles.clearBtn}`} onClick={this.setShowBtnGrp}>
-              <img src={minus} alt={ "minus"} />
-              </button>
+            
               </React.Fragment>
 
               
@@ -188,7 +190,10 @@ class FaveStop extends Component{
           //ie if being rendered by SearchForStop
           
             
-            <button className={`${styles.buttonMainFave} ${styles.tooltip}`} onClick={this.saveFaveStop}>Save <span className={styles.tooltiptext}>Save to Quickstops</span></button>
+            <button className={`${styles.buttonMainFave} ${styles.tooltip}`} onClick={this.saveFaveStop}>Save <span className={styles.tooltiptext}>
+            {(this.props.selectedStopDets.selectedStop.bestopid) ?
+                      'Save to Quick Stops' : 'Select stop first'}
+              </span></button>
           
           
       

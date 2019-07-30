@@ -22,7 +22,8 @@ import styles from './App.module.css';
 
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql'
+  //uri: 'http://localhost:4000/graphql'
+  uri:'https://intense-chamber-79062.herokuapp.com/graphql'
 });
 
 class App extends Component {
@@ -79,7 +80,7 @@ class App extends Component {
   }
 
   handleUpdateUserProfile = (name,url,profilePicName)=>{
-    console.log("app updating profile",name,url,profilePicName)
+   
 
     this.setState(()=>{ 
       return {
@@ -95,7 +96,7 @@ class App extends Component {
   }
 
   handleUserNameUpdated = (name)=>{
-    console.log("appknows username updated")
+   
     this.setState({ displayName:name });
     localStorage.setItem('displayName', name);
   }

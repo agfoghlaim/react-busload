@@ -5,7 +5,7 @@ import Tux from '../../hoc/Tux';
 
 
 const modal = (props) => {
-  console.log("propw show ", props)
+
   const cssClasses = [
     `${styles.Modal}`,
    (props.show === 'entering') ?
@@ -20,7 +20,7 @@ return (
           <ModalBG  show={props.show} clickBg={props.clickBg}   />
           <div 
             className={cssClasses.join('')}
-            >{props.children}
+            ><span className={styles.closeModal} onClick={props.clickBg}>x</span>{props.children}
           </div>
         </Tux>
   

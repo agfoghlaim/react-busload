@@ -34,7 +34,7 @@ import axios from 'axios';
     // timeToCheckAgainst.setHours(toCheckAgainst.substr(0,2))
     // timeToCheckAgainst.setMinutes(toCheckAgainst.substr(3,2))
 
-    return timeToCheck > timeToCheckAgainst === true
+    return (timeToCheck > timeToCheckAgainst) 
   }
 
 
@@ -168,7 +168,7 @@ import axios from 'axios';
       validity.isValid = !re.test(toCheck) && validity.isValid
       if(!validity.isValid) validity.validMsgs.push(`Please enter letters or numbers only`)
     }
-    console.log("isvalid is ", validity.isValid)
+   
     return validity;
  
   }
