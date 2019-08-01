@@ -72,18 +72,50 @@ closeModal = ()=>{
   this.setState({showModal:false})
 }
 
+getMinMins=(avg)=>{
+  if(avg > 1 || avg < -1 ) return'mins';
+  else if(avg === 1 ) return 'min';
+  else return 'min';
+}
 getAvgStrings=(avg)=>{
   //console.log(avg)
   if(avg ==='x'){
     return 'x';
   }
   else if(!isNaN(avg) && avg > 0){
-     return `${avg} mins (late)`
+     return <span className={styles.rtpiSpan}>
+     <p>{`${Math.abs(avg)} ${this.getMinMins(Math.abs(avg))}`}</p>
+     <p>late</p>
+   </span>
   }else if(!isNaN(avg) && avg < 0){
-    return `${avg} mins (early)`
+    return <span className={styles.rtpiSpan}>
+    <p>{`${Math.abs(avg)} ${this.getMinMins(Math.abs(avg))}`} </p>
+    <p >early</p>
+  </span>
   }else if(avg === 0){
    
     return 'on time';
+  }
+}
+
+getAvgAvgStrings=(avg)=>{
+  //console.log(avg)
+  if(avg ==='x'){
+    return 'x';
+  }
+  else if(!isNaN(avg) && avg > 0){
+     return <span className={styles.rtpiSpan}>
+     <p><small>
+     <span className={styles.lateTag}>{`${Math.abs(avg)} ${this.getMinMins(Math.abs(avg))}`} late</span></small></p>
+   </span>
+  }else if(!isNaN(avg) && avg < 0){
+    return <span className={styles.rtpiSpan}>
+    <p><small>
+    <span className={styles.earlyTag}>{`${Math.abs(avg)} ${this.getMinMins(Math.abs(avg))}`} early</span></small></p>
+  </span>
+  }else if(avg === 0){
+   
+    return <p><small><span className={styles.ontimeTag}>on time</span></small></p>;
   }
 }
 
@@ -92,7 +124,7 @@ render(){
   
   const reJigRtpiStr = (str)=>{
     if(!str) return;
-    return <span>
+    return <span className={styles.rtpiSpan}>
       <p>{str.substring(10,16)}</p>
       <p><small>{str.substring(0,10)}</small></p>
     </span>
@@ -159,27 +191,44 @@ render(){
               
                 <td 
                   className={styles.tdClickable}
-                  onClick={()=>this.handleShowModal(b,'wet')}
-                  
-                  >
-                  {(b.wet_avg !==null) ? this.getAvgStrings(b.wet_avg) : '?'}<br />
+                  onClick={()=>this.handleShowModal(b,'wet')}>
+                  <span className={styles.rtpiSpan}>
+                  {(b.wet_avg !==null) 
+                    ? 
+                    this.getAvgStrings(b.wet_avg) 
+                    : 
+                    <p>?</p>
+                    }
+                  </span>
                 </td>
 
                 <td 
                   className={styles.tdClickable}
-                  onClick={()=>this.handleShowModal(b,'dry')}
-                >
-                  {(b.dry_avg !==null) ? this.getAvgStrings(b.dry_avg) : '?'}<br /> 
+                  onClick={()=>this.handleShowModal(b,'dry')}>
+                  <span className={styles.rtpiSpan}>
+                  {(b.dry_avg !==null) 
+                    ? 
+                    this.getAvgStrings(b.dry_avg) 
+                    : 
+                    <p>?</p>}
+                  </span>
                 </td> 
 
-                <td className={styles.td}
-                
-                > {(b.total_avg !==null) ? this.getAvgStrings(b.total_avg) : '?'}<br /> ({b.num_total} results)</td> 
+                <td className={styles.td}> 
+                  <span className={styles.rtpiSpan}>
+                  {(b.total_avg !==null) 
+                    ? 
+                    this.getAvgAvgStrings(b.total_avg)
+                    : '?'
+                    }
+                    <p><small>({b.num_total} results)</small></p>
+                  </span>
+                </td> 
                 
               </tr>
               </React.Fragment> 
           )
-          // {/* </tbody> 
+   
           
       })
   }

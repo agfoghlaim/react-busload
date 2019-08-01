@@ -3,11 +3,12 @@
   /* background:#97A3BA; */
   background: #f0f0f0;
   border-left: 8px solid #ad4f3e;
-  padding:1em;
-  height:1em;
+  padding:0.5em;
+  /* height:1em; */
   color:white;
   display: flex;
   justify-content: flex-start;
+  overflow: hidden;
   
 }
 
@@ -28,7 +29,7 @@
 }
 
 .breadSlash{
-  margin: 0 1rem;
+  margin: 0 0.5rem;
   color:darkslategray;
 }
 
