@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import ReactDOM from "react-dom";
 import { gql } from 'apollo-boost'; //parse queries
 import { graphql } from 'react-apollo';
 import SearchForStop from '../components/SearchForStop/SearchForStop';
@@ -36,8 +35,6 @@ componentDidMount(){
 }
 
 doScroll =() =>{
-  //console.log("scroll", this.props.location.hash)
-  //const node = ReactDOM.findDOMNode(this)
     if(this.props.location.hash === '#routes'){
       this.busroutes.scrollIntoView({ behavior: "smooth" });
   }  

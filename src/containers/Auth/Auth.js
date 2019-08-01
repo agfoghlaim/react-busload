@@ -41,6 +41,7 @@ class Auth extends Component{
 
 
   componentDidUpdate(){
+    //remove form submit errors if they exist
     if(this.state.registerFail !==null){
       setTimeout(()=>{ 
        this.setState({registerFail:null})
@@ -77,7 +78,7 @@ class Auth extends Component{
   handleResetPass = (e)=>{
     e.preventDefault();
     if(!this.checkValidOnSubmit('reset')){
-      console.log("ignoring form")
+      //console.log("ignoring form")
       this.showFormNotSubmitted('reset')
       return false
     }
@@ -105,7 +106,7 @@ class Auth extends Component{
     
     /*
 
-    Login was originally implemented with Firebase Auth Rest API with user's token saved to local storage. Code has been changed to use SDK methods (because of problems using REST API version with Firebase Storage in UserProfile Component). 
+    Login was originally implemented with Firebase Auth Rest API  Code has been changed to use SDK methods (because of problems using REST API version with Firebase Storage in UserProfile Component). 
 
     */
   
@@ -116,7 +117,6 @@ class Auth extends Component{
 
    firebase.auth().currentUser.getIdTokenResult(false)
    .then(r=>{
-    //console.log("user dets ", userDets)
     let willExpireAt = r.expirationTime;
 
      localStorage.setItem('idToken',r.token);
@@ -171,31 +171,6 @@ class Auth extends Component{
 
    })//end getIdTokenResult
    .catch(e=>console.log("ERR ", e))
-  
-
- 
-
-
-   /*
-   
-   OLD VERSION
-   
-   */
-  //  if(!userDets.data.users[0].emailVerified || userDets.data.users[0].emailVerified === 'false'){
-  //   this.setState({loginFail:'Please verify your email'})
-  //   return;
-  //  }
- 
-    // let willExpireAt = new Date(new Date().getTime() + parseInt(loginResp.data.expiresIn)*1000)
-    // console.log(userDets.data.users[0])
-    // localStorage.setItem('idToken',loginResp.data.idToken);
-    // localStorage.setItem('userId',loginResp.data.localId);
-    // localStorage.setItem('expiresAt', willExpireAt);
-    // localStorage.setItem('displayName', loginResp.data.displayName);
-
-    //call handleLogin, so app.js state can be updated
-
-    // this.props.handleLogin(loginResp.data.idToken,loginResp.data.localId,willExpireAt,loginResp.data.displayName,userDets.data.users[0].emailVerified)
   }
 
   registerSuccess=()=>{
@@ -215,7 +190,7 @@ class Auth extends Component{
     this.setState({resetFail:'Email not sent'})
   }
   loginFail = (errorMsg) =>{
-    console.log(errorMsg)
+    //console.log(errorMsg)
     if(errorMsg === 'EMAIL_NOT_FOUND' || 'INVALID_EMAIL'){
       this.setState({loginFail:'There is no user record corresponding to this email.'})
     }
@@ -256,7 +231,7 @@ class Auth extends Component{
   }
 
   checkValidOnSubmit=(registerOrLogin) =>{
-    console.log("val")
+   
     if(registerOrLogin === 'login'){
       if(this.state.emailField.validity.isValid && this.state.passwordField.validity.isValid && this.state.emailField.email.length && this.state.passwordField.password.length){
         return true
@@ -289,7 +264,7 @@ class Auth extends Component{
   handleFormSubmit = (e,registerOrLogin)=>{
     e.preventDefault();
     if(!this.checkValidOnSubmit(registerOrLogin)){
-      console.log("ignoring form")
+     // console.log("ignoring form")
       this.showFormNotSubmitted(registerOrLogin)
       return false
     }
@@ -320,7 +295,6 @@ class Auth extends Component{
       resp.then(r=>{
           this.loginSuccess(r.userDetsResp)
       })
-      //.catch(e=>this.loginFail(e.response.data.error.message))
       .catch(e=>this.loginFail("Error Logging in"))
     }else{
       let resp = dealWithFirebaseRegister(registerUrl,getInfoUrl,setInfoUrl,sendEmailUrl,newUser,newUserDetails)
@@ -331,71 +305,25 @@ class Auth extends Component{
   }//end handle form submit
 
 
-  // checkIfValid = (rules,toCheck)=>{
-  //   //will change isValid value in appropiate toCheck
-  //   //let isValid = true;
-  //   let validity = {isValid:true,validMsgs:[]}
-  //  // console.log("is valid? ", toCheck)
-  //   if(rules.required){
-  //     validity.isValid = toCheck.trim() !== '' && validity.isValid;
-  //     if(!validity.isValid) validity.validMsgs.push('Required Field')
-  //   }
-  //   if(rules.minLength){
-  //     validity.isValid = toCheck.length >= rules.minLength && validity.isValid
-  //     if(!validity.isValid) validity.validMsgs.push(`Should be ${rules.minLength}+ characters`)
-  //   }
-  //   if(rules.maxLength){
-  //     validity.isValid = toCheck.length <= rules.maxLength && validity.isValid
-  //     if(!validity.isValid) validity.validMsgs.push(`Should ${rules.maxLength} characters or less`)
-  //   }
-  //   if(rules.email){
-  //     const re = /\S+@\S+\.\S+/;
-  //     validity.isValid = re.test(toCheck) && validity.isValid
-  //     if(!validity.isValid) validity.validMsgs.push(`Please enter a valid email`)
-  //   }
-  //   if(rules.charNum){
-  //     const re = /[^A-Za-z0-9-]/
-  //     validity.isValid = !re.test(toCheck) && validity.isValid
-  //     if(!validity.isValid) validity.validMsgs.push(`Please enter letters or numbers only`)
-  //   }
-  //   console.log("isvalid is ", validity.isValid)
-  //   return validity;
- 
-  // }
-
+  
 
 //for login and reg forms
   handleAnyInputChange = (e) =>{
-
-
-    //if there is a submission error clear
-    //[now handled with timeouts in did mount]
-    // if(this.state.loginFail || this.state.registerFail){
-    //   let oldState = {...this.state}
-    //   oldState.registerFail = null;
-    //   oldState.loginFail = null;
-    //   this.setState({...oldState})
-
-    // }else{
-    //   //console.log("not updating")
-    // }
-
 
     let newState = {...this.state}
 
     //find field that has changed, check it's validity
     let findStr = `${e.target.id}Field`
-    //console.log(`${e.target.id}Field`,findStr)
     newState[`${findStr}`][`${e.target.id}`] = e.target.value
     newState[`${findStr}`][`validity`] = checkIfValid(newState[`${findStr}`].rules, e.target.value)
-   // console.log("setting state to ", newState)
+
     this.setState({...newState})
-  // console.log(this.state[`${findStr}`][`${e.target.id}`])
+  
   }
 
 
   render(){
-    //console.log("props has no idtoken? ", this.props)
+
     return(
       <div className={styles.authComp}>
     
@@ -450,7 +378,7 @@ class Auth extends Component{
 
          </ResetPassForm>
         }
-        {/* <button className={styles.buttonMain} onClick={this.handleLogOut}>Logout</button> */}
+       
         <div className={styles.buttonGroup}>
           <button className={styles.buttonLikeLink} onClick={this.handleSwitchBetweenLoginRegisterForms}>{this.state.showRegisterForm ? 'Login' : 'Register'}</button>
 

@@ -7,11 +7,7 @@ import styles from './BusRouteStopsList.module.css';
 import BreadCrumbs from '../Breadcrumbs/Breadcrumbs';
 
 
-/*
 
-TODO - this should be a functional component. I changed during troubleshooting and can't be bothered to change back. 
-
-*/
 const STOPS_LIST_QUERY = gql`
 query stopsListQuery($route: String!, $direction: String!){
   busRouteOverviewLocal(route:$route, direction:$direction){
@@ -37,7 +33,7 @@ class BusRouteStopsList extends Component {
   }
 
  
-  //console.log(props)
+
   showLinks = (stops)=>{
     
     return stops.map(stop=>{
@@ -45,8 +41,6 @@ class BusRouteStopsList extends Component {
        
           <Link to={`${this.props.location.pathname}/${stop.bestopid}`} key={stop.bestopid} className={styles.Link}>
         <div className={styles.linkDiv} key={stop.bestopid}>
-          {/* <h4>{stop.name} <small>{stop.bestopid}</small></h4>
-          <p>{stop.stop_sequence}</p> */}
           
           <h4>{stop.stop_sequence} {stop.name} </h4>
           <p><small>{stop.bestopid}</small></p>
@@ -59,7 +53,6 @@ class BusRouteStopsList extends Component {
   }
 
   showMap = (stops) =>{
-    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> ",props.)
     return <Maps stops={stops} currentPath={this.props.location.pathname} />
   }
 

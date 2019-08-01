@@ -5,7 +5,6 @@
 
 .infoText{
   font-size:0.8em;
-  /* color:#5A486E; */
   margin:0;
  
 }
@@ -16,10 +15,7 @@
   height:10vh;
   display:grid;
   align-content: center;
-  /* background-image:url('../../img/bus_design.svg'), linear-gradient(darkslategray,darkslategray); */
   
-
- 
 }
 .weatherP{
   margin:0;

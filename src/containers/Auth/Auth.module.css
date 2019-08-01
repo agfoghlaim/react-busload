@@ -1,21 +1,13 @@
 .theForm{
-  /* display:grid;
-  grid-template-columns:1fr;
-  grid-gap:2rem;
-  min-height: 300px; */
   display:grid;
   grid-template-columns:1fr;
   grid-gap:2rem;
   min-height: 400px;
- 
-
 }
 
 .formGroup{
   display:grid;
   align-content: center;
-  /* grid-gap:0.5em; */
-  /* margin:0.5em 0; */
 }
 
 .formGroup > input{
@@ -68,14 +60,11 @@ p.error{
 }
 
 .authComp{
-  /* min-height:500px; */
   padding:1em;
   border-right:10px solid darkslategray;
-  /* border-radius: 1em; */
   height: auto;
 min-height: 550px;
 background:#f0f0f0;
-/* background-image: url('../../img/onepix.png'); */
 
 }
 
@@ -94,11 +83,3 @@ background:#f0f0f0;
   justify-content: space-around;
   margin:1em 0;
 }
-
-/* .theForm{
-  display:grid;
-  grid-template-columns:1fr;
-  grid-gap:2rem;
-  min-height:50vh;
-
-} */

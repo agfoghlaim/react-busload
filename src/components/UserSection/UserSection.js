@@ -1,4 +1,4 @@
-import React, { Component, Fragment} from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import styles from './UserSection.module.css';
 import FaveStop from '../FaveStop/FaveStop';
@@ -48,7 +48,7 @@ class UserSection extends Component {
       })
       .catch(e=>{
         console.log(e)
-        console.log({...e})
+        //console.log({...e})
       })
      
   }//end compDidMount
@@ -57,21 +57,12 @@ class UserSection extends Component {
     this._isMounted = false;
   }
 
-
-// addMoreLink =()=> <div className={styles.routeboxCollapsedInvert}>
-//   <Link 
-//   className={styles.plainLinkCollapsedInvert}
-//   to={{pathname:`/`,hash:'#stops'}}>
-//   <p className={styles.routenoCollapsedInvert}>
-//     + Add Stops
-//   </p>
-//   </Link></div>
-
 handleSetExpandFaves = ()=>{
   this.setState((prev,curr)=>{
     return {expandFaves:!prev.expandFaves}
   })
 }
+
 showCollapsedFaves = ()=>{
   return <React.Fragment>{
     this.state.faveStops.map(stop=>{
@@ -87,7 +78,7 @@ showCollapsedFaves = ()=>{
       </div>
     })
   }
-   {/* {this.addMoreLink()} */}
+
   </React.Fragment>
 }
 

@@ -29,7 +29,6 @@ class FaveStop extends Component{
   }
  
   saveFaveStop = ()=>{
-    //console.log(this.props)
     const { route, direction, bestopid, stopname } = this.props.selectedStopDets.selectedStop; 
     if(!route || !direction || !bestopid || !stopname) return;
     this.setState({showFaveForm:true})
@@ -45,7 +44,6 @@ class FaveStop extends Component{
     })
   }
   handleFaveInputChange = (e)=>{
-   // this.setState({faveStop:{userStopName:e.target.value}})
     e.preventDefault();
     let newState = {...this.state}
 
@@ -87,7 +85,7 @@ class FaveStop extends Component{
       stopname,
       userid:this.props.userDets.userId
     }
-    console.log("form submitted saving ", stopToSave)
+    //console.log("form submitted saving ", stopToSave)
     axios.post(`https://busload-8ae3c.firebaseio.com/favourites.json`,stopToSave)
     .then(r=>{
     
@@ -127,22 +125,15 @@ class FaveStop extends Component{
     let url = `https://busload-8ae3c.firebaseio.com/favourites/${fireBaseId}.json`
  
     axios.put(url,pretend)
-    .then(r=>{
-      console.log("r ", r);this.closeModal();
-    })
+    .then(r=>this.closeModal())
     .catch(e=>console.log({...e}))
-
-
-
-
   }
 
   deleteFaveStop = (e)=>{
     e.preventDefault();
     firebase.database().ref(`favourites/${this.props.userStop.fireBaseId}`).remove()
-    .then(()=>console.log("removed"))
+    //.then(()=>console.log("removed"))
     .catch(e=>console.log("error removing ", e))
-
   }
 
   showEditForm=(e)=>{
@@ -161,7 +152,7 @@ class FaveStop extends Component{
          
           <div className={styles.buttonGrp}>
             {(!this.state.showBtnGrp) ? 
-              // <button className={styles.showMore} onClick={this.setShowBtnGrp}>Edit</button> 
+              
               <button 
           className={styles.expandCollapseBtn}
           onClick={this.setShowBtnGrp}>
@@ -187,16 +178,12 @@ class FaveStop extends Component{
 
           </div>
           :
-          //ie if being rendered by SearchForStop
-          
-            
+          //ie if being rendered by SearchForStop 
             <button className={`${styles.buttonMainFave} ${styles.tooltip}`} onClick={this.saveFaveStop}>Save <span className={styles.tooltiptext}>
             {(this.props.selectedStopDets.selectedStop.bestopid) ?
                       'Save to Quick Stops' : 'Select stop first'}
               </span></button>
-          
-          
-      
+
         }
     
   

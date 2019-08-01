@@ -1,6 +1,5 @@
 .mapWrapDiv div{
   max-width: 100%;
-
 }
 
 .mapWrapDiv {
@@ -19,7 +18,15 @@ width:100%;
   max-width:2em;
 }
 
-/* .mapboxgl-canvas{
-  width: 100%;
-height: 100%;
-} */
+.linkSize{
+  display:grid;
+  background:#4f6128;
+  padding: 0.5em 0.5em;
+  justify-content: center;
+  text-decoration: none;
+  color:white;
+  font-weight: 500;
+  
+  
+}
+

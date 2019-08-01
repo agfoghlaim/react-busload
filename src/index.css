@@ -29,13 +29,13 @@ h1,h2,h3,h4,h5,h6{
   font-family:'Open Sans', sans-serif;
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 500px) {
   body{
     font-size: 14px;
   }
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 350px) {
   body{
     font-size: 12px;
   }

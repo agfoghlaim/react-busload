@@ -3,9 +3,9 @@ import { Link, withRouter } from 'react-router-dom';
 import styles from './Breadcrumbs.module.css';
 
 const breadcrumbs = (props) => {
-   // console.log("bread props ", props)
+
   let { route, direction, bestopid } = props.match.params
- // console.log( route, direction, bestopid )
+
     let str = route+direction;
 
     switch(str){
@@ -54,20 +54,11 @@ const breadcrumbs = (props) => {
     <span className={styles.breadSlash}>
         {(bestopid) ? '/' : null}
     </span>
-    <span className={styles.breadBusid}>{bestopid}</span>
+    <span className={styles.breadBusid}>{bestopid} timetable</span>
  
 </div>
 
-//   return <div className={styles.breadcrumbDiv}>
-//     <Link className={styles.breadLink}to={`/`}>Home </Link>  
-//     <span className={styles.breadSlash}>/</span>
-//     <Link className={styles.breadLink}to={`/${route}/${direction}`}>{route} ({str}) </Link> 
-//     <span className={styles.breadSlash}>
-//         {(bestopid) ? '/' : null}
-//     </span>
-//     <span >{bestopid}</span>
-    
-//   </div>
+
 }
 
 export default withRouter(breadcrumbs);

@@ -90,8 +90,9 @@ class SearchForStop extends Component {
               <h3 className={styles.sectionH3}>Find your stop</h3>
               {
                 (this.props.currentUser.userId) ?
-                <p className={styles.infoP}><small>Select your stop and click Save to add to Quick Stops.</small></p>
-                : null
+                <p className={styles.infoP}><small>Select your stop. Then click 'Save' to add to Quick Stops or 'Go' to view timetables.</small></p>
+                : 
+                <p className={styles.infoP}><small>Select your stop and click 'Go' to view timetables.</small></p>
               }
               <p className={styles.minHeightP}>
                 <small>
@@ -118,7 +119,8 @@ class SearchForStop extends Component {
                   <button  className={`${styles.buttonMain} ${styles.tooltip}`}>
                     <span className={styles.tooltiptext}>
                       {(this.state.selectedStop.bestopid) ?
-                      'View timetable' : 'Select stop first'}</span> Go</button>
+                      'View timetable' : 'Select stop first'}</span> Go
+                  </button>
                  
 
                 </Link>

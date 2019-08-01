@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import wet from '../../img/wet_white.svg';
 import dry from '../../img/dry_white.svg';
-//import { isWithinMinutesOf } from '../../helpers';
 import styles from './Timetable.module.css';
 import BusDets from './BusDets/BusDets';
 import Modal from '../Modal/Modal';
 import NextPrevStop from '../NextPrevStop/NextPrevStop';
 import ChooseTimetable from '../ChooseTimetable/ChooseTimetable';
 import { isWithinMinutesOf, inTheFuture } from '../../helpers';
-// import { isIt } from '../../helpers';
 
 
 
@@ -18,8 +16,7 @@ class Timetable extends Component {
 
   //maybe this should happen on the server??
   //check the busRoutes.bus_times for corresponding rtpiData results
-  //add a busRoutes.bus_times.rtpi field: false for no result, scheduleddeparture datetime if there is a result
-//console.log(this.props.busRoutes)
+  //add a busRoutes.bus_times.rtpi field: false for no result, scheduleddeparture datetime if there is a r
 
 state = {showModal:false, selectedBus:null, wetOrDry:null, showAll:false}
 
@@ -99,7 +96,7 @@ getAvgStrings=(avg)=>{
 }
 
 getAvgAvgStrings=(avg)=>{
-  //console.log(avg)
+  //use Math.abs to remove '-' from early results
   if(avg ==='x'){
     return 'x';
   }
@@ -129,6 +126,7 @@ render(){
       <p><small>{str.substring(0,10)}</small></p>
     </span>
   }
+
   const { stop_sequence,bestopid} = this.props.busRoutes;
   if(this.props.rtpiData){
     this.props.busRoutes.bus_times.map(bus=>bus.rtpi = this.findBus(this.props.rtpiData.rtpiRequest.results,bus.time))
@@ -221,7 +219,7 @@ render(){
                     this.getAvgAvgStrings(b.total_avg)
                     : '?'
                     }
-                    <p><small>({b.num_total} results)</small></p>
+          
                   </span>
                 </td> 
                 

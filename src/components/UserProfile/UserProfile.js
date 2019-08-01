@@ -12,7 +12,7 @@ import { checkIfValid } from '../../helpers';
 
 
 class UserProfile extends Component {
-
+  _isMounted = false;
   state = {
     userNameField: {
       rules:{required:true,minLength:3,maxLength:20,charNum:true},
@@ -29,9 +29,27 @@ class UserProfile extends Component {
     creationTime:null, 
     userNameFail:null
     } 
-    // profilePicChangeOngoing:false, userName:this.props.userDets.displayName,
+    
 
 }
+
+componentDidMount(){
+  this._isMounted = true;
+  if(this.props.userDets.photoURL ==='null'|| this.props.userDets.photoURL === null || !this.props.userDets.photoURL  ){
+    return;
+  }else{this.getProfilePicUrl()}
+
+  if(this._isMounted){
+    this.getCurrentUserByBruteForce();
+  
+  }
+ 
+}
+
+componentWillUnmount(){
+  this._isMounted = false;
+}
+
 
   handleUserNameChange =(e)=>{
     e.preventDefault();
@@ -122,7 +140,7 @@ class UserProfile extends Component {
     try {
       let user = await this.tryThis();
       if (user && user.email) {
-          console.log("wow", user, user.metadata.lastSignInTime, user.metadata.creationTime)
+         // console.log("wow", user, user.metadata.lastSignInTime, user.metadata.creationTime)
           this.setState({
             fbCurrentUser: true,
             fbCurrentUserDets:{
@@ -144,19 +162,6 @@ class UserProfile extends Component {
     }
   }
 
-  componentDidMount(){
-    console.log(this.props)
-    // if(this.props.userDets){
-    //   this.setState({userNameField:{userName:this.props.userDets.displayName}})
-    // }
-  
-    if(this.props.userDets.photoURL ==='null'|| this.props.userDets.photoURL === null || !this.props.userDets.photoURL  ){
-      return;
-    }else{this.getProfilePicUrl()}
-
-    this.getCurrentUserByBruteForce();
-    
-  }
 
 
   handleFileChange =(e) =>{
@@ -167,7 +172,6 @@ class UserProfile extends Component {
 
   handleUploadFile =(e)=>{
     e.preventDefault();
-    console.log(this.state)
     if(!this.state.uploadFile) return;
     const storageRef = firebase.storage().ref();
     const uploadTask = storageRef.child(`images/${this.props.userDets.userId}/${this.state.uploadFile.name}`).put(this.state.uploadFile);
@@ -239,7 +243,7 @@ class UserProfile extends Component {
             profilePicName:null
           })
           .then(r=>{
-            console.log("pic deleted")
+            //console.log("pic deleted")
             this.setState({remoteProfileUrl:null})
             this.props.handleDeleteProfilePic();
           })
@@ -299,8 +303,7 @@ class UserProfile extends Component {
      
         }
 
-        {/* <FindStop userDets={this.props.userDets}></FindStop> */}
-        {/* <div className={styles.linksAndSearch}> */}
+   
           <div className={styles.SearchForStop}>
             <div className={styles.toAllign}>
               <SearchForStop currentUser={this.props.userDets} />
@@ -312,7 +315,7 @@ class UserProfile extends Component {
               <UserSection userDets={this.props.userDets} />
             </div>
           </div>
-        {/* </div> */}
+      
         
         
   

@@ -20,15 +20,15 @@
 }
 
 p.error{
-  color:red;
+  color:#ad4f3e;
   font-size:0.8em;
   margin: 0;
 }
 
 .valid{
-  border: 2px solid green
+  border: 2px solid #7d8d59;
 }
 
 .invalid{
-  border:2px solid red;
+  border:2px solid #ad4f3e;
 }

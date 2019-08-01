@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './EditFaveStopForm.module.css';
 
 const editFaveStopForm = (props) => {
- console.log("edit ", props)
+
   return(
     <form className={styles.theForm}>
     <div className={styles.formGroup}>

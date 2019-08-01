@@ -1,10 +1,8 @@
 .breadcrumbDiv{
   margin:1rem 0;
-  /* background:#97A3BA; */
   background: #f0f0f0;
   border-left: 8px solid #ad4f3e;
   padding:0.5em;
-  /* height:1em; */
   color:white;
   display: flex;
   justify-content: flex-start;

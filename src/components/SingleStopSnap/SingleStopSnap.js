@@ -3,9 +3,7 @@ import React, { Component } from 'react';
 import { gql } from 'apollo-boost'; //parse queries
 import { Query } from 'react-apollo';
 import Timetable from '../Timetable/Timetable';
-//import styles from './SingleStopSnap.module.css';
 import Spinner from '../UI/Spinner/Spinner';
-//import ChooseTimetable from '../ChooseTimetable/ChooseTimetable'
 import BreadCrumbs from '../Breadcrumbs/Breadcrumbs';
 
 
@@ -56,13 +54,13 @@ class SingleStopSnap extends Component{
       return 'Fri';
     }
     else if(dayNumber === 0 ){
-      console.log("sending sun")
+      //console.log("sending sun")
       return 'Sun';
     }else if(dayNumber === 6 ){
-      console.log("sending sat")
+      //console.log("sending sat")
       return 'Sat'
     }else{
-      console.log("sending default (is a problem)")
+      //console.log("sending default (is a problem)")
       return 'Week'
     }
   }
@@ -83,21 +81,7 @@ changeBusTimes_X = (day)=>{
     stateCopy.map(t=>t.active=false)
 
     
-
-    // if(isTodayStr){
-    //   //let stateCopy = this.state.bus_times_x;
-    //   //stateCopy.active=true
-    //   stateCopy[0].active=true;
-    // }else if([1,2,3,4,5].includes(day)){
-    //   stateCopy[1].active=true;
-    // }else if(day === 6 ){
-    //   stateCopy[2].active=true;
-    // }else if(day === 0){
-    //   stateCopy[3].active=true;
-    // }
     if(isTodayStr){
-      //let stateCopy = this.state.bus_times_x;
-      //stateCopy.active=true
       stateCopy[0].active=true;
     }else if(day === 1){
       stateCopy[1].active=true;

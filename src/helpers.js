@@ -78,14 +78,6 @@ import axios from 'axios';
                     resolve({response,newUserDetails})
                   })
                   .catch(e=>console.log("error updating profile",e))
-                //   , function(error) {
-                //     if (error) {
-                //       // The write failed...
-                //     } else {
-                //       // Data saved successfully!
-                //     }
-                //   });
-                // }
               
                 })
               })

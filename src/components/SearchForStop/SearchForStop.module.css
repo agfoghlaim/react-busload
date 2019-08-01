@@ -1,16 +1,11 @@
 .searchStopWrap{
-  /* width: 100%; */
-  /* border: 2px solid green; */
-  /* grid-template-rows: 1fr 1fr 1fr;  */
   grid-template-columns: 1fr;
   grid-gap: 0.2rem;
   display: grid;
   margin: 2rem 0;
   background: #f0f0f0;
   background:url('../../img/bus_design.svg'), linear-gradient(#f0f0f0,#f0f0f0);
-  /* background:url('../../img/bus_design.svg'), linear-gradient(#f0f0f0,#f0f0f0); */
   border-left: 10px solid #4f6128;
-  /* background: #dfe3d8; */
   padding:1em;
   
 }
@@ -32,7 +27,6 @@
 }
 
 .inputBox{
-    /* width: 100%; */
     border:none;
     border:2px solid #62723f;
     font-size: 1em;
@@ -84,7 +78,6 @@
     background: #8DAD47;
     text-decoration: none;
     cursor: pointer;
-    /* box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0.92); */
    
     
 }
@@ -92,9 +85,6 @@
 
 .tooltip {
   position: relative;
-  /* position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black; */
 }
 
 .tooltiptext {

@@ -1,11 +1,7 @@
 .buttonSmall{
-  /* -webkit-border-radius: 2;
-  -moz-border-radius: 2;
-  border-radius: 2px; */
   color: darkslategray;
   font-size: 0.8em;
   font-weight: 600;
-  
   background: white;
   padding: 0.5em 1em 0.5em 1em;
   border: solid darkslategray 1px;
@@ -50,8 +46,6 @@
 
 .redBtn:hover{
   background:#a15547;
- 
-  /* color:darkslategray; */
 }
 
 .blueBtn{
@@ -63,8 +57,6 @@
 
 .blueBtn:hover{
   background:#4e5e7e;
- 
-  /* color:darkslategray; */
 }
 
 .greenBtn{
@@ -75,7 +67,6 @@
 
 .greenBtn:hover{
   background:#5a7228;
-  /* color:darkslategray; */
 }
 
 .clearBtn{
@@ -84,7 +75,6 @@
 
 .greenBtn:hover{
   background:#5a7228;
-  /* color:darkslategray; */
 }
 
 
@@ -122,9 +112,6 @@
 
 .tooltip {
   position: relative;
-  /* position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black; */
 }
 
 .tooltiptext {

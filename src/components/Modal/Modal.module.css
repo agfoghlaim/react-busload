@@ -1,7 +1,5 @@
 .Modal{
   background:white;
-  /* border:1px solid gray; */
-  /* border-radius: 1em; */
   position:fixed;
   padding:1rem;
   width:90%;
@@ -10,7 +8,7 @@
   z-index: 500;
   box-sizing:border-box;
   box-shadow: 1px 1px 1px #ccc;
-  transition: all 1s ease-in-out;
+  transition: all 1s linear;
 }
 
 .ModalShow{

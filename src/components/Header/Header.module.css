@@ -4,11 +4,4 @@
   display:grid;
   max-width: 100%;
   overflow: hidden;
-  /* height: 90vh; */
-  /* grid-gap:0.5rem; */
-  /* background-image: url('../../img/rainBus2.jpg'), linear-gradient(#49424142, #d135310d);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat; */
- 
 }

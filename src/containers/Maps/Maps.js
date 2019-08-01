@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
-//import * as allStops from '../../completeListOfStops.json';
 import busStopIcon from '../../img/busStopIcon.svg';
 import styles from './Maps.module.css';
 import { Link } from 'react-router-dom';
+
 
 class Maps extends Component{
   
@@ -30,7 +30,6 @@ class Maps extends Component{
     this.setState({selectedStop:null})
   }
   render(){
-   // console.log(this.props)
     return<div className={styles.mapWrapDiv}>
       <ReactMapGL 
       {...this.state.viewport}
@@ -41,7 +40,6 @@ class Maps extends Component{
    
         {
           this.props.stops.map(stop=>{
-           // console.log(stop)
             return<Marker 
               key={stop.bestopid}
               latitude={JSON.parse(stop.latitude)}
@@ -63,7 +61,7 @@ class Maps extends Component{
               onClose={this.closePopup}>
               <div>
                 <p>{this.state.selectedStop.name} - {this.state.selectedStop.bestopid}</p>
-                <Link to={`${this.props.currentPath}/${this.state.selectedStop.bestopid}`}>Go to stop</Link>
+                <Link className={styles.linkSize} to={`${this.props.currentPath}/${this.state.selectedStop.bestopid}`}>Go to timetable</Link>
               </div>
             </Popup>
           )

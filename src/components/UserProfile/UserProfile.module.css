@@ -7,9 +7,6 @@
 
 .linksAndSearch{
   grid-area: linksAndSearch;
-  /* background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAABHNCS…AhSURBVAiZY2CgA/BLUpdKSzNmRRdnYvjPGP/izxdRdAkAsO8GRIFpQ48AAAAASUVORK5CYII=); */
-  /* padding: 0 2em; */
-  /* background-color: #f0f0f0; */
   display: grid;
   grid-template-columns: 1fr;
   grid-auto-rows: 2fr;
@@ -37,13 +34,7 @@ background-color: #f0f0f0;
   padding:1em; 
    border-radius: 50%;
 }
-/* @media only screen and (max-width: 800px) {
-  .mainProfileWrap{
-    grid-template-areas: "user user""form form";
- 
-  }
-  
-} */
+
 
 .profileFormWrap{
   padding: 2em;
@@ -77,22 +68,12 @@ background-color: #f0f0f0;
 }
 .toAllign{
   margin-left:-10px;
-  
-  /* display:grid;
-  align-content: center; */
   height: 100%;
 
 }
 
-/* .toAllign div{
-  background:none;
-  margin:0;
-  max-height:100%;
 
-} */
 .buttonSmall{
-  -webkit-border-radius: 2;
-  -moz-border-radius: 2;
   border-radius: 2px;
   color: #fafafa;
   font-size: 0.8em;

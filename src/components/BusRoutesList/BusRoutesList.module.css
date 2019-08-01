@@ -1,7 +1,5 @@
 .routeListWrap{
-  /* background:#eceee7; */
   background: #f0f0f0;
-  /* background:url('../../img/bus_design.svg'), linear-gradient(#f0f0f0,#f0f0f0); */
    background:url('../../img/bus_design.svg'), linear-gradient(#f0f0f0,#f0f0f0);
   padding:1rem;
   margin:2rem 0;
@@ -20,7 +18,6 @@ color:darkslategray;
 }
 
 .routebox{
-  /* background:white; */
   background: #f0f0f0;
   background-image: url('../../img/onepix.png');
   background-size:auto;
@@ -39,44 +36,32 @@ color:darkslategray;
 }
 
 .routebox:hover{
-  /* background-image: url('../../img/onepix.png'); */
   background-size:auto;
   background-image:none;
   background-repeat: repeat;
   transform:scale(1.05);
   border:2px solid #943d2e;
-  /* background:#fff; */
   border-radius: 0.2em; 
-  /* box-shadow:2px 2px 4px #3c4d3b; */
- 
-  /* background: url('../../img/onepix.png');  */
   background-repeat: repeat;
 }
 
 .routebox:hover p.routeno{
   background-image: url('../../img/onepix.png');
-  /* background: #fff; */
   border: 1px solid transparent;
   background-color:rgba(255,255,255,0);
-  /* padding: 0; */
   font-weight: bold;
-  /* background-image: url('../../img/onepix.png'); */
   
  } 
 
  .routebox:hover p.routename{
   background-image: url('../../img/onepix.png');
-  /* background: #Fff; */
   border: 1px solid transparent;
   background-color:rgba(255,255,255,0);
- 
-  /* background-image: url('../../img/onepix.png'); */
   
  } 
 
 .plainLink{
   text-decoration: none;
-  /* background: white; */
   align-content: center;
 display: grid;
 
@@ -86,7 +71,6 @@ display: grid;
 .routeno{
   font-weight: 700;
   border: 2px solid #943D2E;
-  /* display: inline; */
   padding: 0.5em;
   margin: 0.5em 0;
   color: #943D2E;
@@ -96,12 +80,10 @@ display: grid;
   height: 3em;
   display: grid;
   align-items: center;
-  /* background-image: url('../../img/onepix.png'); */
   background-size:auto;
   background-repeat: repeat;
   transition:all 0.3s linear;
   background:rgba(255,255,255,1);
-  /* box-shadow:2px 2px 4px #3c4d3b; */
 }
 
 
@@ -111,9 +93,33 @@ display: grid;
   background:white;
   display: grid;
   align-self: center;
-  /* background-image: url('../../img/onepix.png'); */
   transition:all 0.3s linear;
 }
+
+
+/* .tooltip {
+  position: relative;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  color: white;
+  background:rgba(47,79,79,0.9);
+  text-align: center;
+  font-size: 0.8em;
+  max-width:100%;
+  position: absolute;
+  transition:all 0.1s ease-in;
+  right:0;
+  top:0em;
+  z-index: 1;
+  padding:1em 0;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+} */
 
 
 @media only screen and (max-width: 700px) {
