@@ -5,7 +5,7 @@ const registerForm = (props) => {
 
 
   return <div className={styles.formWrapDiv}>
-      <h3>Register</h3>
+      <h1>Register</h1>
         <form className={styles.theForm}>
           <div className={styles.formGroup}>
 

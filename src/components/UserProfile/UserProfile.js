@@ -8,7 +8,7 @@ import defaultProfile from '../../img/profile_default.svg';
 import SearchForStop from '../SearchForStop/SearchForStop';
 import UserSection from '../UserSection/UserSection';
 import { checkIfValid } from '../../helpers';
-
+//import plus from '../../img/plus.svg';
 
 
 class UserProfile extends Component {
@@ -28,20 +28,39 @@ class UserProfile extends Component {
     lastSignInTime:null,
     creationTime:null, 
     userNameFail:null
-    } 
+    },
+    userSections:{
+      form:false,
+      edit:false,
+      add:true
+    }
     
 
 }
-
+// componentWillMount(){
+//   console.log(this.props.userDets)
+//   if(!this.props.userDets.isUser){
+//     console.log("would have redirected")
+//   }else{
+//     console.log("it s ok")
+//   }
+// }
 componentDidMount(){
+  
+  //if(this.props.loading)return;
   this._isMounted = true;
+
+  this.props.closeStopList();
   if(this.props.userDets.photoURL ==='null'|| this.props.userDets.photoURL === null || !this.props.userDets.photoURL  ){
     return;
-  }else{this.getProfilePicUrl()}
+  }else{
+    
+    this.getProfilePicUrl()
+    
+  }
 
   if(this._isMounted){
-    this.getCurrentUserByBruteForce();
-  
+   this.getCurrentUserByBruteForce();
   }
  
 }
@@ -63,7 +82,11 @@ componentWillUnmount(){
   getProfilePicUrl = ()=>{
     firebase.storage().ref().child(`/images/${this.props.userDets.userId}/${this.props.userDets.profilePicName}`).getDownloadURL()
     .then(url => {
-      this.setState({remoteProfileUrl:url})
+      if(this._isMounted){
+        this.setState({remoteProfileUrl:url})
+      }
+
+      //this.setState({remoteProfileUrl:url})
   
     }).catch(function(error) {
       console.log("error getting profileURL", error)
@@ -114,33 +137,37 @@ componentWillUnmount(){
   }
 
   tryThis = ()=>{
+    
     return new Promise((resolve, reject) => {
       let count = 0;
       let w;
-      what();
-      function what(){
+      
+      const what= ()=>{
         w = firebase.auth().currentUser;
         setTimeout(()=>{   //use timeout to imporve chances
-          if(w !==null ){
+          if(w !==null  ){
             resolve(w);
           }
-          else if(w===null && count >10){
+          else if(w===null && count >10 ){
             reject("sorry marie")
           }
-          else if(w===null){
+          else if(w===null ){
             count+=1;
             what();
           }
         }, 150);
       }
+      what();
     });
   }
 
   getCurrentUserByBruteForce = async()=>{
+   
     try {
       let user = await this.tryThis();
       if (user && user.email) {
          // console.log("wow", user, user.metadata.lastSignInTime, user.metadata.creationTime)
+         if(this._isMounted){
           this.setState({
             fbCurrentUser: true,
             fbCurrentUserDets:{
@@ -148,6 +175,8 @@ componentWillUnmount(){
               creationTime:user.metadata.creationTime
             }
           });
+         }
+
       }
     } catch(err) {
       //console.log("no joy")
@@ -155,22 +184,25 @@ componentWillUnmount(){
   }
 
   componentDidUpdate(){
-    if(this.state.userNameFail !==null){
+   
+    if(this.state.userNameFail !==null && this._isMounted){
       setTimeout(()=>{ 
-       this.setState({userNameFail:null})
+        if(this._isMounted){
+          this.setState({userNameFail:null})
+        }
+       
       },  5000)
     }
   }
 
-
-
   handleFileChange =(e) =>{
     e.preventDefault();
-    //console.log(e.target.files[0])
+   
     this.setState({uploadFile:e.target.files[0]})
   }
 
   handleUploadFile =(e)=>{
+   
     e.preventDefault();
     if(!this.state.uploadFile) return;
     const storageRef = firebase.storage().ref();
@@ -209,7 +241,8 @@ componentWillUnmount(){
           profilePicName:this.state.uploadFile.name
         })
         .then(r=>{
-          this.props.handleUpdateUserProfile( this.props.userDets.displayName,
+          this.props.handleUpdateUserProfile(
+            this.props.userDets.displayName,
           downloadURL,
           this.state.uploadFile.name);
 
@@ -220,6 +253,7 @@ componentWillUnmount(){
   }
 
   handleChangeProfilePic = (e)=>{
+
     e.preventDefault();
  
     this.setState((prev,current)=>{
@@ -238,12 +272,14 @@ componentWillUnmount(){
 
     profileRef.delete()
     .then(() =>{
+      
           firebase.database().ref(`/users/${this.props.userDets.userId}`).set({
             photoURL:null,
             profilePicName:null
           })
           .then(r=>{
             //console.log("pic deleted")
+      
             this.setState({remoteProfileUrl:null})
             this.props.handleDeleteProfilePic();
           })
@@ -253,8 +289,30 @@ componentWillUnmount(){
     });
   }
 
-  render(){
+  showSection = (e,section)=>{
+    e.preventDefault();
+   
+    let userSections = {
+      form:false,
+      edit:false,
+      add:false
+    }
+    userSections[section] = true
+ 
+    this.setState({userSections:userSections})
+  }
 
+  render(){
+    
+    //console.log("profile rendered ", this.props.userDets.isUser)
+    // if(this.props.loading){
+    //   console.log("loading", this.props.loading)
+    //   return <p>Loading</p>
+    // }
+      
+    
+   
+ 
     const picStyle = {
       backgroundImage:`url(${ (this.state.remoteProfileUrl)? this.state.remoteProfileUrl : defaultProfile})`,
     height: '100px',
@@ -267,12 +325,18 @@ componentWillUnmount(){
     border: '2px solid #dbdee3',
     }
 
+    // {
+    //   (this.props.loading) ? <p>wait</p> : <div></div>
+    // }
+    
+    
     return(
-      <div className={styles.mainProfileWrap}>
+    <div className={styles.mainProfileWrap}>
     
         <div className={styles.profilePicWrap}>
+
           <div style={picStyle}></div>
-          <p className={styles.profileUserName}>{this.props.userDets.displayName}</p>
+          <p className={styles.profileUserName}>    {this.props.userDets.displayName}</p>
           {
             (this.state.fbCurrentUser) ?
             <p >
@@ -283,43 +347,80 @@ componentWillUnmount(){
           
         
         </div>
-        {
-         
-          <div className={styles.profileFormWrap}>
-          <ProfileForm handleFileChange={this.handleFileChange}
-          handleUploadFile={this.handleUploadFile}
-          deleteProfilePic={this.deleteProfilePic}
-          remoteProfileUrl={this.state.remoteProfileUrl}
-          handleChangeProfilePic={this.handleChangeProfilePic}
-          profilePicChangeOngoing={this.state.profilePicChangeOngoing}
-          handleShowProfileForm={this.handleShowProfileForm}
-          userName={this.state.userNameField.userName}
-          handleUserNameChange={this.handleUserNameChange}
-          handleUpdateName={this.handleUpdateName}
-          userNameValidity = {this.state.userNameField.validity}
-          userNameFail={this.state.userNameFail}
-           />
-          </div>
-     
-        }
-
-   
-          <div className={styles.SearchForStop}>
-            <div className={styles.toAllign}>
-              <SearchForStop currentUser={this.props.userDets} />
+        <div className={styles.tabWrap}>
+          <ul className={styles.tabUl}>
+            <li className={this.state.userSections.add ? styles.activeTab :''}>
+              <button onClick={(e)=>this.showSection(e,'add')}>Add Quick Stop</button>
+            </li>
+            <li className={this.state.userSections.edit ? styles.activeTab :''}>
+              <button onClick={(e)=>this.showSection(e,'edit')}>Edit Quick Stops</button>
+            </li>
+            <li className={this.state.userSections.form ? styles.activeTab :''}>
+              <button onClick={(e)=>this.showSection(e,'form')}>Manage Profile Pic/name</button>
+            </li>
+          </ul>
+        </div>
+      	<div className={styles.allSectionWrap}>
+          { 
+            (this.state.userSections.form)
+            ?
+            <div className={styles.userSectionWrap}>
+              <div className={styles.profileFormWrap}>
+                <ProfileForm handleFileChange={this.handleFileChange}
+                handleUploadFile={this.handleUploadFile}
+                deleteProfilePic={this.deleteProfilePic}
+                remoteProfileUrl={this.state.remoteProfileUrl}
+                handleChangeProfilePic={this.handleChangeProfilePic}
+                profilePicChangeOngoing={this.state.profilePicChangeOngoing}
+                handleShowProfileForm={this.handleShowProfileForm}
+                userName={this.state.userNameField.userName}
+                handleUserNameChange={this.handleUserNameChange}
+                handleUpdateName={this.handleUpdateName}
+                userNameValidity = {this.state.userNameField.validity}
+                userNameFail={this.state.userNameFail}
+                />
+              </div>
             </div>
-          </div>
+            :
+            null
+        
+          }  
 
-          <div className={styles.UserSection}>
-            <div className={styles.toAllign}>
-              <UserSection userDets={this.props.userDets} />
+          
+          {  
+            (this.state.userSections.add)
+            ?
+            <div className={styles.userSectionWrap}>
+              <div className={styles.addWrap}>
+                <h3 className={styles.sectionH3}>Add Quick Stops</h3>
+
+                  <SearchForStop 
+                  setSelectedStopId={this.props.setSelectedStopId} 
+                  selectedStop={this.props.selectedStop}
+                  handleChooseStop={this.props.handleChooseStop}
+                  currentUser={this.props.userDets}
+                  handleShowStopsList={this.props.handleShowStopsList}
+                  handleSearchStop={this.props.handleSearchStop}
+                  showStopList={this.props.showStopList}
+                  showGoBtn={false} />
             </div>
-          </div>
+            </div>
+            :
+            null
+          }
+
+          {
+            (this.state.userSections.edit)
+            ?
+              <div className={styles.userSectionWrap}>
+                <UserSection userDets={this.props.userDets} />
+              </div>
+            :
+            null
+          }  
+        </div>
       
-        
-        
-  
-  	  </div>
+  	</div>
     )
 
     }

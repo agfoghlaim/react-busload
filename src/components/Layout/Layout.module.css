@@ -1,6 +1,11 @@
 
-@media only screen and (min-width: 1600px) {
-  .main{
-    margin:0 10%;
+/* @media only screen and (min-width: 1200px) {
+  .insideMainWrap{
+    margin: 2rem;
   }
+  
+} */
+
+.main{
+  min-height:70vh;
 }

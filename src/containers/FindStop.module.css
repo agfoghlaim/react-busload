@@ -1,0 +1,19 @@
+@media only screen and (min-width: 1200px) {
+  .FindStopWrap{
+    margin: 2rem;
+  }
+  
+}
+
+.searchStopWrap{
+  grid-template-columns: 1fr;
+  grid-gap: 0.2rem;
+  display: grid;
+  margin:  0 0 2rem 0 ;
+  background: #f0f0f0;
+  background:url('../img/bus_design.svg'), linear-gradient(#f0f0f0,#f0f0f0);
+  border-left: 10px solid #4f6128;
+  padding:1em;
+  /* max-height:600px; */
+  
+}

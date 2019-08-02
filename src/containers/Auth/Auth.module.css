@@ -61,12 +61,22 @@ p.error{
 
 .authComp{
   padding:1em;
-  border-right:10px solid darkslategray;
+  /* border-right:10px solid darkslategray; */
   height: auto;
-min-height: 550px;
+/* min-height: 550px; */
+min-height: 80vh;
 background:#f0f0f0;
+display:grid;
+align-content: center;
+
 
 }
+
+/* .authComp div{
+  display:grid;
+
+align-items:center;
+} */
 
 .buttonLikeLink{
   background:none;
@@ -81,5 +91,34 @@ background:#f0f0f0;
 .buttonGroup{
   display: flex;
   justify-content: space-around;
-  margin:1em 0;
+  margin: 1em 0;
+  align-self: start;
 }
+
+@media only screen and (min-width: 900px) {
+  .authComp{
+    padding:1em 10%;
+
+  
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .authComp{
+    padding:1em 15%;
+
+  
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .authComp{
+    padding:1em 20%;
+
+  
+  }
+}
+
+
+
+

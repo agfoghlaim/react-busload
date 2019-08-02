@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Nav.module.css';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const nav = (props) => {
  
@@ -9,14 +9,14 @@ const nav = (props) => {
 
     <div className={styles.navWrap}>
       <ul>
-        <li><Link to={'/'}>Home</Link></li>
+        <li><NavLink activeClassName={styles.active} exact to={'/'}>Home</NavLink></li>
         
         {(props.userDets.isUser) 
 
         ? 
           <React.Fragment>
             <li>
-              <Link to={`/user/${props.userDets.userId}`} >Profile</Link>
+              <NavLink activeClassName={styles.active} to={`/user/${props.userDets.userId}`} >Profile</NavLink>
             </li>
             <li>
             <button  onClick={()=>props.handleLogOut()} className={styles.buttonSmall}>Logout</button>
@@ -24,7 +24,7 @@ const nav = (props) => {
           </React.Fragment>
          : 
 
-         <li><Link to={'/auth'}>Sign Up/Sign In</Link></li>
+         <li><NavLink activeClassName={styles.active} to={'/auth'}>Sign Up/Sign In</NavLink></li>
         }
         
       </ul>

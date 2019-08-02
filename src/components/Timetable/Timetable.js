@@ -173,7 +173,7 @@ render(){
         //this.props.busRoutes.bus_times.map((b,i)=>{
           // <tbody >
           busesToShow.map((b,i)=>{
-     
+          
           return(
               <React.Fragment key={b.bus}>
               <tr className={styles.tr} >
@@ -214,6 +214,7 @@ render(){
 
                 <td className={styles.td}> 
                   <span className={styles.rtpiSpan}>
+                 
                   {(b.total_avg !==null) 
                     ? 
                     this.getAvgAvgStrings(b.total_avg)
@@ -221,6 +222,7 @@ render(){
                     }
           
                   </span>
+                  <span className={styles.numResultsSpan}>({b.num_total} results)</span>
                 </td> 
                 
               </tr>

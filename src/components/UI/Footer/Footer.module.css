@@ -1,0 +1,11 @@
+.footer{
+  background:#3c4d3b;
+  height:6rem;
+  display:grid;
+  justify-content: center;
+  align-items: center;
+
+}
+.footer p{
+  color:white;
+}

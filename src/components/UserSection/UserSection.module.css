@@ -18,6 +18,21 @@ border-left: 10px solid #384a6e;
  
 }
 
+.faveListWrap{
+  background: #f0f0f0;
+  background:url('../../img/bus_design.svg'), linear-gradient(#f0f0f0,#f0f0f0);
+ padding: 1rem;
+ margin: 2rem 0;
+ padding: 1rem 1rem;
+ border-left: 10px solid #384a6e;
+   
+ }
+ .h3AndExpandCollapse{
+   display:flex;
+   grid-template-columns: 1fr 1fr;
+   justify-items:flex-start;
+ }
+
 
 
 .routebox{
@@ -216,4 +231,11 @@ border-left: 10px solid #384a6e;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
+}
+
+@media only screen and (min-width: 1200px) {
+  .faveListWrap{
+    margin: 2rem;
+  }
+  
 }

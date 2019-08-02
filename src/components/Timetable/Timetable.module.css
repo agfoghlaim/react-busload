@@ -3,6 +3,12 @@
   justify-items: center;
 
 }
+@media only screen and (min-width: 1200px) {
+  .timetableDiv{
+    margin: 10%;
+  }
+  
+}
 
 @media only screen and (max-width: 600px) {
   .th, .td{
@@ -58,6 +64,11 @@
   border-bottom:2px solid #f0f0f0;
   border-left:2px solid #f0f0f0;
   
+}
+
+.numResultsSpan{
+  text-align: center;
+  display:grid;
 }
 
 

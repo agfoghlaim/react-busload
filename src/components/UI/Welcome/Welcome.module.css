@@ -1,0 +1,13 @@
+.welcomeDiv{
+  padding:3rem 2rem;
+  display:grid;
+  align-content: center;
+
+
+}
+
+.welcomeP{
+  text-align: center;
+  font-size:1.5rem;
+
+}

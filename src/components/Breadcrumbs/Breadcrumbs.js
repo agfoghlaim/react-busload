@@ -54,7 +54,7 @@ const breadcrumbs = (props) => {
     <span className={styles.breadSlash}>
         {(bestopid) ? '/' : null}
     </span>
-    <span className={styles.breadBusid}>{bestopid} timetable</span>
+    <span className={styles.breadBusid}>{bestopid} {bestopid? 'timetable':null}</span>
  
 </div>
 

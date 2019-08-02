@@ -1,17 +1,17 @@
-.mainProfileWrap{
+/* .mainProfileWrap{
   display: grid;
   grid-template-areas: "user user" "searchForStop form " " quickStops .";
   grid-gap: 1em;
   grid-auto-columns: 1fr;
-}
+} */
 
-.linksAndSearch{
+/* .linksAndSearch{
   grid-area: linksAndSearch;
   display: grid;
   grid-template-columns: 1fr;
   grid-auto-rows: 2fr;
   grid-gap: 1em;
-}
+} */
 .profilePicWrap{
 display:grid;
 background-image: url('../../img/onepix.png');
@@ -40,6 +40,8 @@ background-color: #f0f0f0;
   padding: 2em;
   background:url('../../img/bus_design.svg'), linear-gradient(#f0f0f0,#f0f0f0);
   grid-area: form;
+  margin-top:2rem;
+  border-left:10px solid #384a6e;
 }
 
 .profileUserName{
@@ -50,7 +52,7 @@ background-color: #f0f0f0;
 .profilePicDiv img{
   max-width: 100%;
 }
-.SearchForStop{
+/* .SearchForStop{
   grid-area: searchForStop;
       background: #f0f0f0;
     border-left: 10px solid #4f6128;
@@ -70,7 +72,7 @@ background-color: #f0f0f0;
   margin-left:-10px;
   height: 100%;
 
-}
+} */
 
 
 .buttonSmall{
@@ -94,13 +96,150 @@ background-color: #f0f0f0;
     box-shadow: 1px 1px 2px 0px rgba(33, 29, 38, 0);
 }
 
+.addSpan{
+  display: inline;
+  font-size: 1.6em;
+  margin-right: 0.3em;
+  font-weight: bold;
+}
+
+.addDiv{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
 
 
+.sectionH3{
+  font-size:1.6em;
+  color:darkslategray;
+  }
+.expandCollapseBtn{
+  background:none;
+  outline:none;
+  border:none;
+  cursor: pointer;
 
-@media only screen and (max-width: 900px) {
+}
+
+.expandCollapse{
+  display: flex;
+  grid-template-columns: 1fr;
+  justify-items: flex-start;
+}
+.expandCollapseBtn img{
+  max-width: 1.5em;
+
+}
+
+
+/*
+
+Tabs
+
+*/
+
+.mainProfileWrap{
+  display: grid;
+  grid-template-areas: "user" "tabWrap" "allSectionWrap" ;
+  grid-gap: 1em;
+  grid-template-columns: 1fr;
+  /* grid-auto-rows: 1fr 2rem 1fr; */
+}
+/* .mainProfileWrap{
+  min-height:100vh;
+  display:grid;
+  align-content: start;
+} */
+
+.allSectionWrap{
+  grid-area: allSectionWrap;
+  /* border:3px solid red; */
+  padding: 0 1em;
+  min-height:50vh;
+}
+.tabWrap{
+  grid-area:tabWrap;
+ 
+  display:grid;
+  align-content: start;
+}
+
+.addWrap{
+  background:url('../../img/bus_design.svg'), linear-gradient(#f0f0f0,#f0f0f0);
+  border-left:10px solid #384a6e;
+  padding: 0.5em;
+  margin-top:2rem;
+  /* height: 100%; */
+}
+
+/*
+same wrap for all 3 tabs
+*/
+.userSectionWrap{
+  background: white;
+  height: 100%;
+ 
+  /* position: absolute;
+  width: 100%; */
+}
+.tabUl{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-start;
+  height:2rem;
+  align-items: center;
+ 
+}
+
+.tabUl li{
+  width: 100%;
+  height: 100%;
+  border-top:2px solid #3c4d3b;
+  /* border-right:2px solid gray;
+  border-bottom:2px solid gray; */
+  border-bottom:2px solid transparent;
+
+  display:grid;
+  align-content: center;
+}
+
+.tabUl li button{
+  width: 100%;
+  font-weight: 500;
+  background:none;
+  cursor: pointer;
+  outline: none;
+  border:none;
+}
+
+.tabUl li.activeTab{
+  background:#3c4d3b;
+  color:white;
+  border-bottom:2px solid #3c4d3b;
+ 
+}
+
+.tabUl li.activeTab button{
+
+  color:white;
+
+}
+
+/* @media only screen and (max-width: 900px) {
   .mainProfileWrap{
 
     grid-template-areas: "user" "searchForStop" "quickStops" "form" ;
   
   }
 }
+
+
+@media only screen and (min-width: 1200px) {
+  .mainProfileWrap{
+    margin: 2rem;
+  }
+  
+} */

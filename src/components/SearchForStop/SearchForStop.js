@@ -22,56 +22,57 @@ const allStopsQuery = gql`
 `;
 
 class SearchForStop extends Component {
-//use this.props.setSelectedStopId on a go button
+
 
   state = {
-    searchSelectedStop: '',
-    selectedStop:{bestopid:'',route:'',direction:'', name:''},
-    showStopList:false
-  
+    searchSelectedStop: ''
   }
 
-  handleShowStopsList(e){
-    //console.log("showing",e.target.value.length)
-    if(e.target.value.length){
-      this.setState({showStopList:true})
-    }else{
-      this.setState({showStopList:false})
-    }
 
+
+ //update the input box value when a stop is selected
+  newHandleChooseStop = (e)=>{
+    this.setState({searchSelectedStop:e.target.textContent});
+    this.props.handleChooseStop(e);
   }
-  
 
   handleSearchStop = (e)=>{
-    //console.log(e.target.value)
     this.setState({searchSelectedStop: e.target.value.substring(0,22)})
   }
 
-  handleChooseStop = (e) =>{
-    //console.log(e.target)
-    this.setState({searchSelectedStop:e.target.textContent,selectedStop:{
-      bestopid:e.target.dataset.bestopid,
-      route:e.target.dataset.route,
-      direction:e.target.dataset.direction,
-      stopname:e.target.dataset.stopname
-    }})
-  
-  }
-
-  showUserFeature = ()=>{
+  //the save button
+  showSaveButtonOrNot= ()=>{
     if(this.props.currentUser.userId){
-      return    <FaveStop selectedStopDets={this.state}
+      return    <FaveStop selectedStopDets={this.props.selectedStop}
       userDets={this.props.currentUser}
        /> 
     }else{
       return null
     }
- 
+  }
+
+  //the go button
+  showGoButtonOrNot = ()  =>{
+    if(this.props.showGoBtn) { 
+    return <Link  
+      to={(this.props.selectedStop.route)?`bus/${this.props.selectedStop.route}/${this.props.selectedStop.direction}/${this.props.selectedStop.bestopid}`:'/'}
+    >
+      <button  className={`${styles.buttonMain} ${styles.tooltip}`}>
+        <span className={styles.tooltiptext}>
+          {(this.props.selectedStop.bestopid) ?
+          'View timetable' : 'Select stop first'}</span> Go
+      </button>
+     
+
+     </Link>
+     }else{
+      return <p></p>
+     } 
   }
  
   render(){
-
-
+ 
+   
     return<Query query={allStopsQuery}>
       {
         ( {loading, error, data} ) =>{
@@ -86,60 +87,42 @@ class SearchForStop extends Component {
             let filteredStops = data.allstops.filter(stop=>{
               return stop.name.toLowerCase().indexOf(this.state.searchSelectedStop.toLowerCase()) !== -1 || stop.bestopid.indexOf(this.state.searchSelectedStop) !== -1;
             })
-            return <div className={styles.searchStopWrap}>
-              <h3 className={styles.sectionH3}>Find your stop</h3>
-              {
-                (this.props.currentUser.userId) ?
-                <p className={styles.infoP}><small>Select your stop. Then click 'Save' to add to Quick Stops or 'Go' to view timetables.</small></p>
-                : 
-                <p className={styles.infoP}><small>Select your stop and click 'Go' to view timetables.</small></p>
-              }
+            return (
+            <div>
+            
               <p className={styles.minHeightP}>
                 <small>
                 <strong>Selected:</strong>
-                {(this.state.selectedStop.stopname) ? ` ${this.state.selectedStop.stopname}` : ' '}
+                {(this.props.selectedStop.stopname) ? ` ${this.props.selectedStop.stopname}` : ' '}
                 </small>
-                </p>
+              </p>
+                
+  
               <div className={(this.props.currentUser.userId) ? styles.inputButtonDivUser : styles.inputButtonDiv }>
-              <input 
-                type="text"
-                placeholder="Start typing bus stop name..."
-                // onFocus={this.handleShowStopsList.bind(this)}
-                className={styles.inputBox}
-                value={this.state.searchSelectedStop}
-                onChange={(e)=>{this.handleShowStopsList(e);this.handleSearchStop(e)}} 
-              />
+                <input 
+                  type="text"
+                  placeholder="Start typing bus stop name..."
+                  className={styles.inputBox}
+                  value={this.state.searchSelectedStop}
+                  onChange={(e)=>{this.props.handleShowStopsList(e);this.handleSearchStop(e)}} 
+                />
               
-              {
-                //if this.props.selectedStopId exists it means SearchForStop was rendered by FindStop Component, so show Go button. If !this.props.selectedStopId, was rendered by UserProfile(?) so only show save button
-                (this.props.setSelectedStopId) ?
-                <Link  
-                  to={(this.state.selectedStop.route)?`bus/${this.state.selectedStop.route}/${this.state.selectedStop.direction}/${this.state.selectedStop.bestopid}`:'/'}
-                >
-                  <button  className={`${styles.buttonMain} ${styles.tooltip}`}>
-                    <span className={styles.tooltiptext}>
-                      {(this.state.selectedStop.bestopid) ?
-                      'View timetable' : 'Select stop first'}</span> Go
-                  </button>
-                 
-
-                </Link>
-                : <p></p>
-              }
+                { this.showGoButtonOrNot() }
+                
+                { this.showSaveButtonOrNot() }
+                  
+              
+                {
+                  (this.props.showStopList) ?
+                    <SearchStopList
+                    newHandleChooseStop={this.newHandleChooseStop}
+                    handleChooseStop={this.props.handleChooseStop} 
+                    filteredStops={filteredStops} />
+                  : null
+                }
            
-             
-
-                {this.showUserFeature()}
-          
-              {
-                (this.state.showStopList) ?
-                  <SearchStopList
-                  handleChooseStop={this.handleChooseStop} 
-                  filteredStops={filteredStops} />
-                : null
-              }
-            </div>
-            </div>
+              </div>
+            </div>)
           }
           else{
             return <p>Data error.</p>

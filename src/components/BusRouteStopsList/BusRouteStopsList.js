@@ -6,8 +6,6 @@ import Maps from '../../containers/Maps/Maps';
 import styles from './BusRouteStopsList.module.css';
 import BreadCrumbs from '../Breadcrumbs/Breadcrumbs';
 
-
-
 const STOPS_LIST_QUERY = gql`
 query stopsListQuery($route: String!, $direction: String!){
   busRouteOverviewLocal(route:$route, direction:$direction){
@@ -85,7 +83,7 @@ class BusRouteStopsList extends Component {
                 if (error) return <p>Oops! BusLoad is having trouble communicating with the server. Please try again in a while.</p>;
                 if(data.busRouteOverviewLocal){
                   //console.log(data.busRouteOverviewLocal)
-                    return <div>
+                    return <div className={styles.stopsListWrap}>
                       {
                         this.showMap(data.busRouteOverviewLocal.stops)}
                       <div className={styles.linksWrapDiv}>

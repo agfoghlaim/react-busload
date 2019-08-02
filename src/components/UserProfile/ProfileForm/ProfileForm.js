@@ -8,7 +8,7 @@ const profileForm = (props) => {
  
         <form className={styles.theForm}>
         <div className={styles.formGroup}>
-          <label>New Username</label>
+          <label><h3 className={styles.sectionH3}>New Username</h3></label>
             <input 
             type="text"
             id="userName"
@@ -44,7 +44,7 @@ const profileForm = (props) => {
   
 
               <div className={styles.formGroup}>
-                  <label>Manage Profile Pic</label>
+                  <label><h3 className={styles.sectionH3}>Manage Profile Pic</h3></label>
                   {
                     (!props.remoteProfileUrl && !props.profilePicChangeOngoing) ?
                    

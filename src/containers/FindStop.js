@@ -4,7 +4,7 @@ import { graphql } from 'react-apollo';
 import SearchForStop from '../components/SearchForStop/SearchForStop';
 import BusRoutesList from '../components/BusRoutesList/BusRoutesList';
 import Spinner from '../components/UI/Spinner/Spinner';
-
+import styles from './FindStop.module.css';
 
 const BUS_ROUTES_QUERY = gql`
   query busRoutesQuery{
@@ -20,7 +20,6 @@ const BUS_ROUTES_QUERY = gql`
 class FindStop extends Component{
 
 state = {
-  selectedStop:{bestopid:'',route:'',direction:''},
   selectedRoute:{route:'',direction:''}, section:null
 }
 
@@ -32,6 +31,7 @@ componentDidUpdate(){
 
 componentDidMount(){
   this.doScroll();
+  this.props.closeStopList()
 }
 
 doScroll =() =>{
@@ -42,19 +42,6 @@ doScroll =() =>{
 
 pretend = ()=>{
   return <p>pretend</p>
-}
-
-
-setSelectedStopId = (e, selectedStop) =>{
-e.preventDefault();
-
-  let {bestopid,route,direction} = selectedStop;
-  
-  if(!bestopid || !route || !direction) return
- 
-  this.setState({
-    selectedStop:{bestopid,route,direction}
-  }, ()=>console.log("state now ", this.state.selectedStop))
 }
 
 
@@ -69,22 +56,42 @@ e.preventDefault();
    
   }
 
+
+
   render(){
     
     return(
-      <React.Fragment>
+      <div className={styles.FindStopWrap}>
         <div  id="stops">
-          <SearchForStop 
-            setSelectedStopId={this.setSelectedStopId} 
-            selectedStop={this.selectedStop}
-            currentUser={this.props.userDets} />
+          <div className={styles.searchStopWrap}>
+          <h2 className={styles.sectionH3}>Find your stop</h2>
+              {
+                (this.props.userDets.userId) ?
+                <p className={styles.infoP}><small>Select your stop. Then click 'Save' to add to Quick Stops or 'Go' to view timetables.</small></p>
+                : 
+                <p className={styles.infoP}><small>Select your stop and click 'Go' to view timetables.</small></p>
+              }
+
+
+            <SearchForStop 
+              setSelectedStopId={this.props.setSelectedStopId} 
+              selectedStop={this.props.selectedStop}
+              handleChooseStop={this.props.handleChooseStop}
+              currentUser={this.props.userDets}
+              handleShowStopsList={this.props.handleShowStopsList}
+              handleSearchStop={this.props.handleSearchStop}
+              showStopList={this.props.showStopList}
+              showGoBtn={true} />
+
+        
+          </div>
         </div>
         <div style={{ float:"left", clear: "both" }}
              ref={(el) => { this.busroutes = el; }}>
         </div>
         {this.getDataForRefine()}
 
-      </React.Fragment>
+      </div>
     )
   }
 }

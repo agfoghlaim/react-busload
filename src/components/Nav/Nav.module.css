@@ -30,11 +30,7 @@
   align-items: center;
 }
 
-.navWrap li a{
-  color:#fff;
-  font-weight:600;
-  text-decoration: none;
-}
+
 
 .navWrap li span{
   color:#4f6128;
@@ -45,3 +41,14 @@
 .navWrap li{
   padding:0.5rem 2rem;
 }
+
+.active{
+  border-bottom:2px solid white;
+}
+
+.navWrap li a{
+  color:#fff;
+  font-weight:600;
+  text-decoration: none;
+}
+

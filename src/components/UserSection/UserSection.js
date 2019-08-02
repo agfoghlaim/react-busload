@@ -14,8 +14,8 @@ class UserSection extends Component {
  
 
   componentDidMount(){
+   
     this._isMounted = true;
-  
 
     //get currently logged in users faveourite stops
     if(!this.props.userDets.userId) return
@@ -32,10 +32,7 @@ class UserSection extends Component {
         if(this._isMounted){
           this.setState({faveStops:newFaveStops})
         }
-        
       });
-
-
 
 
       const domain = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/`;
@@ -48,7 +45,7 @@ class UserSection extends Component {
       })
       .catch(e=>{
         console.log(e)
-        //console.log({...e})
+    
       })
      
   }//end compDidMount
@@ -95,7 +92,7 @@ showExpandedFaves = ()=>{
       <p className={styles.routename}>{stop.bestopid}</p>
       </Link>
       
-      <FaveStop userStop={stop}/>
+      <FaveStop faveStops = {this.state.faveStops} userDets={this.props.userDets} userStop={stop}/>
     </div>
     
     })

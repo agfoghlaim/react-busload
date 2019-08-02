@@ -98,7 +98,7 @@ class Auth extends Component{
     .catch(e=>{
       console.log(e)
       console.log({...e})
-      this.setState({resetFail:'Email not sent..'})
+      this.setState({resetFail:'Email not sent. Are your sure this is the email you used for BusLoad?'})
     })
   }
 
@@ -111,7 +111,7 @@ class Auth extends Component{
     */
   
    if(!userDets.emailVerified || userDets.emailVerified === 'false'){
-    this.setState({loginFail:'Please verify your email'})
+    this.setState({loginFail:'Please check your emails now to verify.'})
     return;
    }
 
@@ -380,7 +380,7 @@ class Auth extends Component{
         }
        
         <div className={styles.buttonGroup}>
-          <button className={styles.buttonLikeLink} onClick={this.handleSwitchBetweenLoginRegisterForms}>{this.state.showRegisterForm ? 'Login' : 'Register'}</button>
+          <button className={styles.buttonLikeLink} onClick={this.handleSwitchBetweenLoginRegisterForms}>{this.state.showRegisterForm ? 'Swich to Login' : 'Swich to Register'}</button>
 
           <button className={styles.buttonLikeLink} onClick={this.handleShowResetPassForm}>Forgot password?</button>
         </div>

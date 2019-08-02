@@ -11,7 +11,9 @@ const searchStopList = (props) => {
         data-route={stop.route}
         data-direction={stop.direction}
         data-stopname={stop.name}
-        onClick={props.handleChooseStop}>
+        onClick={(e)=>props.newHandleChooseStop(e,stop)}
+         //onClick={(e)=>props.handleChooseStop(e,stop)}
+        >
         {stop.name} - {stop.bestopid}-{stop.route} 
         </li>)
     }

@@ -11,7 +11,7 @@ props.busRoutes.sort((a, b)=>{return a.route-b.route});
  //props.setSelectedRoute
     return(
       <div  className={styles.routeListWrap} >
-      <h3 className={styles.sectionH3}>Choose your route</h3>
+      <h2>Choose your route</h2>
       <p className={styles.infoP}><small>Select your route to see map and list of stops.</small></p>
       <div className={styles.routewrap} >
       

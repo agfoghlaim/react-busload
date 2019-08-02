@@ -1,7 +1,7 @@
 .breadcrumbDiv{
-  margin:1rem 0;
+  margin:0 0 2rem 0;
   background: #f0f0f0;
-  border-left: 8px solid #ad4f3e;
+  border-left: 10px solid #3c4d3b;
   padding:0.5em;
   color:white;
   display: flex;

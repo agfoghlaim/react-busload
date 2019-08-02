@@ -14,8 +14,9 @@ import { checkIfValid } from '../../helpers';
 
 
 
+
 class FaveStop extends Component{
-  
+  _isMounted = false;
   state = {
     faveStop: {
       userid:null,
@@ -23,13 +24,61 @@ class FaveStop extends Component{
       validity:{isValid:true,validMsgs:[]},
       rules:{required:true,minLength:3,maxLength:20}
     },
-    showFaveForm:false,showEditForm:false, showBtnGrp:false,saveStopFail:null, saveFeedbackMsg:''
+    showFaveForm:false,showEditForm:false, showBtnGrp:false,saveStopFail:null, saveFeedbackMsg:'',
+    faveStops:null
 
    
   }
+  componentDidMount(){
+
+   //if dont have this.props.userStops this means component rendered by SearchForStop. Will have to get the stops here. 
+   this._isMounted = true;
+  
+  if(this.props.faveStops && this._isMounted){
+    this.setState({faveStops:this.props.faveStops})
+    return;
+  }else{
+
+    //get currently logged in user's faveourite stops
+ 
+   if(!this.props.userDets.userId) return
+   const ref = firebase.database().ref(`favourites`);
+   ref.orderByChild("userid").equalTo(`${this.props.userDets.userId}`).on("value", (snapshot) =>{
+
+     let stuff = snapshot.val()
+     let newFaveStops = []
+     for(let i in stuff){
+         stuff[i].fireBaseId = i;
+         newFaveStops.push(stuff[i])  
+     }
+       if(this._isMounted){
+         this.setState({faveStops:newFaveStops})
+       }
+       
+     });
+  }
+
+      //remove form submit errors if they exist
+      if(this.state.saveStopFail !==null){
+        setTimeout(()=>{ 
+         this.setState({saveStopFail:null})
+        },  5000)
+      }
+
+      //remove form submit errors if they exist
+      if(this.state.saveFeedbackMsg !==''){
+        setTimeout(()=>{ 
+          this.setState({saveFeedbackMsg:''})
+        },  5000)
+      }
+
+  }
+  componentWillUnmount(){
+    this._isMounted = false;
+  }
  
   saveFaveStop = ()=>{
-    const { route, direction, bestopid, stopname } = this.props.selectedStopDets.selectedStop; 
+    const { route, direction, bestopid, stopname } = this.props.selectedStopDets; 
     if(!route || !direction || !bestopid || !stopname) return;
     this.setState({showFaveForm:true})
   }
@@ -59,24 +108,57 @@ class FaveStop extends Component{
     }else{return false;}
   }
 
-  handleSubmitFave =(e)=>{
+  handleSubmitFave = (e)=>{
     e.preventDefault(e)
+    console.log("fave submitted", this.state)
+    //if no user
     if(!this.props.userDets || this.props.userDets === undefined){
       return;
     }
-    if(!this.state.faveStop.userStopName) return;
+
+    //if no user stop name
+    if(!this.state.faveStop.userStopName){
+      this.setState({saveStopFail:'Please enter a name for this stop.'});
+      return false;
+    }
 
   
+    //validate
     if(!this.checkValidOnSubmit()){
-      console.log("ignoring form")
+     // console.log("ignoring form")
       this.setState({saveStopFail:'Form not submitted.'})
       return false;
     }
     
     //should also check that user hasn't already saved this stop 
+    
+    //check stop isn't already saved
+
+    let chosenStopId;
+    if(this.state.faveStops){
+      if(this.props.selectedStopDets){
+        //was rendered by SearchForStop
+        chosenStopId = this.props.selectedStopDets.bestopid;
+      }else if(this.props.userStop){
+        //was rendered by UserSection
+        chosenStopId = this.props.userStop.bestopid;
+      }
+    
+      
+      let checkNotSaved = this.state.faveStops.filter(stop=>{
+
+        return parseInt(stop.bestopid) === parseInt(chosenStopId)
+      })
+      if(checkNotSaved.length){
+        console.log("stop already saved", checkNotSaved);
+        this.setState({saveStopFail:'Bus stop is already saved.'})
+    
+        return;
+      }
+    }
 
 
-    const { route, direction, bestopid, stopname } = this.props.selectedStopDets.selectedStop; 
+    const { route, direction, bestopid, stopname } = this.props.selectedStopDets; 
     const stopToSave ={
       userStopName:this.state.faveStop.userStopName,
       route:route,
@@ -85,26 +167,35 @@ class FaveStop extends Component{
       stopname,
       userid:this.props.userDets.userId
     }
-    //console.log("form submitted saving ", stopToSave)
+    
     axios.post(`https://busload-8ae3c.firebaseio.com/favourites.json`,stopToSave)
     .then(r=>{
     
       //need to delay closing modal so there's time to show a confirmation message...
       this.setState({saveFeedbackMsg:'Saved to Quickstops'})
-      setTimeout(()=>{  this.closeModal();},2000)
+      setTimeout(()=>{ 
+        //RESET STATE
+        this.setState({faveStop: {
+          userid:null,
+          userStopName:undefined,
+          validity:{isValid:true,validMsgs:[]},
+          rules:{required:true,minLength:3,maxLength:20}
+        }})
+        this.closeModal();
+      },1000)
     
     })
     .catch(e=>{
       console.log("error saving to fb ", {...e})
-      this.setState({saveFeedbackMsg:'Oh no your stop was not saved.'})
-      setTimeout(()=>{  this.closeModal();},2000)
+      this.setState({saveStopFail:'Oh no your stop was not saved.'})
+      setTimeout(()=>{  this.closeModal();},1000)
     })
   
   }
 
-  handleEditFaveInputChange=(e)=>{
-    //this.setState({faveStop:{userStopName:e.target.value}})
-  }
+  // handleEditFaveInputChange=(e)=>{
+  //   //this.setState({faveStop:{userStopName:e.target.value}})
+  // }
 
   editFaveStop = (e)=>{
     e.preventDefault();
@@ -132,7 +223,7 @@ class FaveStop extends Component{
   deleteFaveStop = (e)=>{
     e.preventDefault();
     firebase.database().ref(`favourites/${this.props.userStop.fireBaseId}`).remove()
-    //.then(()=>console.log("removed"))
+  
     .catch(e=>console.log("error removing ", e))
   }
 
@@ -143,31 +234,36 @@ class FaveStop extends Component{
 
 
   render(){
-   
+ 
     return(
       <React.Fragment>
         { //ie if bring rendered by UserSection
-          ( this.props.userStop )?
+          ( this.props.userStop )
           
-         
+          ?
+
           <div className={styles.buttonGrp}>
-            {(!this.state.showBtnGrp) ? 
+            {
+              (!this.state.showBtnGrp) 
+              
+              ? 
               
               <button 
-          className={styles.expandCollapseBtn}
-          onClick={this.setShowBtnGrp}>
-            <img src={plus} alt={ "plus"} />
-            
-          </button>
+              className={styles.expandCollapseBtn}
+              onClick={this.setShowBtnGrp}>
+                <img src={plus} alt={ "plus"} />
+              </button>
+
               : 
+
               <React.Fragment>
                   <button className={`${styles.expandCollapseBtn} ${styles.clearBtn}`} onClick={this.setShowBtnGrp}>
-              <img src={minus} alt={ "minus"} />
-              </button>
+                    <img src={minus} alt={ "minus"} />
+                  </button>
               
-              <button className={`${styles.buttonSmall} ${styles.blueBtn}`} onClick={(e)=>this.showEditForm(e)}>Rename</button>
+                  <button className={`${styles.buttonSmall} ${styles.blueBtn}`} onClick={(e)=>this.showEditForm(e)}>Rename</button>
 
-              <button className={`${styles.buttonSmall} ${styles.redBtn}`} onClick={(e)=>this.deleteFaveStop(e)}>Delete</button>
+                  <button className={`${styles.buttonSmall} ${styles.redBtn}`} onClick={(e)=>this.deleteFaveStop(e)}>Delete</button>
               
             
               </React.Fragment>
@@ -177,12 +273,18 @@ class FaveStop extends Component{
        
 
           </div>
-          :
+          
+          : 
+      
+         (this.props.selectedStopDets)
+
+         ?
           //ie if being rendered by SearchForStop 
             <button className={`${styles.buttonMainFave} ${styles.tooltip}`} onClick={this.saveFaveStop}>Save <span className={styles.tooltiptext}>
-            {(this.props.selectedStopDets.selectedStop.bestopid) ?
+            {(this.props.selectedStopDets.bestopid) ?
                       'Save to Quick Stops' : 'Select stop first'}
               </span></button>
+          :'no idea'
 
         }
     
@@ -223,6 +325,8 @@ class FaveStop extends Component{
           </Transition> 
         : null
         }
+
+
       </React.Fragment>
     )
  

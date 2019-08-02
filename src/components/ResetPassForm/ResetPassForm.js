@@ -3,7 +3,7 @@ import React from 'react'
 const resetPassForm = (props) => {
 
   return <div className ={props.styles.formWrapDiv}>
-          <h4>Reset Password</h4>
+          <h1>Reset Password</h1>
           <form className={props.styles.theForm}>
           <div className={props.styles.formGroup}>
             <label>Email</label>

@@ -32,6 +32,7 @@ return (
           }
 
           <p>{props.saveFeedbackMsg}</p>
+          <p>{props.saveStopFail}</p>
           <button className={styles.buttonSmall} onClick={(e)=>props.handleSubmitFave(e)} >Save</button>
       </form>
   </div>
